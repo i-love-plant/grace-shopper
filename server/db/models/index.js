@@ -15,5 +15,7 @@ const User = require('./user')
  */
 module.exports = {
   User,
-  Order
+  Order,
+  Category,
+  Review
 }
