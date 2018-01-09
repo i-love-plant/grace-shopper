@@ -15,15 +15,19 @@ const {User, Order, Category, Review, Product, OrderItem} = require('../server/d
 const users = [
   {email: 'hkwweber@gmail.com',
     name: 'Hannah Weber',
+    password: 'plant',
     address: '5 Hanover Square'},
   {email: 'katballo@gmail.com',
     name: 'Kat Ballo',
+    password: 'plant',
     address: '5 Hanover Square'},
   {email: 'kathy@kathy.com',
     name: 'Kathy Chun',
+    password: 'plant',
     address: '5 Hanover Square'},
   {email: 'ann@heyann.com',
     name: 'Ann Layman',
+    password: 'plant',
     address: '5 Times Square',
     isAdmin: true}
 ];
