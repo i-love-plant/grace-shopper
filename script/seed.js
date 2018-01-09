@@ -78,22 +78,103 @@ const orderItemData = [
   {priceAtPurchase: 4, quantity: 1, productId: 2, orderId: 4}
 ]
 
-const productCategoryRelationshipData = [
-  {productId: 2, categoryId: 2},
-  {productId: 2, categoryId: 4},
-  {productId: 2, categoryId: 5},
-  {productId: 2, categoryId: 6},
-  {productId: 1, categoryId: 1},
-  {productId: 1, categoryId: 4},
-  {productId: 1, categoryId: 5},
-  {productId: 3, categoryId: 3},
-  {productId: 3, categoryId: 5},
-  {productId: 3, categoryId: 6}
+const productCategoryRel = [
+  {productId: 2, categoryIds: [2,4]}
+  // ,
+  // {productId: 2, categoryId: 4},
+  // {productId: 2, categoryId: 5},
+  // {productId: 2, categoryId: 6},
+  // {productId: 1, categoryId: 1},
+  // {productId: 1, categoryId: 4},
+  // {productId: 1, categoryId: 5},
+  // {productId: 3, categoryId: 3},
+  // {productId: 3, categoryId: 5},
+  // {productId: 3, categoryId: 6}
 ]
 
+// function prodCat (arr) {
+//   arr.map(obj => {
+//     return Product.findById(obj.productId)
+//     .then(foundProduct => {
+//       return foundProduct.setCategory({id: 1, name: 'Small'})
+//     })
+//     .catch(err => console.log(err.stack))
+//   })
+//  }
+
+function prodCat () {
+  return Product.findById(2)
+  .then(found => {
+    console.log(found.name)
+    return found.setCategories([2,4,5,6])
+    })
+  .then(() => {
+    return Product.findById(1)
+    .then(found2 => {
+      return found2.setCategories([1,4,5])
+    })
+  })
+  .then(() => {
+    return Product.findById(3)
+    .then(found3 => {
+      return found3.setCategories([3,5,6])
+    })
+  })
+  }
+
+
+
 const seed = () => {
-  Promise.all()
+
+  return Promise.all(users.map(user => User.create(user))
+  )
+  .then(() =>
+    Promise.all(products.map(product => Product.create(product))
+  ))
+  .then(() =>
+    Promise.all(categories.map(category => Category.create(category))
+  ))
+  .then(() =>
+    Promise.all(orders.map(order => Order.create(order))
+  ))
+  .then(() =>
+    Promise.all(reviews.map(review => Review.create(review))
+  ))
+  .then(() =>
+    Promise.all(orderItemData.map(orderItemEntry => OrderItem.create(orderItemEntry))
+  ))
+  // .then(() => {
+  //   prodCat(productCategoryRel)
+
+  // })
+  // .then(() =>
+  //   Promise.all(prodCat(productCategoryRel)
+  // ))
+
 }
+
+
+const main = () => {
+  console.log('syncing db');
+  db.sync({force: true})
+  .then(() => {
+    console.log('seeding')
+    return seed()
+  })
+  .then(() => {
+    return prodCat()
+  })
+  .catch(err => {
+    console.log('Error while seeding')
+    console.log(err.stack)
+  })
+  .then(()=> {
+    db.close();
+    return null;
+  })
+}
+
+main();
 
 
 //OLD CODE FROM BOILERMAKER
