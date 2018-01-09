@@ -78,9 +78,8 @@ const orderItemData = [
   {priceAtPurchase: 4, quantity: 1, productId: 2, orderId: 4}
 ]
 
-const productCategoryRel = [
-  {productId: 2, categoryIds: [2,4]}
-  // ,
+// const productCategoryRel = [
+//   {productId: 2, categoryIds: [2,4]},
   // {productId: 2, categoryId: 4},
   // {productId: 2, categoryId: 5},
   // {productId: 2, categoryId: 6},
@@ -90,7 +89,7 @@ const productCategoryRel = [
   // {productId: 3, categoryId: 3},
   // {productId: 3, categoryId: 5},
   // {productId: 3, categoryId: 6}
-]
+// ]
 
 // function prodCat (arr) {
 //   arr.map(obj => {
@@ -143,10 +142,6 @@ const seed = () => {
   .then(() =>
     Promise.all(orderItemData.map(orderItemEntry => OrderItem.create(orderItemEntry))
   ))
-  // .then(() => {
-  //   prodCat(productCategoryRel)
-
-  // })
   // .then(() =>
   //   Promise.all(prodCat(productCategoryRel)
   // ))
