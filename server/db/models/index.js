@@ -37,6 +37,9 @@ const Review = require('./review');
  */
 module.exports = {
   User,
+  Order,
+  Category,
+  Review,
   Product,
   OrderItem
 }
