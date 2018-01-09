@@ -67,7 +67,7 @@ const orders = [
 
 const reviews = [
   {content: 'I. LOVE. PLANT.', rating: 5, productId: 1, userId: 1},
-  {content: 'Eat dirt fiddle leaf fig!!!!!!!!', rating: 1, productId: 3, userId: 4}
+  {content: 'Eat dirt!!!!!!!!', rating: 1, productId: 3, userId: 4}
 ]
 
 const orderItemData = [
