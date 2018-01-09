@@ -2,7 +2,7 @@ const Sequelize = require('sequelize')
 const db = require('../db')
 
 const OrderItem = db.define('orderItem', {
-  price: {
+  priceAtPurchase: {
    type: Sequelize.FLOAT,
    allowNull: false
   },
