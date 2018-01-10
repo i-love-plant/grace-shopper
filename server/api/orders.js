@@ -36,15 +36,27 @@ router.get('/', (req, res, next) => {
 });
 
 router.post('/', (req, res, next) => {
-    Order.create(req.body)
-        .then(newOrder => newOrder.setUser(req.user))
-        .then(newOrder => newOrder.setProducts(req.session.cart.products))
+    Order.create({})
+        .then(newOrder => newOrder.setUser(req.user.id))
+        .then(newOrder => newOrder.addProduct(req.session.cart.products))
         .then(newOrder => res.status(201).json(newOrder))
         .catch(next)
 });
 
-router.put('/', isAdmin, (req, res, next) => {
-    Order.update(req.body)
+// testing in Postman without session
+// router.post('/', (req, res, next) => {
+//     Order.create({})
+//         .then(newOrder => newOrder.setUser(1))
+//         .then(newOrder => newOrder.addProduct([1,3]))
+//         .then(newOrder => res.status(201).json(newOrder))
+//         .catch(next)
+// });
+
+router.put('/:orderId', isAdmin, (req, res, next) => {
+    Order.findById(req.params.orderId)
+        .then(order => {
+            return order.update(req.body)
+        })
         .then(editedOrder => res.json(editedOrder))
         .catch(next)
 });
