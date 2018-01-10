@@ -31,3 +31,5 @@ router.delete('/:userId', isAdmin, (req, res, next) => {
     .then(() => res.status(204))
     .catch(next)
 });
+
+// EXTRA: user can delete their account

@@ -9,3 +9,6 @@ router.get('/', (req, res, next) => {
         .then(categories => res.json(categories))
         .catch(next)
 });
+
+// EXTRA: admin can post new categories, put (edit) categories, delete categories
+// NOTE: current plan is to filter on the frontend
