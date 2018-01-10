@@ -55,9 +55,19 @@ const createApp = () => {
   app.use(passport.session())
 
   app.use(function (req, res, next) {
-    console.log('SESSION: ', req.session)
+    if(!req.session.cart) {
+      req.session.cart = {
+        products: [],
+        totalPrice: 0
+      }
+    }
     next()
   })
+
+app.use(function (req, res, next) {
+  console.log('SESSION CART: ', req.session.cart)
+  next()
+})
 
   // auth and api routes
   app.use('/auth', require('./auth'))
