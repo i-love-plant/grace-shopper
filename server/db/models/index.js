@@ -26,8 +26,11 @@ const Review = require('./review');
  OrderItem.belongsTo(Product);
  Product.hasMany(OrderItem);
 
- OrderItem.belongsTo(Order);
- Order.hasMany(OrderItem);
+ // OrderItem.belongsTo(Order);
+ // Order.hasMany(OrderItem);
+
+ Order.belongsToMany(Product, {through: OrderItem});
+ Product.belongsToMany(Order, {through: OrderItem});
 
 /**
  * We'll export all of our models here, so that any time a module needs a model,

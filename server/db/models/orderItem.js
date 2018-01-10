@@ -4,11 +4,11 @@ const db = require('../db')
 const OrderItem = db.define('orderItem', {
   priceAtPurchase: {
    type: Sequelize.FLOAT,
-   allowNull: false
+   allowNull: true
   },
   quantity: {
     type: Sequelize.INTEGER,
-    allowNull: false
+    allowNull: true
   }
 })
 
