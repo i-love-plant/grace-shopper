@@ -37,7 +37,7 @@ router.put('/:productId', (req, res, next) => {
     }
 });
 
-router.delete('/productId', (req, res, next) => {
+router.delete('/:productId', (req, res, next) => {
     if (User.isAdmin) {
         Product.destroy({ where: { id: req.params.productId } })
             .then(() => res.status(204))

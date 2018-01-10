@@ -24,11 +24,14 @@ module.exports = app
 if (process.env.NODE_ENV !== 'production') require('../secrets')
 
 // passport registration
-passport.serializeUser((user, done) => done(null, user.id))
-passport.deserializeUser((id, done) =>
+passport.serializeUser((user, done) => {
+  done(null, user.id)
+})
+passport.deserializeUser((id, done) => {
   db.models.user.findById(id)
     .then(user => done(null, user))
-    .catch(done))
+    .catch(done)
+});
 
 const createApp = () => {
   // logging middleware
@@ -91,7 +94,7 @@ const startListening = () => {
   require('./socket')(io)
 }
 
-const syncDb = () => db.sync()
+const syncDb = () => db.sync({force: false})
 
 // This evaluates as true when this file is run directly from the command line,
 // i.e. when we say 'node server/index.js' (or 'nodemon server/index.js', or 'nodemon server', etc)
