@@ -15,9 +15,14 @@ const isAdmin = (req, res, next) => {
 }
 
 router.get('/', (req, res, next) => {
+    if (!req.user) {
+        const err = new Error('Not authorized')
+        err.status = 403
+        next(err)
+    }
     if (req.user.isAdmin) {
         Order.findAll()
-            .then(users => res.json(users))
+            .then(orders => res.json(orders))
             .catch(next)
     } else {
         Order.findAll({
@@ -25,11 +30,15 @@ router.get('/', (req, res, next) => {
                 userId: req.user.id
             }
         })
+        .then(orders => res.json(orders))
+        .catch(next)
     }
 });
 
 router.post('/', (req, res, next) => {
     Order.create(req.body)
+        .then(newOrder => newOrder.setUser(req.user))
+        .then(newOrder => newOrder.setProducts(req.session.cart.products))
         .then(newOrder => res.status(201).json(newOrder))
         .catch(next)
 });
