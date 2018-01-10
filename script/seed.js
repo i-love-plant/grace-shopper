@@ -15,15 +15,19 @@ const {User, Order, Category, Review, Product, OrderItem} = require('../server/d
 const users = [
   {email: 'hkwweber@gmail.com',
     name: 'Hannah Weber',
+    password: 'plant',
     address: '5 Hanover Square'},
   {email: 'katballo@gmail.com',
     name: 'Kat Ballo',
+    password: 'plant',
     address: '5 Hanover Square'},
   {email: 'kathy@kathy.com',
     name: 'Kathy Chun',
+    password: 'plant',
     address: '5 Hanover Square'},
   {email: 'ann@heyann.com',
     name: 'Ann Layman',
+    password: 'plant',
     address: '5 Times Square',
     isAdmin: true}
 ];
@@ -67,7 +71,7 @@ const orders = [
 
 const reviews = [
   {content: 'I. LOVE. PLANT.', rating: 5, productId: 1, userId: 1},
-  {content: 'Eat dirt fiddle leaf fig!!!!!!!!', rating: 1, productId: 3, userId: 4}
+  {content: 'Eat dirt!!!!!!!!', rating: 1, productId: 3, userId: 4}
 ]
 
 const orderItemData = [
@@ -78,22 +82,98 @@ const orderItemData = [
   {priceAtPurchase: 4, quantity: 1, productId: 2, orderId: 4}
 ]
 
-const productCategoryRelationshipData = [
-  {productId: 2, categoryId: 2},
-  {productId: 2, categoryId: 4},
-  {productId: 2, categoryId: 5},
-  {productId: 2, categoryId: 6},
-  {productId: 1, categoryId: 1},
-  {productId: 1, categoryId: 4},
-  {productId: 1, categoryId: 5},
-  {productId: 3, categoryId: 3},
-  {productId: 3, categoryId: 5},
-  {productId: 3, categoryId: 6}
-]
+// const productCategoryRel = [
+//   {productId: 2, categoryIds: [2,4]},
+  // {productId: 2, categoryId: 4},
+  // {productId: 2, categoryId: 5},
+  // {productId: 2, categoryId: 6},
+  // {productId: 1, categoryId: 1},
+  // {productId: 1, categoryId: 4},
+  // {productId: 1, categoryId: 5},
+  // {productId: 3, categoryId: 3},
+  // {productId: 3, categoryId: 5},
+  // {productId: 3, categoryId: 6}
+// ]
+
+// function prodCat (arr) {
+//   arr.map(obj => {
+//     return Product.findById(obj.productId)
+//     .then(foundProduct => {
+//       return foundProduct.setCategory({id: 1, name: 'Small'})
+//     })
+//     .catch(err => console.log(err.stack))
+//   })
+//  }
+
+function prodCat () {
+  return Product.findById(2)
+  .then(found => {
+    console.log(found.name)
+    return found.setCategories([2,4,5,6])
+    })
+  .then(() => {
+    return Product.findById(1)
+    .then(found2 => {
+      return found2.setCategories([1,4,5])
+    })
+  })
+  .then(() => {
+    return Product.findById(3)
+    .then(found3 => {
+      return found3.setCategories([3,5,6])
+    })
+  })
+  }
+
+
 
 const seed = () => {
-  Promise.all()
+
+  return Promise.all(users.map(user => User.create(user))
+  )
+  .then(() =>
+    Promise.all(products.map(product => Product.create(product))
+  ))
+  .then(() =>
+    Promise.all(categories.map(category => Category.create(category))
+  ))
+  .then(() =>
+    Promise.all(orders.map(order => Order.create(order))
+  ))
+  .then(() =>
+    Promise.all(reviews.map(review => Review.create(review))
+  ))
+  .then(() =>
+    Promise.all(orderItemData.map(orderItemEntry => OrderItem.create(orderItemEntry))
+  ))
+  // .then(() =>
+  //   Promise.all(prodCat(productCategoryRel)
+  // ))
+
 }
+
+
+const main = () => {
+  console.log('syncing db');
+  db.sync({force: true})
+  .then(() => {
+    console.log('seeding')
+    return seed()
+  })
+  .then(() => {
+    return prodCat()
+  })
+  .catch(err => {
+    console.log('Error while seeding')
+    console.log(err.stack)
+  })
+  .then(()=> {
+    db.close();
+    return null;
+  })
+}
+
+main();
 
 
 //OLD CODE FROM BOILERMAKER
