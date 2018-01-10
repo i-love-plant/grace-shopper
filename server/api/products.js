@@ -36,6 +36,21 @@ router.get('/:productId', (req, res, next) => {
         .catch(next)
 });
 
+router.post('/:productId', (req, res, next) => {
+    console.log("hello")
+    Product.findById(req.params.productId)
+        .then(product => {
+            console.log("in the promise")
+            req.session.cart.products.push(product)
+            console.log("UPDATED: ", req.session.cart.products)
+            req.session.cart.totalPrice += product.price
+            console.log("PRICE: ", req.session.cart.totalPrice)
+            return product
+        })
+        .then(product => res.end())
+        .catch(next)
+})
+
 router.put('/:productId', isAdmin, (req, res, next) => {
     Product.findById(req.params.productId)
         .then(product => product.update(req.body))
