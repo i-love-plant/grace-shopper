@@ -1,7 +1,7 @@
 'use strict';
 
 const router = require('express').Router();
-const { Product } = require('../db/models');
+const { Product, Category } = require('../db/models');
 module.exports = router;
 
 const isAdmin = (req, res, next) => {
@@ -14,10 +14,29 @@ const isAdmin = (req, res, next) => {
     }
 }
 
-router.get('/', (req, res, next) => {
-    Product.findAll({})
-        .then(products => res.json(products))
-        .catch(next)
+router.get('/:', (req, res, next) => {
+    let filter = {};
+    if ("category" in req.query) {
+        const category = +req.query.category;
+
+        // basically does WHERE product.category.id = category
+        filter = {
+            include: [{
+                model: Category,
+                through: {
+                    where: {
+                        categoryId: category
+                    }
+                },
+                required: true
+            }]
+        }
+    } 
+    Product.findAll(filter)
+    .then(products => {
+        res.json(products)
+    })
+    .catch(next)
 });
 
 router.post('/', isAdmin, (req, res, next) => {
