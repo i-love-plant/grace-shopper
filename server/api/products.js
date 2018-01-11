@@ -14,7 +14,7 @@ const isAdmin = (req, res, next) => {
     }
 }
 
-router.get('/:', (req, res, next) => {
+router.get('/', (req, res, next) => {
     let filter = {};
     if ("category" in req.query) {
         const category = +req.query.category;
