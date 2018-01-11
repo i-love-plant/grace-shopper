@@ -9,7 +9,11 @@ const Order = db.define('order', {
 		validate: {
 			isIn: [['Created', 'Processing', 'Cancelled', 'Completed']]
 		}
-	}
+	},
+  address: {
+    type: Sequelize.STRING,
+    allowNull: true
+  }
 })
 
 module.exports = Order
