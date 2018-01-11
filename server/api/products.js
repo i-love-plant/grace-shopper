@@ -22,7 +22,7 @@ router.get('/', (req, res, next) => {
                 required: true
             }]
         }
-    } 
+    }
     Product.findAll(filter)
     .then(products => {
         res.json(products)
@@ -49,7 +49,7 @@ router.get('/:productId', (req, res, next) => {
 // ---------------OLD ROUTE FOR ADDING TO CART TO BE DELETED SOON---------------
 // this route (api/products/:productId) adds an object to the cart
 // we still need a way to add quantity of items to cart
-// req.params.quantity --->from a FORM 
+// req.params.quantity --->from a FORM
 // router.post('/:productId', (req, res, next) => {
 //     Product.findById(req.params.productId)
 //         .then(product => {
@@ -59,20 +59,6 @@ router.get('/:productId', (req, res, next) => {
 //         .catch(next)
 // })
 // ---------------OLD ROUTE FOR ADDING TO CART TO BE DELETED SOON---------------
-
-
-// assuming we have a FORM on the individual product page. 
-// we are getting info from the form via req.body
-router.post('/add', (req, res, next) => {
-    Product.findById(req.body.productId)
-        .then(product => {
-            product.quantity = req.body.quantity
-            req.session.cart.push(product)
-            res.end()
-        })
-        .catch(next)
-});
-
 
 router.put('/:productId', isAdmin, (req, res, next) => {
     Product.findById(req.params.productId)
