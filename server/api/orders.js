@@ -3,32 +3,16 @@
 const router = require('express').Router()
 const { Order, User } = require('../db/models')
 const { isAdmin } = require('../gatekeeper.js')
-const { isLoggedIn } = require('../gatekeeper.js')
+// const { isLoggedIn } = require('../gatekeeper.js')
 module.exports = router
 
-router.get('/', isAdmin, (req, res, next) => {
-    // if (isAdmin) {
+router.get('/', (req, res, next) => {
+    if (req.user && req.user.isAdmin) {
         Order.findAll()
             .then(orders => res.json(orders))
             .catch(next)
-    // }
-    // else if (isLoggedIn) {
-    //     Order.findAll({
-    //         where: {
-    //             userId: req.user.id
-    //         }
-    //     })
-    //     .then(orders => res.json(orders))
-    //     .catch(next)
-    // }
-    // else {
-    //     const err = new Error('Not authorized')
-    //     err.status = 403
-    //     next(err)
-    // }
-});
-
-router.get('/', isLoggedIn, (req, res, next) => {
+    }
+    else if (req.user) {
         Order.findAll({
             where: {
                 userId: req.user.id
@@ -36,6 +20,12 @@ router.get('/', isLoggedIn, (req, res, next) => {
         })
         .then(orders => res.json(orders))
         .catch(next)
+    }
+    else {
+        const err = new Error('Not authorized')
+        err.status = 403
+        next(err)
+    }
 });
 
 router.post('/', (req, res, next) => {
