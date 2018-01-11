@@ -2,17 +2,8 @@
 
 const router = require('express').Router()
 const { User } = require('../db/models')
+const { isAdmin } = require('../gatekeeper.js')
 module.exports = router
-
-const isAdmin = (req, res, next) => {
-  if (req.user && req.user.isAdmin) {
-    next()
-  } else {
-    const err = new Error('Not authorized')
-    err.status = 403
-    next(err)
-  }
-}
 
 router.get('/', isAdmin, (req, res, next) => {
   User.findAll()
