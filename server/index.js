@@ -46,7 +46,7 @@ const createApp = () => {
 
   // session middleware with passport
   app.use(session({
-    secret: process.env.SESSION_SECRET || 'my best friend is Cody',
+    secret: process.env.SESSION_SECRET || 'I REALLY love plant',
     store: sessionStore,
     resave: false,
     saveUninitialized: false
@@ -54,20 +54,13 @@ const createApp = () => {
   app.use(passport.initialize())
   app.use(passport.session())
 
+  // setting up cart array on session. (quantity is dealt with in api/products/add route)
   app.use(function (req, res, next) {
     if(!req.session.cart) {
-      req.session.cart = {
-        products: [],
-        totalPrice: 0
-      }
+      req.session.cart = []
     }
     next()
   })
-
-app.use(function (req, res, next) {
-  console.log('SESSION CART: ', req.session.cart)
-  next()
-})
 
   // auth and api routes
   app.use('/auth', require('./auth'))

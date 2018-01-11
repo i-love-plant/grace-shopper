@@ -55,20 +55,33 @@ router.get('/:productId', (req, res, next) => {
         .catch(next)
 });
 
-router.post('/:productId', (req, res, next) => {
-    console.log("hello")
-    Product.findById(req.params.productId)
+// ---------------OLD ROUTE FOR ADDING TO CART TO BE DELETED SOON---------------
+// this route (api/products/:productId) adds an object to the cart
+// we still need a way to add quantity of items to cart
+// req.params.quantity --->from a FORM 
+// router.post('/:productId', (req, res, next) => {
+//     Product.findById(req.params.productId)
+//         .then(product => {
+//             req.session.cart.push(product)
+//             res.end()
+//         })
+//         .catch(next)
+// })
+// ---------------OLD ROUTE FOR ADDING TO CART TO BE DELETED SOON---------------
+
+
+// assuming we have a FORM on the individual product page. 
+// we are getting info from the form via req.body
+router.post('/add', (req, res, next) => {
+    Product.findById(req.body.productId)
         .then(product => {
-            console.log("in the promise")
-            req.session.cart.products.push(product)
-            console.log("UPDATED: ", req.session.cart.products)
-            req.session.cart.totalPrice += product.price
-            console.log("PRICE: ", req.session.cart.totalPrice)
-            return product
+            product.quantity = req.body.quantity
+            req.session.cart.push(product)
+            res.end()
         })
-        .then(product => res.end())
         .catch(next)
-})
+});
+
 
 router.put('/:productId', isAdmin, (req, res, next) => {
     Product.findById(req.params.productId)
