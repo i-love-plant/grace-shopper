@@ -6,4 +6,5 @@
 
 export {default as UserHome} from './user-home'
 export {Login, Signup} from './auth-form'
-export {UserInterface} from './UserInterface.jsx'
+export {default as UserInterface} from './UserInterface.jsx'
+export {default as NavBar} from './NavBar.jsx'

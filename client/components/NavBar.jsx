@@ -1,9 +1,10 @@
 import React from 'react'
-import { Link } from 'react-router-dom';
-
+import { Link, withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { logout } from '../store'
 
 const NavBar = (props) => {
-    const {handleClick, isLoggedIn} = props
+    const { handleClick, isLoggedIn } = props
     return (
         <header>
             <h1>I Love Plant</h1>
