@@ -4,20 +4,23 @@ import history from '../history'
 /**
  * ACTION TYPES
  */
-const GET_PRODUCTS = 'GET_PRODUCTS'
+const GET_PRODUCTS = 'GET_PRODUCTS';
+const GET_SINGLE_PRODUCT = 'GET_SINGLE_PRODUCT';
+
 
 /**
  * INITIAL STATE
  */
 const initialProductsState = {
     products: [],
-    currentProduct: null
+    currentProduct: {}
 }
 
 /**
  * ACTION CREATORS
  */
-const getProducts = products => ({type: GET_PRODUCTS, products})
+const getProducts = products => ({type: GET_PRODUCTS, products});
+const getSingleProduct = product => ({type: GET_SINGLE_PRODUCT, product});
 
 /**
  * THUNK CREATORS
@@ -37,6 +40,18 @@ export function fetchProducts() {
     };
 }
 
+export function fetchProduct(productId) {
+    return function thunk(dispatch) {
+        return axios.get(`/api/products/${productId}`)
+            .then(res => res.data)
+            .then(product => {
+                const action = getSingleProduct(product);
+                dispatch(action);
+            })
+            .catch(error => console.log(error));
+    };
+}
+
 
 
 /**
@@ -46,6 +61,10 @@ export default function (state = initialProductsState, action) {
   switch (action.type) {
     case GET_PRODUCTS:
       return Object.assign({}, state, { products: action.products });
+
+    case GET_SINGLE_PRODUCT: {
+        return Object.assign({}, state, {currentProduct: action.product })
+    }
 
     default:
       return state
