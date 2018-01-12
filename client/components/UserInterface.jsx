@@ -13,7 +13,8 @@ import ManyUsers from './ManyUsers';
 import SingleUser from './SingleUser';
 
 import SingleProduct from './SingleProduct';
-
+import SingleOrder from './SingleOrder';
+import ManyOrders from './ManyOrders';
 
 class UserInterface extends Component {
 
@@ -46,6 +47,8 @@ class UserInterface extends Component {
                                 <Route path="/home" component={ManyProducts} />
                                 <Route exact path="/users" component={ManyUsers} />
                                 <Route exact path="/account" component={SingleUser} />
+                                <Route exact path="/orders" component={ManyOrders} />
+                                <Route exact path="/orders" component={SingleOrder} />
                             </Switch>
                         }
                         {/* Displays our Login component as a fallback */}
