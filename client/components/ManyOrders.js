@@ -40,8 +40,9 @@ export const ManyOrders = (props) => {
  */
 const mapState = (state) => {
   return {
-    orders: state.orders
+    orders: state.order.orders
   }
 }
+
 
 export default connect(mapState)(ManyOrders)

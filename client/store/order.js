@@ -15,7 +15,7 @@ const GET_ORDERS = 'GET_ORDERS'
 /**
 * INITIAL STATE
 */
-const defaultOrders = {
+const initialOrderState = {
   order: {},
   orders:[]
 }
@@ -26,13 +26,6 @@ const defaultOrders = {
 */
 const getOrder= orderNum => ({type: GET_ORDER, order})
 const getOrders = () => ({type: GET_ORDERS, orders})
-
-// export function setSelected(selected) { 
-//   return {
-//     type: SET_SELECTED,
-//     selected
-//   }
-// }
 
 
 /**
@@ -70,13 +63,12 @@ export function fetchOrderById () {
 /**
 * REDUCER
 */
-export default function (state = defaultOrders, action) {
+export default function (state = initialOrderState, action) {
   switch (action.type) {
     case GET_ORDER:
-    // Object.assign({}, state, { products: action.products });
-      return action.order
+      return Object.assign({}, state, { order: action.order });
     case GET_ORDERS:
-      return action.orders
+      return Object.assign({}, state, { orders: action.orders });
     default:
       return state
   }
