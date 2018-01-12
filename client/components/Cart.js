@@ -7,10 +7,7 @@ import {} from "../store";
 
 /*
 WILL NEED:
-cart on the store
 when add to cart - need to update store
-
-mapstate ===== give this component state.cart
 */
 
 class Cart extends Component {
@@ -30,7 +27,7 @@ class Cart extends Component {
         </ul>
         <div id="cart-btn-div">
           <button className="btn btn-secondary">UPDATE CART</button>
-          <Link to='cart/checkout'><button className="btn btn-danger">CHECKOUT</button></Link>
+          <Link to='/checkout'><button className="btn btn-primary">CHECKOUT</button></Link>
         </div>
       </div>
     );
@@ -38,13 +35,11 @@ class Cart extends Component {
 }
 
 const mapState = state => {
-  return {};
+  return {
+    cart: state.cart
+  };
 };
 
-const mapDispatch = (dispatch, ownProps) => {
-  return {};
-};
-
-const CartContainer = connect(mapState, mapDispatch)(Cart);
+const CartContainer = connect(mapState)(Cart);
 
 export default CartContainer;
