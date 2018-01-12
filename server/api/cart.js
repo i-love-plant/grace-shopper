@@ -20,7 +20,7 @@ router.post('/', (req, res, next) => {
             let cartProduct = product.dataValues;
             cartProduct.cartQuantity = req.body.quantity;
             req.session.cart.push(cartProduct)
-            res.end()
+            res.json(req.session.cart);
         })
         .catch(next)
 

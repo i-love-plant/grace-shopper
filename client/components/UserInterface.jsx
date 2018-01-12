@@ -4,6 +4,10 @@ import { withRouter, Link, Route, Switch } from 'react-router-dom'
 import { me, fetchProducts } from '../store'
 import { Login, Signup, UserHome, NavBar } from './' //how to get to these...
 import ManyProducts from './ManyProducts';
+// import { NavBar } from './components/NavBar.jsx'
+import OrderSuccess from './OrderSuccess';
+import Cart from './Cart';
+import Checkout from './Checkout';
 
 class UserInterface extends Component {
 
@@ -24,6 +28,9 @@ class UserInterface extends Component {
                         {/* Routes placed here are available to all visitors */}
                         <Route path="/login" component={Login} />
                         <Route path="/signup" component={Signup} />
+                        <Route exact path="/cart" component={Cart} />
+                        <Route exact path="/checkout" component={Checkout} />
+                        <Route path="/checkout/order-success" component={OrderSuccess} />
                         {
                             isLoggedIn &&
                             <Switch>

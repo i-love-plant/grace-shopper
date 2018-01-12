@@ -31,7 +31,7 @@ router.get('/', (req, res, next) => {
 router.post('/', (req, res, next) => {
     Order.create({})
         .then(newOrder => newOrder.setUser(req.user.id))
-        .then(newOrder => newOrder.addProduct(req.session.cart.products))
+        .then(newOrder => newOrder.addProduct(req.session.cart))
         .then(newOrder => res.status(201).json(newOrder))
         .catch(next)
 });
