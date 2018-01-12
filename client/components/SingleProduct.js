@@ -37,7 +37,6 @@ class SingleProduct extends Component {
  * CONTAINER
  */
 const mapState = (state) => {
-    { console.log("!!!!!!!!!", state) }
     return {
 
         productData: state.product.currentProduct
