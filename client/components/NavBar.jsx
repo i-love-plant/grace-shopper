@@ -8,7 +8,7 @@ const NavBar = (props) => {
 
     let cartListItem = (
         <li className="nav-item">
-            <Link to="/home">Cart</Link>
+            <Link to="/cart">Cart</Link>
         </li>
     )
     return (
