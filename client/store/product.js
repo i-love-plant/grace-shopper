@@ -61,14 +61,9 @@ export default function (state = initialProductsState, action) {
   switch (action.type) {
     case GET_PRODUCTS:
       return Object.assign({}, state, { products: action.products });
-    
+
     case GET_SINGLE_PRODUCT: {
-        //might need to be state.product.prodcuts
-        const productsList = state.products;
-        const foundProduct = productsList.find(product => {
-            return product.id === action.product.id;
-        })
-        return Object.assign({}, state, { currentProduct: foundProduct });
+        return Object.assign({}, state, {currentProduct: action.product })
     }
 
     default:

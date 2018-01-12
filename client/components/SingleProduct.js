@@ -19,7 +19,14 @@ class SingleProduct extends Component {
 
         return (
             <div>
-                <h3>HELLO {product.name}</h3>
+                <h3>{product.name}</h3>
+                <ul>
+                    <li>{product.description}</li>
+                    <li>
+                        <img src={product.image} className="product-image" />
+                    </li>
+                    <li>{product.price}</li>
+                </ul>
 
             </div>
         )
@@ -30,9 +37,9 @@ class SingleProduct extends Component {
  * CONTAINER
  */
 const mapState = (state) => {
-    {console.log("!!!!!!!!!", state)}
+    { console.log("!!!!!!!!!", state) }
     return {
-        
+
         productData: state.product.currentProduct
     }
 }
