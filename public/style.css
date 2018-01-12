@@ -34,7 +34,7 @@ header {
   box-sizing: border-box;
   justify-content: space-between;
   left: 4em;
-  padding-left: 30px; 
+  padding-left: 30px;
   top: 0;
 }
 
@@ -69,5 +69,20 @@ header li {
   margin-right: auto;
   border: 1px solid black;
   border-radius: 5px;
+}
 
+#cart-table {
+  width: 45%;
+  margin-left: auto;
+  margin-right: auto;
+  border: 1px solid black;
+  border-radius: 5px;
+}
+
+#users-table {
+  width: 68%;
+  margin-left: auto;
+  margin-right: auto;
+  border: 1px solid black;
+  border-radius: 5px;
 }
