@@ -17,7 +17,7 @@ const GET_ORDERS = 'GET_ORDERS'
 */
 const initialOrderState = {
   order: {},
-  orders:[]
+  orders: []
 }
 
 
@@ -25,7 +25,7 @@ const initialOrderState = {
 * ACTION CREATORS
 */
 const getOrder= orderNum => ({type: GET_ORDER, order})
-const getOrders = () => ({type: GET_ORDERS, orders})
+const getOrders = () => ({type: GET_ORDERS})
 
 
 /**
@@ -47,7 +47,7 @@ export function fetchOrders () {
 
 // if user isAdmin they can view any order, isLogged in can view just their own order individually, 
 // or if not logged in then can't see any orders
-export function fetchOrderById () {
+export function fetchOrder() {
   return function thunk (dispatch) {
     return axios.get('/api/orders/:orderId')
       .then(res => res.data)
