@@ -1,19 +1,18 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { withRouter, Link, Route, Switch } from 'react-router-dom'
-import { me, fetchProducts, fetchUsers } from '../store'
+import { me, fetchProducts, fetchCategories } from '../store'
 import { Login, Signup, UserHome, NavBar } from './' //how to get to these...
 import ManyProducts from './ManyProducts';
 // import { NavBar } from './components/NavBar.jsx'
 import OrderSuccess from './OrderSuccess';
 import Cart from './Cart';
 import Checkout from './Checkout';
-
 import ManyUsers from './ManyUsers';
 import SingleUser from './SingleUser';
-
 import SingleProduct from './SingleProduct';
-
+import SingleOrder from './SingleOrder';
+import ManyOrders from './ManyOrders';
 
 class UserInterface extends Component {
 
@@ -45,6 +44,8 @@ class UserInterface extends Component {
                                 {/* Routes placed here are only available after logging in */}
                                 <Route path="/home" component={ManyProducts} />
                                 <Route exact path="/account" component={SingleUser} />
+                                <Route exact path="/orders" component={ManyOrders} />
+                                <Route exact path="/orders" component={SingleOrder} />
                                 {/* Routes placed here are only available if user is an admin */}
                                 {
                                     isAdmin &&
@@ -78,7 +79,7 @@ const mapDispatch = (dispatch) => {
         loadInitialData() {
             dispatch(me())
             dispatch(fetchProducts())
-            dispatch(fetchUsers())
+            dispatch(fetchCategories())
         }
     }
 }

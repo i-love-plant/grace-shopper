@@ -79,6 +79,7 @@ header li {
   border-radius: 5px;
 }
 
+
 #cart-btn-div {
   display: flex;
   align-content: center;
@@ -94,5 +95,14 @@ header li {
   text-align: center;
   display: flex;
   align-content: center;
+}
+
+
+#users-table {
+  width: 68%;
+  margin-left: auto;
+  margin-right: auto;
+  border: 1px solid black;
+  border-radius: 5px;
 }
 

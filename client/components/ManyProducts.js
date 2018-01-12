@@ -6,17 +6,24 @@ import { Link } from 'react-router-dom'
  * COMPONENT
  */
 const ManyProducts = (props) => {
+
+    const categories = props.categories;
+
     return (
         <div>
             <h3>Products: </h3>
 
-            <select defaultValue="" name="categories">
-                <option value="categories">categories</option>
-                <option value="category one">category one</option>
-                <option value="category two">category two</option>
-                <option value="category three">category three</option>
+            <select defaultValue={categories.id} name="category">
+                <option value="categories">Select A Category</option>
+                {
+                    categories.map(category => {
+                        return (
+                            <option key={category.id} value={category.id}>{category.name}
+                            </option>
+                        )
+                    })
+                }
             </select>
-
 
             <table id="products-table">
                 <tbody>
@@ -64,7 +71,8 @@ const ManyProducts = (props) => {
  */
 const mapState = (state) => {
     return {
-        products: state.product.products
+        products: state.product.products,
+        categories: state.product.categories
     }
 }
 

@@ -20,12 +20,14 @@ export const ManyOrders = (props) => {
           </tr>
         </thead>
         <tbody>
-        {
+        {// how to get name? Currently showing userId which is a link to user's profile
           orders.map(order => {
             return (
-              <td><Link to={`/orders/${order.id}`}>{order.id}</Link></td>
-              <td><Link to={`/users/${order.userId}`}>{order.userId}</Link></td> // how to get name? Currently showing userId which is a link to user's profile
-              <td>{order.orderStatus}</td>
+              <div>
+                <td><Link to={`/orders/${order.id}`}>{order.id}</Link></td>
+                <td><Link to={`/users/${order.userId}`}>{order.userId}</Link></td> 
+                <td>{order.orderStatus}</td>
+              </div>
             )
           })
         }
@@ -40,8 +42,9 @@ export const ManyOrders = (props) => {
  */
 const mapState = (state) => {
   return {
-    orders: state.orders
+    orders: state.order.orders
   }
 }
+
 
 export default connect(mapState)(ManyOrders)
