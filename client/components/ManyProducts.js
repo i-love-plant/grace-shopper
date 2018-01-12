@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-
+import { setProductCategory } from "../store/index"
 /**
  * COMPONENT
  */
@@ -13,12 +13,12 @@ const ManyProducts = (props) => {
         <div>
             <h3>Products: </h3>
 
-            <select defaultValue={categories.id} name="category">
+            <select defaultValue={categories.id} name="category" onChange={this.handleCategoryChange}>
                 <option value="categories">Select A Category</option>
                 {
                     categories.map(category => {
                         return (
-                            <option key={category.id} value={category.id}>{category.name}
+                            <option key={category.id} value={category}>{category.name}
                             </option>
                         )
                     })
@@ -71,9 +71,19 @@ const ManyProducts = (props) => {
  */
 const mapState = (state) => {
     return {
-        products: state.product.products,
+        products: state.product.visibleProducts,
         categories: state.product.categories
     }
 }
 
-export default connect(mapState)(ManyProducts);
+const mapDispatch = (dispatch, ownProps) => {
+    return {
+        handleCategoryChange(event) {
+            event.preventDefault();
+            dispatch(setProductCategory());
+
+        }
+    }
+}
+
+export default connect(mapState, mapDispatch)(ManyProducts);
