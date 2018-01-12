@@ -38,6 +38,17 @@ class UserInterface extends Component {
                         <Route exact path="/cart" component={Cart} />
                         <Route exact path="/checkout" component={Checkout} />
                         <Route path="/checkout/order-success" component={OrderSuccess} />
+                        {/* Routes placed here are only available if user is an admin */}
+                        {
+                            isAdmin &&
+                            <Switch>
+                                <Route path="/home" component={ManyProducts} />
+                                <Route exact path="/account" component={SingleUser} />
+                                <Route exact path="/orders" component={ManyOrders} />
+                                <Route exact path="/orders" component={SingleOrder} />
+                                <Route exact path="/users" component={ManyUsers} />
+                            </Switch>
+                        }
                         {
                             isLoggedIn &&
                             <Switch>
@@ -46,13 +57,6 @@ class UserInterface extends Component {
                                 <Route exact path="/account" component={SingleUser} />
                                 <Route exact path="/orders" component={ManyOrders} />
                                 <Route exact path="/orders" component={SingleOrder} />
-                                {/* Routes placed here are only available if user is an admin */}
-                                {
-                                    isAdmin &&
-                                        <Switch>
-                                            <Route exact path="/users" component={ManyUsers} />
-                                        </Switch>
-                                }
                             </Switch>
                         }
                         {/* Displays our Login component as a fallback */}
