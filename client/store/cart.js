@@ -37,6 +37,7 @@ const deleteCart = () => {
 export const fetchCartFromServer = () => {
   return function thunk(dispatch) {
     return axios.get('/api/cart')
+    .then(res => res.data)
     .then(cart => {
       dispatch(getCart(cart))
     })
@@ -44,10 +45,12 @@ export const fetchCartFromServer = () => {
   }
 }
 
-export const updateCartOnServer = (productId) => {
+export const updateCartOnServer = (product) => {
   return function thunk(dispatch) {
-    return axios.post('/api/cart', {productId})
+    return axios.post('/api/cart', product)
+    .then(res => res.data)
     .then(cart => {
+      console.log('CART!!', cart);
       dispatch(updateCart(cart))
     })
     .catch(err => console.log(err));
@@ -57,6 +60,7 @@ export const updateCartOnServer = (productId) => {
 export const deleteCartOnServer = () => {
   return function thunk(dispatch) {
     return axios.delete('/api/cart')
+    .then(res => res.data)
     .then(() => {
       dispatch(deleteCart())
     })
