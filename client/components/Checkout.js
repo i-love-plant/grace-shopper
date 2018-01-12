@@ -31,21 +31,23 @@ class Checkout extends Component {
   handleChange(e) {
     let key = e.target.name;
     let val = e.target.value;
+    console.log(this.state);
     this.setState({[key]: val});
   }
 
   render() {
+    return (
     <div>
     <Cart />
     <div className="form order-form" onSubmit={(evt) => this.props.handleOrderSubmit}>
     <div className="form-group">
-    <label htmlFor="address">ADDRESS</label>
+    <label htmlFor="address">SHIPPING ADDRESS</label>
     <input className="form-control" name="address" id="addressI" onChange={this.handleChange} value={this.state.address} placeholder="Your address"></input>
-    <Link to='cart/checkout/order-success'><button type="submit" className="btn btn-primary">PLACE MY ORDER</button></Link>
+    <Link to='/checkout/order-success'><button type="submit" className="btn btn-danger">PLACE MY ORDER</button></Link>
     </div>
     </div>
     </div>
-
+    )
   }
 }
 

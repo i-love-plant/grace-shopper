@@ -26,18 +26,56 @@ const updateCart = cart => {
   }
 }
 
-const deleteCart = cart => {
+const deleteCart = () => {
   return {
-    type: DELETE_CART,
-    cart
+    type: DELETE_CART
   }
 }
 
 //THUNK CREATORS
 
-export const fetchCart = () => {
+export const fetchCartFromServer = () => {
   return function thunk(dispatch) {
     return axios.get('/api/cart')
+    .then(cart => {
+      dispatch(getCart(cart))
+    })
+    .catch(err => console.log(err));
+  }
+}
+
+export const updateCartOnServer = (productId) => {
+  return function thunk(dispatch) {
+    return axios.post('/api/cart', {productId})
+    .then(cart => {
+      dispatch(updateCart(cart))
+    })
+    .catch(err => console.log(err));
+  }
+}
+
+export const deleteCartOnServer = () => {
+  return function thunk(dispatch) {
+    return axios.delete('/api/cart')
+    .then(() => {
+      dispatch(deleteCart())
+    })
+    .catch(err => console.log(err));
+  }
+}
+
+//REDUCER
+
+export default function (state = defaultCart, action) {
+  switch(action.type) {
+    case GET_CART:
+      return action.cart
+    case UPDATE_CART:
+      return action.cart
+    case DELETE_CART:
+      return []
+    default:
+      return state
   }
 }
 

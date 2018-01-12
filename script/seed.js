@@ -47,6 +47,21 @@ const products = [
    price: 500,
    inventory: 85,
    description: 'Guaranteed to die an ugly death within 2 months.'
+    },
+    {name: 'Rubber Plant',
+   price: 45,
+   inventory: 20,
+   description: 'Preetty, pretty good.'
+    },
+    {name: 'Spider Plant',
+   price: 25,
+   inventory: 101,
+   description: 'I will make you look like you have it together.'
+    },
+    {name: 'Monstera',
+   price: 85,
+   inventory: 11,
+   description: 'Bloggers love me.'
     }
 ]
 
@@ -71,7 +86,9 @@ const orders = [
 
 const reviews = [
   {content: 'I. LOVE. PLANT.', rating: 5, productId: 1, userId: 1},
-  {content: 'Eat dirt!!!!!!!!', rating: 1, productId: 3, userId: 4}
+  {content: 'Eat dirt!!!!!!!!', rating: 1, productId: 3, userId: 4},
+  {content: 'A good plant.', rating: 4, productId: 2, userId: 4},
+  {content: 'WOW what a plant!', rating: 5, productId: 2, userId: 3}
 ]
 
 const orderItemData = [
@@ -108,7 +125,6 @@ const orderItemData = [
 function prodCat () {
   return Product.findById(2)
   .then(found => {
-    console.log(found.name)
     return found.setCategories([2,4,5,6])
     })
   .then(() => {
@@ -121,6 +137,24 @@ function prodCat () {
     return Product.findById(3)
     .then(found3 => {
       return found3.setCategories([3,5,6])
+    })
+  })
+  .then(() => {
+    return Product.findById(4)
+    .then(found2 => {
+      return found2.setCategories([2,5])
+    })
+  })
+  .then(() => {
+    return Product.findById(5)
+    .then(found2 => {
+      return found2.setCategories([2,5,6])
+    })
+  })
+  .then(() => {
+    return Product.findById(6)
+    .then(found2 => {
+      return found2.setCategories([3,4,5])
     })
   })
   }

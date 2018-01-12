@@ -5,32 +5,41 @@ import { logout } from '../store'
 
 const NavBar = (props) => {
     const { handleClick, isLoggedIn } = props
+
+    let cartListItem = (
+        <li className="nav-item">
+            <Link to="/home">Cart</Link>
+        </li>
+    )
     return (
         <header>
             <h1>I Love Plant</h1>
-            <ul id="nav-links">
-                {
-                    isLoggedIn
-                        ? <div>
-                            {/* The navbar will show these links after you log in */}
-                            <li className="nav-item">
-                                <Link to="/home">Home</Link>
-                            </li>
-                            <li className="nav-item">
-                                <a href="#" onClick={handleClick}>Logout</a>
-                            </li>
-                        </div>
-                        : <div>
-                            {/* The navbar will show these links before you log in */}
-                            <li className="nav-item">
-                                <Link to="/login">Login</Link>
-                            </li>
-                            <li className="nav-item">
-                                <Link to="/signup">Sign Up</Link>
-                            </li>
-                        </div>
-                }
-            </ul>
+            {
+                isLoggedIn
+                ?
+                    <ul id="nav-links">
+                        <li className="nav-item">
+                            <Link to="/home">Home</Link>
+                        </li>
+                        <li className="nav-item">
+                            <a href="#" onClick={handleClick}>Logout</a>
+                        </li>
+                        <li className="nav-item">
+                            <Link to="/home">My Account</Link>
+                        </li>
+                        { cartListItem }
+                    </ul>
+                :
+                    <ul id="nav-links">
+                        <li className="nav-item">
+                            <Link to="/login">Login</Link>
+                        </li>
+                        <li className="nav-item">
+                            <Link to="/signup">Sign Up</Link>
+                        </li>
+                        { cartListItem }
+                    </ul>
+            }
         </header>
     );
 };
