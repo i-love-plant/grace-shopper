@@ -1,15 +1,23 @@
-import React from 'react'
+import React, { Component } from 'react'
 import {connect} from 'react-redux'
-import {Link} from 'react-router-dom'
+import { fetchUsers } from '../store'
+import { withRouter, Link } from 'react-router-dom'
 
 /**
  * COMPONENT
  */
-export const ManyUsers = (props) => {
+class ManyUsers extends Component {
+
+  componentDidMount() {
+    this.props.loadInitialData()
+    // we need to get all users
+  }
+
+  render() {
   return (
     <div>
       <h3>Users: </h3>
-      <table id="products-table">
+      <table id="users-table">
         <thead>
           <tr>
             <th>Name</th>
@@ -18,7 +26,7 @@ export const ManyUsers = (props) => {
         </thead>
         <tbody>
         {
-          props.users.map(user => {
+          this.props.users.map(user => {
             return (
               <tr key={user.id}>
               <td><Link to={`/users/:{user.id}`}>{user.name}</Link></td>
@@ -31,6 +39,7 @@ export const ManyUsers = (props) => {
       </table>
     </div>
   )
+  }
 }
 
 /**
@@ -42,4 +51,12 @@ const mapState = (state) => {
   }
 }
 
-export default connect(mapState)(ManyUsers)
+const mapDispatch = (dispatch) => {
+    return {
+        loadInitialData() {
+            dispatch(fetchUsers())
+        }
+    }
+}
+
+export default withRouter(connect(mapState, mapDispatch)(ManyUsers))
