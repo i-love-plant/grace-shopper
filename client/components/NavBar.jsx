@@ -19,7 +19,7 @@ const NavBar = (props) => {
                 ?
                     <ul id="nav-links">
                         <li className="nav-item">
-                            <Link to="/home">Home</Link>
+                            <Link to="/products">Home</Link>
                         </li>
                         <li className="nav-item">
                             <a href="#" onClick={handleClick}>Logout</a>

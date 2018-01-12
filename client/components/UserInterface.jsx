@@ -8,6 +8,7 @@ import ManyProducts from './ManyProducts';
 import OrderSuccess from './OrderSuccess';
 import Cart from './Cart';
 import Checkout from './Checkout';
+import SingleProduct from './SingleProduct';
 
 class UserInterface extends Component {
 
@@ -24,7 +25,9 @@ class UserInterface extends Component {
                 <NavBar />
                 <main>
                     <Switch>
+                        <Route exact path="/" component={ManyProducts} />
                         <Route exact path="/products" component={ManyProducts} />
+                        <Route exact path="/products/:productId" component={SingleProduct} />
                         {/* Routes placed here are available to all visitors */}
                         <Route path="/login" component={Login} />
                         <Route path="/signup" component={Signup} />
@@ -35,7 +38,7 @@ class UserInterface extends Component {
                             isLoggedIn &&
                             <Switch>
                                 {/* Routes placed here are only available after logging in */}
-                                <Route path="/home" component={UserHome} />
+                                <Route path="/home" component={ManyProducts} />
                             </Switch>
                         }
                         {/* Displays our Login component as a fallback */}

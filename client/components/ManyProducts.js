@@ -9,6 +9,9 @@ const ManyProducts = (props) => {
     return (
         <div>
             <h3>Products: </h3>
+
+
+
             <table id="products-table">
                 <tbody>
                     <tr>
@@ -39,7 +42,6 @@ const ManyProducts = (props) => {
                                             })}
                                         </ul>
                                     </td>
-                                    {console.log("WHATTHEFUCK", product.categories)}
                                 </tr>
                             )
                         })
