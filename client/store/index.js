@@ -20,3 +20,5 @@ export * from './user'
 export * from './product'
 export * from './users'
 export * from './order'
+export * from './cart'
+

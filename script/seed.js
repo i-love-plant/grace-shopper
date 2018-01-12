@@ -35,27 +35,27 @@ const users = [
 const products = [
   {name: 'Pothos',
    price: 10,
-   inventory: 237,
+   inventory: 50,
    description: 'Easy to care for. Easy to love. Grows quickly.'
     },
     {name: 'Aloe Vera',
    price: 5,
-   inventory: 1000,
+   inventory: 26,
    description: 'Don\'t eat me but rub me all over yourself.'
     },
    {name: 'Fiddle Leaf Fig',
    price: 500,
-   inventory: 85,
+   inventory: 9,
    description: 'Guaranteed to die an ugly death within 2 months.'
     },
     {name: 'Rubber Plant',
    price: 45,
-   inventory: 20,
+   inventory: 15,
    description: 'Preetty, pretty good.'
     },
     {name: 'Spider Plant',
    price: 25,
-   inventory: 101,
+   inventory: 41,
    description: 'I will make you look like you have it together.'
     },
     {name: 'Monstera',
