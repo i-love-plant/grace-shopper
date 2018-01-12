@@ -28,6 +28,35 @@ router.get('/', (req, res, next) => {
     }
 });
 
+// added route so that ADMIN can GET order by ID & so USER can view OWN individual order by ID
+router.get('/:orderId', (req, res, next) => {
+    if (req.user && req.user.isAdmin) {
+        Order.findById(req.params.orderId)
+            .then(order => res.json(order))
+            .catch(next)
+    }
+    else if (req.user) {
+        const orderIdNum = req.params.orderId
+        return Order.findAll({
+            where: {
+                id: orderIdNum,
+                userId: req.user.id
+            }
+        })
+        .then(myOrder => {
+            if (myOrder.length !== 0) {res.json(myOrder)}
+            else {res.status(404).send("No order by that ID found!")}
+        })
+        .catch(next)
+    }
+    else {
+        const err = new Error('Not authorized')
+        err.status = 403
+        next(err)
+    }
+});
+
+
 router.post('/', (req, res, next) => {
     Order.create({})
         .then(newOrder => newOrder.setUser(req.user.id))
@@ -53,5 +82,7 @@ router.put('/:orderId', isAdmin, (req, res, next) => {
         .then(editedOrder => res.json(editedOrder))
         .catch(next)
 });
+
+
 
 // EXTRA: user can cancel their order (put)

@@ -13,7 +13,8 @@ import ManyUsers from './ManyUsers';
 import SingleUser from './SingleUser';
 
 import SingleProduct from './SingleProduct';
-
+import SingleOrder from './SingleOrder';
+import ManyOrders from './ManyOrders';
 
 class UserInterface extends Component {
 
@@ -45,6 +46,10 @@ class UserInterface extends Component {
                                 {/* Routes placed here are only available after logging in */}
                                 <Route path="/home" component={ManyProducts} />
                                 <Route exact path="/account" component={SingleUser} />
+<<<<<<< HEAD
+                                <Route exact path="/orders" component={ManyOrders} />
+                                <Route exact path="/orders" component={SingleOrder} />
+=======
                                 {/* Routes placed here are only available if user is an admin */}
                                 {
                                     isAdmin &&
@@ -52,6 +57,7 @@ class UserInterface extends Component {
                                             <Route exact path="/users" component={ManyUsers} />
                                         </Switch>
                                 }
+>>>>>>> master
                             </Switch>
                         }
                         {/* Displays our Login component as a fallback */}
