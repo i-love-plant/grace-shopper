@@ -6,26 +6,24 @@ import {Link} from 'react-router-dom'
  * COMPONENT
  */
 export const ManyUsers = (props) => {
-  const { users } = props
-
   return (
     <div>
       <h3>Users: </h3>
-      <table>
+      <table id="products-table">
         <thead>
           <tr>
             <th>Name</th>
             <th>E-mail</th>
-            <th>Admin</th>
           </tr>
         </thead>
         <tbody>
         {
-          users.map(user => {
+          props.users.map(user => {
             return (
-              <td><Link to={`/users/${user.id}`}>{user.name}</Link></td>
+              <tr key={user.id}>
+              <td><Link to={`/users/:{user.id}`}>{user.name}</Link></td>
               <td>{user.email}</td>
-              <td>{user.isAdmin}<td>
+              </tr>
             )
           })
         }
@@ -40,7 +38,7 @@ export const ManyUsers = (props) => {
  */
 const mapState = (state) => {
   return {
-    users: state.users
+    users: state.users.users
   }
 }
 
