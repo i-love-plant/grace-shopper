@@ -19,3 +19,55 @@ form div {
   margin: 1em;
   display: inline-block;
 }
+
+
+header {
+  display: flex;
+  position: fixed;
+  padding: 10px;
+  width: calc(100vw - 8em);
+  color: white;
+  background-color: #35BF70;
+  border-radius: 0 0 1em 1em;
+  z-index: 2;
+  opacity: 0.9;
+  box-sizing: border-box;
+  justify-content: space-between;
+  left: 4em;
+  padding-left: 30px; 
+  top: 0;
+}
+
+main {
+  margin-top: 84px;
+}
+
+.nav-item a {
+  color: white;
+}
+
+header ul {
+  list-style-type: none;
+}
+
+header li {
+  display: inline;
+  padding: 10px;
+}
+
+#welcome {
+  margin-top: 135px;
+}
+
+.product-image {
+  width: 200px;
+}
+
+#products-table {
+  width: 68%;
+  margin-left: auto;
+  margin-right: auto;
+  border: 1px solid black;
+  border-radius: 5px;
+
+}

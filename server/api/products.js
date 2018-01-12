@@ -6,7 +6,11 @@ const { isAdmin } = require('../gatekeeper.js');
 module.exports = router;
 
 router.get('/', (req, res, next) => {
-    let filter = {};
+    let filter = {
+        include: [{
+            model: Category
+        }]
+    };
     if ("category" in req.query) {
         const category = +req.query.category;
 
@@ -24,10 +28,10 @@ router.get('/', (req, res, next) => {
         }
     }
     Product.findAll(filter)
-    .then(products => {
-        res.json(products)
-    })
-    .catch(next)
+        .then(products => {
+            res.json(products)
+        })
+        .catch(next)
 });
 
 router.post('/', isAdmin, (req, res, next) => {
