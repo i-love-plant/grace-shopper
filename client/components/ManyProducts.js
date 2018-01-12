@@ -14,11 +14,11 @@ const ManyProducts = (props) => {
             <h3>Products: </h3>
 
             <select defaultValue={categories.id} name="category" onChange={this.handleCategoryChange}>
-                <option value="categories">Select A Category</option>
+                <option value="-1">Select A Category</option>
                 {
                     categories.map(category => {
                         return (
-                            <option key={category.id} value={category}>{category.name}
+                            <option key={category.id} value={category.id}>{category.name}
                             </option>
                         )
                     })
