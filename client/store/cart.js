@@ -57,6 +57,28 @@ export const updateCartOnServer = (product) => {
   }
 }
 
+export const updateCartQuantitiesOnServer = (cart) => {
+  return function thunk(dispatch) {
+    return axios.put('/api/cart', cart)
+    .then(res => res.data)
+    .then(updatedCart => {
+      dispatch(updateCart(updatedCart))
+    })
+    .catch(err => console.log(err));
+  }
+}
+
+export const removeItemFromCart = (product) => {
+  return function thunk(dispatch) {
+    return axios.put('/api/cart/remove', product)
+    .then(res => res.data)
+    .then(cart => {
+      dispatch(updateCart(cart))
+    })
+    .catch(err => console.log(err));
+  }
+}
+
 export const deleteCartOnServer = () => {
   return function thunk(dispatch) {
     return axios.delete('/api/cart')
