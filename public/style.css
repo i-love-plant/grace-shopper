@@ -78,3 +78,21 @@ header li {
   border: 1px solid black;
   border-radius: 5px;
 }
+
+#cart-btn-div {
+  display: flex;
+  align-content: center;
+  margin-left: auto;
+  margin-right: auto;
+  width: 25%;
+}
+
+#total-span {
+  margin-left: auto;
+  margin-right: auto;
+  width: 25%;
+  text-align: center;
+  display: flex;
+  align-content: center;
+}
+

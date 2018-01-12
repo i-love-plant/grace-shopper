@@ -29,15 +29,17 @@ router.post('/', (req, res, next) => {
 //to edit an item in the cart
 //will happen from view my cart page
 router.put('/', (req, res, next) => {
-  req.session.cart = req.session.cart.map(cartProduct => {
-    if (cartProduct.id === req.body.productId) {
-      return Object.assign(cartProduct, {cartQuantity: req.body.quantity});
-    }
-    else return cartProduct;
-  })
+  req.session.cart = req.body.cart
   .filter(cartProduct => cartProduct.cartQuantity > 0);
   res.json(req.session.cart);
 
+})
+
+router.put('/remove', (req, res, next) => {
+  req.session.cart = req.session.cart.filter(cartProduct => {
+    return cartProduct.id !== req.body.product.id
+  })
+  res.json(req.session.cart);
 })
 
 
