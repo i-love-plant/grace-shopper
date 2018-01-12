@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import {} from "../store";
 
-
 /*
 WILL NEED:
 when add to cart - need to update store
@@ -13,6 +12,19 @@ when add to cart - need to update store
 class Cart extends Component {
   render() {
     let cart = this.props.cart;
+
+    if (!cart.length) {
+      return (
+        <div>
+          <h2>MY CART</h2>
+          <h5>Your cart is empty :(</h5>
+          <Link to='/products'>
+          <p>Go add some stuff!</p>
+          </Link>
+        </div>
+      );
+    }
+
     return (
       <div>
         <h2>MY CART</h2>
@@ -27,7 +39,9 @@ class Cart extends Component {
         </ul>
         <div id="cart-btn-div">
           <button className="btn btn-secondary">UPDATE CART</button>
-          <Link to='/checkout'><button className="btn btn-primary">CHECKOUT</button></Link>
+          <Link to="/checkout">
+            <button className="btn btn-primary">CHECKOUT</button>
+          </Link>
         </div>
       </div>
     );

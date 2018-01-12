@@ -24,7 +24,7 @@ maybe store recent order id on state to be able to store its info and get it on 
 class Checkout extends Component {
   constructor(props) {
     super(props);
-    this.state = {address: ''};
+    this.state = {email: '', address: ''};
     this.handleChange = this.handleChange.bind(this);
   }
 
@@ -43,6 +43,7 @@ class Checkout extends Component {
     <div className="form-group">
     <label htmlFor="address">SHIPPING ADDRESS</label>
     <input className="form-control" name="address" id="addressI" onChange={this.handleChange} value={this.state.address} placeholder="Your address"></input>
+    <input className="form-control" name="email" id="emailI" onChange={this.handleChange} value={this.state.email} placeholder="Your email"></input>
     <Link to='/checkout/order-success'><button type="submit" className="btn btn-danger">PLACE MY ORDER</button></Link>
     </div>
     </div>
