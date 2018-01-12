@@ -9,6 +9,15 @@ const ManyProducts = (props) => {
     return (
         <div>
             <h3>Products: </h3>
+
+            <select defaultValue="" name="categories">
+                <option value="categories">categories</option>
+                <option value="category one">category one</option>
+                <option value="category two">category two</option>
+                <option value="category three">category three</option>
+            </select>
+
+
             <table id="products-table">
                 <tbody>
                     <tr>
@@ -39,7 +48,6 @@ const ManyProducts = (props) => {
                                             })}
                                         </ul>
                                     </td>
-                                    {console.log("WHATTHEFUCK", product.categories)}
                                 </tr>
                             )
                         })

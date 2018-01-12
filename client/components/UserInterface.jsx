@@ -1,13 +1,19 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { withRouter, Link, Route, Switch } from 'react-router-dom'
-import { me, fetchProducts } from '../store'
+import { me, fetchProducts, fetchUsers } from '../store'
 import { Login, Signup, UserHome, NavBar } from './' //how to get to these...
 import ManyProducts from './ManyProducts';
 // import { NavBar } from './components/NavBar.jsx'
 import OrderSuccess from './OrderSuccess';
 import Cart from './Cart';
 import Checkout from './Checkout';
+
+import ManyUsers from './ManyUsers';
+import SingleUser from './SingleUser';
+
+import SingleProduct from './SingleProduct';
+
 
 class UserInterface extends Component {
 
@@ -24,7 +30,9 @@ class UserInterface extends Component {
                 <NavBar />
                 <main>
                     <Switch>
+                        <Route exact path="/" component={ManyProducts} />
                         <Route exact path="/products" component={ManyProducts} />
+                        <Route exact path="/products/:productId" component={SingleProduct} />
                         {/* Routes placed here are available to all visitors */}
                         <Route path="/login" component={Login} />
                         <Route path="/signup" component={Signup} />
@@ -35,7 +43,9 @@ class UserInterface extends Component {
                             isLoggedIn &&
                             <Switch>
                                 {/* Routes placed here are only available after logging in */}
-                                <Route path="/home" component={UserHome} />
+                                <Route path="/home" component={ManyProducts} />
+                                <Route exact path="/users" component={ManyUsers} />
+                                <Route exact path="/account" component={SingleUser} />
                             </Switch>
                         }
                         {/* Displays our Login component as a fallback */}
@@ -61,6 +71,7 @@ const mapDispatch = (dispatch) => {
         loadInitialData() {
             dispatch(me())
             dispatch(fetchProducts())
+            dispatch(fetchUsers())
         }
     }
 }
