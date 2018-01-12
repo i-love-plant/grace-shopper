@@ -8,7 +8,7 @@ const DELETE_CART = 'DELETE_CART';
 
 //INITIAL STATE
 
-const defaultCart = [];
+const defaultCart = {cartProds: [], cartTotal: 0};
 
 //ACTION CREATORS
 
@@ -67,13 +67,17 @@ export const deleteCartOnServer = () => {
 //REDUCER
 
 export default function (state = defaultCart, action) {
-  switch(action.type) {
+  switch (action.type) {
     case GET_CART:
-      return action.cart
+      return {cartProds: action.cart, cartTotal: action.cart.reduce((sum, prod) => {
+      return sum + (prod.price * prod.cartQuantity);
+    },0)}
     case UPDATE_CART:
-      return action.cart
+      return {cartProds: action.cart, cartTotal: action.cart.reduce((sum, prod) => {
+      return sum + (prod.price * prod.cartQuantity);
+    },0)}
     case DELETE_CART:
-      return []
+      return defaultCart
     default:
       return state
   }
