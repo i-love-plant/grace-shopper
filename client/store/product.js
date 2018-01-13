@@ -9,6 +9,7 @@ const GET_SINGLE_PRODUCT = 'GET_SINGLE_PRODUCT';
 const GET_CATEGORIES = 'GET_CATEGORIES';
 const SET_PRODUCT_CATEGORY = 'SET_PRODUCT_CATEGORY';
 const SET_SEARCH_QUERY = 'SET_SEARCH_QUERY';
+const APPLY_SEARCH = 'APPLY_SEARCH';
 
 
 /**
@@ -31,6 +32,7 @@ const getSingleProduct = product => ({type: GET_SINGLE_PRODUCT, product});
 const getCategories = categories => ({type: GET_CATEGORIES, categories});
 export const setProductCategory = categoryId => ({type: SET_PRODUCT_CATEGORY, categoryId});
 export const setSearchQuery = query => ({type: SET_SEARCH_QUERY, query});
+export const applySearch = () => ({type: APPLY_SEARCH}); //searchQuery is already on the state
 
 /**
  * THUNK CREATORS
@@ -111,6 +113,15 @@ export default function (state = initialProductsState, action) {
 
     case SET_SEARCH_QUERY:
         return Object.assign({}, state, {searchQuery: action.query });
+
+    case APPLY_SEARCH: {
+        const query = state.searchQuery.toLowerCase();
+        //look in allProducts for the products that match the name of the product with the query (if the name contains what they searched)
+        const filteredProducts = state.allProducts.filter(product => {
+            return product.name.toLowerCase().includes(query);
+        });
+        return Object.assign({}, state, { visibleProducts: filteredProducts  });
+    }
 
     default:
       return state

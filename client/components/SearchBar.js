@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link, withRouter } from 'react-router-dom'
-import { setSearchQuery } from '../store';
+import { setSearchQuery, applySearch } from '../store';
 
 class SearchBar extends Component {
     constructor(props){
@@ -15,6 +15,7 @@ class SearchBar extends Component {
         event.preventDefault();
         const query = event.target.searchBar.value;
         this.props.history.push(`/products?query=${query}`);
+        this.props.dispatchApplySearch();
     }
 
     handleSearchChange(event) {
@@ -55,6 +56,9 @@ const mapDispatch = (dispatch) => {
     return {
         dispatchSearchQuery(search) {
             dispatch(setSearchQuery(search));
+        },
+        dispatchApplySearch() {
+            dispatch(applySearch());
         }
     }
 }
