@@ -34,6 +34,7 @@ const deleteCart = () => {
 
 //THUNK CREATORS
 
+//get cart info
 export const fetchCartFromServer = () => {
   return function thunk(dispatch) {
     return axios.get('/api/cart')
@@ -45,6 +46,7 @@ export const fetchCartFromServer = () => {
   }
 }
 
+//add an item to cart
 export const updateCartOnServer = (product) => {
   return function thunk(dispatch) {
     return axios.post('/api/cart', product)
@@ -57,9 +59,10 @@ export const updateCartOnServer = (product) => {
   }
 }
 
-export const updateCartQuantitiesOnServer = (cart) => {
+//update the cart - from cart page
+export const updateCartQuantitiesOnServer = (changes) => {
   return function thunk(dispatch) {
-    return axios.put('/api/cart', cart)
+    return axios.put('/api/cart', changes)
     .then(res => res.data)
     .then(updatedCart => {
       dispatch(updateCart(updatedCart))
@@ -68,6 +71,7 @@ export const updateCartQuantitiesOnServer = (cart) => {
   }
 }
 
+//remove item from cart - from cart page
 export const removeItemFromCart = (product) => {
   return function thunk(dispatch) {
     return axios.put('/api/cart/remove', product)
@@ -79,6 +83,7 @@ export const removeItemFromCart = (product) => {
   }
 }
 
+//delete cart - when it turns into an order
 export const deleteCartOnServer = () => {
   return function thunk(dispatch) {
     return axios.delete('/api/cart')
