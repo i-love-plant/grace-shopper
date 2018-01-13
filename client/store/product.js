@@ -14,11 +14,11 @@ const SET_PRODUCT_CATEGORY = 'SET_PRODUCT_CATEGORY';
  * INITIAL STATE
  */
 const initialProductsState = {
-    products: [],
+    allProducts: [],
+    visibleProducts: [],
     currentProduct: {},
     categories: [],
-    selectedCategory: {},
-    visibleProducts: []
+    selectedCategory: {}
 }
 
 /**
@@ -27,7 +27,7 @@ const initialProductsState = {
 const getProducts = products => ({type: GET_PRODUCTS, products});
 const getSingleProduct = product => ({type: GET_SINGLE_PRODUCT, product});
 const getCategories = categories => ({type: GET_CATEGORIES, categories});
-const setProductCategory = categoryId => ({type: SET_PRODUCT_CATEGORY, categoryId});
+export const setProductCategory = categoryId => ({type: SET_PRODUCT_CATEGORY, categoryId});
 
 /**
  * THUNK CREATORS
@@ -77,7 +77,7 @@ export function fetchCategories() {
 export default function (state = initialProductsState, action) {
   switch (action.type) {
     case GET_PRODUCTS:
-      return Object.assign({}, state, { products: action.products });
+      return Object.assign({}, state, { allProducts: action.products, visibleProducts: action.products });
 
     case GET_SINGLE_PRODUCT: {
         return Object.assign({}, state, {currentProduct: action.product })
@@ -87,10 +87,23 @@ export default function (state = initialProductsState, action) {
         return Object.assign({}, state, {categories: action.categories })
 
     case SET_PRODUCT_CATEGORY: {
-    //update the state based off that category id, setting the selected category and setting the visible products all at once
-    // need to update the visible products based on the products that are in that category
-        const filteredProducts = state.products.filter(product => product.category.id === action.categoryId);
-        return Object.assign({}, state, {selectedCategory: action.categoryId, visibleProducts: filteredProducts  })
+    // i need to see if the product im looking at, has the category id as one of its categories in its category array
+    // first i need to map the array to create an array of the category ids
+    // then i need to call indexOf on the array to see if > -1 is returned, if the indexOf that categoryid is greater than -1 then we know that id is in the array of categories thus we can return that product
+        
+        const selectedCategoryId = +action.categoryId;
+        if (selectedCategoryId === -1) {
+            return Object.assign({}, state, {selectedCategory: selectedCategoryId, visibleProducts: state.allProducts  })
+        }
+        const filteredProducts = state.allProducts.filter(product => {
+            const categoryIds = product.categories.map(category => {
+                return category.id;
+                //action.categoryId is the category the user selected
+            })
+            
+            return categoryIds.indexOf(selectedCategoryId) > -1;
+        });
+        return Object.assign({}, state, {selectedCategory: selectedCategoryId, visibleProducts: filteredProducts  })
     }
     default:
       return state
