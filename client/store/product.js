@@ -45,9 +45,11 @@ export function fetchProducts() {
         return axios.get('/api/products')
             .then(res => res.data)
             .then(products => {
-                const action = getProducts(products); // this is the action creator function
-                dispatch(action);
+                const action = getProductsWithPromise(products); // this is the action creator function
+                return dispatch(action); //this now returns a promise
+                
             })
+            .then(() => dispatch(applySearch()))
             .catch(error => console.log(error));
     };
 }
@@ -74,6 +76,14 @@ export function fetchCategories() {
             })
             .catch(error => console.log(error));
     };
+}
+
+//wrapper around getProducts that will return a promise
+function getProductsWithPromise(products) {
+	return function thunk(dispatch) {
+		dispatch(getProducts(products));
+		return Promise.resolve();
+	};
 }
 
 /**
