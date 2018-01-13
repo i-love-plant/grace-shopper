@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { withRouter, Link, Route, Switch } from 'react-router-dom'
-import { me, fetchProducts, fetchCategories } from '../store'
+import { me, fetchProducts, fetchCategories, setSearchQuery } from '../store'
 import { Login, Signup, UserHome, NavBar } from './' //how to get to these...
 import ManyProducts from './ManyProducts';
 // import { NavBar } from './components/NavBar.jsx'
@@ -13,12 +13,16 @@ import SingleUser from './SingleUser';
 import SingleProduct from './SingleProduct';
 import SingleOrder from './SingleOrder';
 import ManyOrders from './ManyOrders';
+//import { URLSearchParams } from 'url';
 
 class UserInterface extends Component {
 
     componentDidMount() {
         this.props.loadInitialData()
-        // we need to get all products, sessions, users, orders, load all data in
+        const params = new URLSearchParams(this.props.location.search);
+        if (params.has('query')) {
+            this.props.dispatchSearchQuery(params.get('query')) //this method gets whatever follows query in the url
+        }
     }
 
     render() {
@@ -94,6 +98,9 @@ const mapDispatch = (dispatch) => {
             dispatch(me())
             dispatch(fetchProducts())
             dispatch(fetchCategories())
+        },
+        dispatchSearchQuery(search) {
+            dispatch(setSearchQuery(search));
         }
     }
 }
