@@ -2,18 +2,18 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { setProductCategory } from '../store'
+import SearchBar from './SearchBar'
 
 /**
  * COMPONENT
  */
 const ManyProducts = (props) => {
-
     const categories = props.categories;
 
     return (
         <div>
             <h3>Products: </h3>
-
+            <SearchBar />
             <select defaultValue={categories.id} name="category" onChange={props.handleCategoryChange}>
                 <option value="-1">Select A Category</option>
                 {
