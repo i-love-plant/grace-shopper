@@ -1,6 +1,5 @@
 const LiveReloadPlugin = require('webpack-livereload-plugin')
 const isDev = process.env.NODE_ENV === 'development'
-import 'react-table/react-table.css'
 
 module.exports = {
   entry: './client/index.js',
