@@ -11,12 +11,17 @@ const NavBar = (props) => {
             <Link to="/cart">Cart</Link>
         </li>
     )
+
+    let heading = isAdmin ? 'I Love Plant: Admin' : 'I Love Plant';
+
     return (
-        <header>
-            <h1>I Love Plant</h1>
+        <header id={isAdmin ? "admin-nav": ''}>
+
+            <h1>{heading}</h1>
             {
                 isAdmin
                 ?
+                    <div>
                     <ul id="nav-links">
                         <li className="nav-item">
                             <Link to="/products">Home</Link>
@@ -32,6 +37,7 @@ const NavBar = (props) => {
                         </li>
                         { cartListItem }
                     </ul>
+                    </div>
                 :
                 isLoggedIn
                 ?

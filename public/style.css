@@ -41,6 +41,10 @@ header {
   top: 0;
 }
 
+#admin-nav {
+  background-color: #0444B2;
+}
+
 main {
   margin-top: 84px;
 }
