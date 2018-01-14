@@ -25,7 +25,7 @@ const initialOrderState = {
 * ACTION CREATORS
 */
 const getOrder= orderNum => ({type: GET_ORDER, order})
-const getOrders = () => ({type: GET_ORDERS})
+const getOrders = (orders) => ({type: GET_ORDERS, orders})
 
 
 /**
