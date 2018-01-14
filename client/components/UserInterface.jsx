@@ -49,7 +49,7 @@ class UserInterface extends Component {
                                 <Route path="/home" component={ManyProducts} />
                                 <Route exact path="/account" component={SingleUser} />
                                 <Route exact path="/orders" component={ManyOrders} />
-                                <Route exact path="/orders" component={SingleOrder} />
+                                <Route path="/orders/:orderId" component={SingleOrder} />
                                 <Route exact path="/users" component={ManyUsers} />
                             </Switch>
                         }
@@ -60,7 +60,7 @@ class UserInterface extends Component {
                                 <Route path="/home" component={ManyProducts} />
                                 <Route exact path="/account" component={SingleUser} />
                                 <Route exact path="/orders" component={ManyOrders} />
-                                <Route path="/orders/:orderId" component={SingleOrder} />
+                                {/* <Route path="/orders/:orderId" component={SingleOrder} />*/}
                                 {/* Routes placed here are only available if user is an admin */}
                                 {
                                     isAdmin &&
@@ -68,8 +68,6 @@ class UserInterface extends Component {
                                             <Route exact path="/users" component={ManyUsers} />
                                         </Switch>
                                 }
-
-                                <Route exact path="/orders" component={SingleOrder} />
 
                             </Switch>
                         }

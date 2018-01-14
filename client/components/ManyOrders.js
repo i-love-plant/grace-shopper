@@ -2,12 +2,9 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {fetchOrders} from "../store";
-// Import React Table
 import ReactTable from "react-table";
 
-/**
- * COMPONENT
- */
+
 export class ManyOrders extends Component {
 
   componentDidMount() {
@@ -15,8 +12,8 @@ export class ManyOrders extends Component {
   }
 
   render() {
-
-  const columns= [  
+    const data = this.props.orders
+    const columns= [  
                 {
                   Header: "Order Id",
                   accessor: "id"
@@ -39,22 +36,21 @@ export class ManyOrders extends Component {
                 }
               ]
 
-  const data = this.props.orders
-
     return (
-      <ReactTable
-        data={data}
-        columns={columns}
-      />
+      <div>
+        <h3>Orders:</h3>
+        <ReactTable
+          data={data}
+          columns={columns}
+          defaultPageSize={10}
+          minRows={1}
+        />
+      </div>
     )
   }
 }
 
 
-
-/**
- * CONTAINER
- */
 const mapState = (state) => {
   return {
     orders: state.order.orders
@@ -65,7 +61,6 @@ const mapState = (state) => {
 const mapDispatch = (dispatch, ownProps) => {
  return {
         loadInitialData() {
-            // dispatch(fetchOrder())
             dispatch(fetchOrders())
         }
     }

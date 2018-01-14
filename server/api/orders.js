@@ -32,7 +32,10 @@ router.get('/', (req, res, next) => {
 router.get('/:orderId', (req, res, next) => {
     if (req.user && req.user.isAdmin) {
         Order.findById(req.params.orderId)
-            .then(order => res.json(order))
+            .then(order => {
+                if(order) {res.json(order)}
+                else{res.status(404).send(`no order with the id of ${req.params.orderId} found`)}
+            })
             .catch(next)
     }
     else if (req.user) {
