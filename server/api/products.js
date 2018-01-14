@@ -1,7 +1,7 @@
 'use strict';
 
 const router = require('express').Router();
-const { Product, Category } = require('../db/models');
+const { Product, Category, Review } = require('../db/models');
 const { isAdmin } = require('../gatekeeper.js');
 module.exports = router;
 
@@ -14,7 +14,7 @@ router.get('/', (req, res, next) => {
     if ("category" in req.query) {
         const category = +req.query.category;
 
-        // basically does WHERE product.category.id = category
+        // basically does WHERE product.category.id = category. bc of the many to many
         filter = {
             include: [{
                 model: Category,
@@ -44,6 +44,10 @@ router.get('/:productId', (req, res, next) => {
     Product.findOne({
         where: {
             id: req.params.productId
+        },
+        include: {
+            model: Review,
+            as: "reviews"
         }
     })
         .then(product => res.json(product))

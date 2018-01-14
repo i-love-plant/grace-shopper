@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { withRouter, Link, Route, Switch } from 'react-router-dom'
 import { me, fetchProducts, fetchCategories, setSearchQuery } from '../store'
-import { Login, Signup, UserHome, NavBar } from './' //how to get to these...
+import { Login, Signup, UserHome, NavBar } from './'
 import ManyProducts from './ManyProducts';
 // import { NavBar } from './components/NavBar.jsx'
 import OrderSuccess from './OrderSuccess';
@@ -13,6 +13,7 @@ import SingleUser from './SingleUser';
 import SingleProduct from './SingleProduct';
 import SingleOrder from './SingleOrder';
 import ManyOrders from './ManyOrders';
+import NewReviewEntry from './NewReviewEntry'
 //import { URLSearchParams } from 'url';
 
 class UserInterface extends Component {
@@ -36,6 +37,7 @@ class UserInterface extends Component {
                         <Route exact path="/" component={ManyProducts} />
                         <Route exact path="/products" component={ManyProducts} />
                         <Route exact path="/products/:productId" component={SingleProduct} />
+                        <Route exact path="/reviews/new-review/:productId" component={NewReviewEntry} />
                         {/* Routes placed here are available to all visitors */}
                         <Route path="/login" component={Login} />
                         <Route path="/signup" component={Signup} />
