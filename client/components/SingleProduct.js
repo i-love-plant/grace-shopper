@@ -1,7 +1,10 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import { fetchProduct, updateCartOnServer } from "../store/index";
+import {
+  fetchProduct,
+  updateCartOnServer
+} from "../store/index";
 
 /**
  * COMPONENT
@@ -36,6 +39,59 @@ class SingleProduct extends Component {
       );
     }
 
+    let cartProds = this.props.cartProds;
+    let isInCart = cartProds.find(item => {
+      return item.id === product.id;
+    });
+
+    let cartForm;
+    if (isInCart) {
+      cartForm = (
+        <div>
+        <p>Pssst, I'm already in your cart.</p>
+        <Link to="/cart">
+          {}
+          <button type="submit" className="btn btn-primary">
+            SEE MY CART
+          </button>
+        </Link>
+        </div>
+      );
+    } else {
+      cartForm = (
+        <form className="form order-form">
+          <div className="form-group">
+            <label htmlFor="quantity">Quantity:</label>
+            <select
+              disabled={isInCart}
+              className="form-control"
+              id="quantityI"
+              name="quantity"
+              onChange={this.handleChange}
+              value={this.state.quantity}
+            >
+              {inventoryArr}
+            </select>
+          </div>
+          <Link to="/cart">
+            {}
+            <button
+              type="submit"
+              className="btn btn-primary"
+              onClick={evt =>
+                this.props.handleAddToCart(evt, {
+                  productId: product.id,
+                  quantity: +this.state.quantity
+                })
+              }
+            >
+              ADD TO CART
+            </button>
+          </Link>
+        </form>
+      );
+    }
+
     return (
       <div>
         <div>
@@ -48,29 +104,8 @@ class SingleProduct extends Component {
             <li>${product.price}</li>
           </ul>
         </div>
-        <form
-          className="form order-form"
-        >
-          <div className="form-group">
-            <label htmlFor="quantity">Quantity:</label>
-            <select
-              className="form-control"
-              id="quantityI"
-              name="quantity"
-              onChange={this.handleChange}
-              value={this.state.quantity}
-            >
-              {inventoryArr}
-            </select>
-          </div>
-            <Link to="/cart">
-            <button type="submit" className="btn btn-primary" onClick={evt => this.props.handleAddToCart(evt, {productId: product.id, quantity: +this.state.quantity})}>
-              ADD TO CART
-            </button>
-            </Link>
-          </form>
-        </div>
-
+        {cartForm}
+      </div>
     );
   }
 }
@@ -80,7 +115,8 @@ class SingleProduct extends Component {
  */
 const mapState = state => {
   return {
-    productData: state.product.currentProduct
+    productData: state.product.currentProduct,
+    cartProds: state.cart.cartProds
   };
 };
 
@@ -90,9 +126,8 @@ const mapDispatch = (dispatch, ownProps) => {
       const productThunk = fetchProduct(ownProps.match.params.productId);
       dispatch(productThunk);
     },
-    handleAddToCart(evt,prodInfo) {
-      // evt.preventDefault();
-      dispatch(updateCartOnServer(prodInfo))
+    handleAddToCart(evt, prodInfo) {
+      dispatch(updateCartOnServer(prodInfo));
     }
   };
 };
