@@ -34,25 +34,27 @@ class UserInterface extends Component {
                 <NavBar />
                 <main>
                     <Switch>
+                    {/* Routes placed here are available to all visitors */}
                         <Route exact path="/" component={ManyProducts} />
                         <Route exact path="/products" component={ManyProducts} />
                         <Route exact path="/products/:productId" component={SingleProduct} />
-                        {/* Routes placed here are available to all visitors */}
                         <Route path="/login" component={Login} />
                         <Route path="/signup" component={Signup} />
                         <Route exact path="/cart" component={Cart} />
                         <Route exact path="/checkout" component={Checkout} />
                         <Route path="/checkout/order-success" component={OrderSuccess} />
-                        {/* Routes placed here are only available if user is an admin */}
                         {
                             isAdmin &&
                             <Switch>
+                                {/* Routes placed here are only available if user is an admin */}
                                 <Route path="/home" component={ManyProducts} />
+                                {/*need to change /home path to go to our admin dashboard if we make one*/}
                                 <Route exact path="/account" component={SingleUser} />
                                 <Route exact path="/orders" component={ManyOrders} />
                                 <Route path="/orders/:orderId" component={SingleOrder} />
                                 <Route exact path="/users" component={ManyUsers} />
                                 <Route path="/users/:userId" component={ViewUser} />
+                                {/*need to add: <Route path="reviews" and render a review component*/}
                             </Switch>
                         }
                         {
@@ -77,8 +79,6 @@ class UserInterface extends Component {
 
 const mapState = (state) => {
     return {
-        // Being 'logged in' for our purposes will be defined has having a state.user that has a truthy id.
-        // Otherwise, state.user will be an empty object, and state.user.id will be falsey
         isLoggedIn: !!state.user.id,
         isAdmin: !!state.user.isAdmin
     }
