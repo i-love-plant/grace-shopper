@@ -61,14 +61,6 @@ class UserInterface extends Component {
                                 <Route exact path="/account" component={SingleUser} />
                                 <Route exact path="/orders" component={ManyOrders} />
                                 {/* <Route path="/orders/:orderId" component={SingleOrder} />*/}
-                                {/* Routes placed here are only available if user is an admin */}
-                                {
-                                    isAdmin &&
-                                        <Switch>
-                                            <Route exact path="/users" component={ManyUsers} />
-                                        </Switch>
-                                }
-
                             </Switch>
                         }
                         {/* Displays our Login component as a fallback */}
