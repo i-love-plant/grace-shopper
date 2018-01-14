@@ -28,8 +28,16 @@ router.post('/', (req, res, next) => {
 
 //to edit an item in the cart
 //will happen from view my cart page
+
+//req.body {changes: {}}
 router.put('/', (req, res, next) => {
-  req.session.cart = req.body.cart
+  let changes = req.body.changes;
+  req.session.cart = req.session.cart.map(item => {
+    if (changes[item.id]) {
+      return Object.assign(item, {cartQuantity: changes[item.id]});
+    }
+    else return item;
+  })
   .filter(cartProduct => cartProduct.cartQuantity > 0);
   res.json(req.session.cart);
 

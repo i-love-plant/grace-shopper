@@ -11,26 +11,39 @@ import {
 class Cart extends Component {
   constructor(props) {
     super(props);
-    this.state = this.props.cartProds || [];
-    // this.handleChange = this.handleChange.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.state = {}
+    this.componentWillReceiveProps = this.componentWillReceiveProps.bind(this);
+
   }
 
   componentDidMount() {
     this.props.loadCartData();
   }
 
-  // handleChange(e, index, newQuantity) {
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.cartProds.length) {
+      let test = nextProps.cartProds.reduce((prev, curr) => {
+        prev[curr.id] = curr.cartQuantity;
+        return prev;
+      },{})
+      this.setState(test);
+    }
+  }
 
-  //   //we have an array of objects
-  //   //want to change the cartQuantity at that index to be the updated quantity
-  // }
+  handleChange(e) {
+    let key = e.target.name;
+    let val = e.target.value;
+    this.props.updateCartQuant({changes: {[key]: val}})
+
+  }
 
   render() {
+
     let cart = this.props.cartProds;
     let cartTotal = this.props.cartTotal;
 
-    const createInvDD = (product, index) => {
-      console.log(product.inventory)
+    const createInvDD = (product) => {
       let inventoryArr = [];
       for (let i = 1; i <= product.inventory; i++) {
         inventoryArr.push(
@@ -42,7 +55,9 @@ class Cart extends Component {
         return (
           <select
             className="form-control"
-
+            name={product.id}
+            value={this.state[product.id]}
+            onChange={this.handleChange}
           >
             {inventoryArr}
           </select>
@@ -63,6 +78,7 @@ class Cart extends Component {
     }
 
     return (
+
       <div>
         <h2>MY CART</h2>
         <table id="cart-table">
@@ -74,7 +90,7 @@ class Cart extends Component {
               <td>Quantity</td>
               <td>Remove</td>
             </tr>
-            {cart.map((product, index) => {
+            {cart.map((product) => {
               return (
                 <tr key={product.id}>
                   <td>
@@ -84,7 +100,7 @@ class Cart extends Component {
                     <Link to={`/products/${product.id}`}>{product.name}</Link>
                   </td>
                   <td>${product.price}</td>
-                  <td>{createInvDD(product, index)}</td>
+                  <td>{createInvDD(product)}</td>
                   <td>
                     <button
                       onClick={() => this.props.removeFromCart({ product })}
@@ -101,12 +117,6 @@ class Cart extends Component {
           <span>TOTAL: ${cartTotal}</span>
         </div>
         <div id="cart-btn-div">
-          <button
-            className="btn btn-secondary"
-            onClick={() => this.props.updateCartQuant(this.state.cart)}
-          >
-            UPDATE CART
-          </button>
           <Link to="/checkout">
             <button className="btn btn-primary">CHECKOUT</button>
           </Link>
@@ -131,8 +141,8 @@ const mapDispatch = (dispatch, ownProps) => {
     removeFromCart(product) {
       dispatch(removeItemFromCart(product));
     },
-    updateCartQuant(cart) {
-      dispatch(updateCartQuantitiesOnServer(cart));
+    updateCartQuant(changes) {
+      dispatch(updateCartQuantitiesOnServer(changes));
     }
   };
 };
