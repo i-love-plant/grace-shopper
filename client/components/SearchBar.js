@@ -74,7 +74,7 @@ class SearchBar extends Component {
                     <form onSubmit={this.handleSearch} id="search-form" className="form-group" style={{ marginTop: '20px' }}>
                         <Autosuggest
                             suggestions={suggestions}
-                            onSuggestionsFetchRequested={this.onSuggestionsFetchRequested} //this bc inside component
+                            onSuggestionsFetchRequested={this.onSuggestionsFetchRequested} //'this' bc inside component
                             onSuggestionsClearRequested={this.onSuggestionsClearRequested}
                             getSuggestionValue={getSuggestionValue}
                             renderSuggestion={renderSuggestion}
