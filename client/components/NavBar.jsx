@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { logout } from '../store'
 
 const NavBar = (props) => {
-    const { handleClick, isLoggedIn, isAdmin } = props
+    const { handleClick, isLoggedIn, isAdmin, userId } = props
 
     let cartListItem = (
         <li className="nav-item">
@@ -36,6 +36,10 @@ const NavBar = (props) => {
                         </li>
                         <li className="nav-item">
                             <Link to="/reviews">Reviews</Link>
+                        </li>
+                        { cartListItem }
+                        <li className="nav-item">
+                            <Link to={`/users/${userId}`}>My Account</Link>
                         </li>
                         <li className="nav-item">
                             <a href="#" onClick={handleClick}>Logout</a>
@@ -77,7 +81,8 @@ const NavBar = (props) => {
 const mapState = (state) => {
     return {
         isLoggedIn: !!state.user.id,
-        isAdmin: !!state.user.isAdmin
+        isAdmin: !!state.user.isAdmin,
+        userId: state.user.id
     }
 }
 

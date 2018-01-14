@@ -33,9 +33,8 @@ const ManyProducts = (props) => {
                     <tr>
                         <td>Name</td>
                         <td>Description</td>
-                        <td>Image</td>
+                        <td> </td>
                         <td>Price</td>
-                        <td>Category</td>
                     </tr>
                     {
                         props.products.map(product => {
@@ -46,18 +45,7 @@ const ManyProducts = (props) => {
                                     <td>
                                         <img src={product.image} className="product-image" />
                                     </td>
-                                    <td>{product.price}</td>
-                                    <td>
-                                        <ul>
-                                            {product.categories.map(category => {
-                                                return (
-                                                    <li key={category.id}>
-                                                        {category.name}
-                                                    </li>
-                                                )
-                                            })}
-                                        </ul>
-                                    </td>
+                                    <td>${product.price}</td>
                                 </tr>
                             )
                         })
