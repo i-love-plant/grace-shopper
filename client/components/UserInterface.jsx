@@ -21,7 +21,7 @@ class UserInterface extends Component {
         this.props.loadInitialData()
         const params = new URLSearchParams(this.props.location.search);
         if (params.has('query')) {
-            this.props.dispatchSearchQuery(params.get('query')) //this method gets whatever follows query in the url
+            this.props.dispatchSearchQuery(params.get('query')) //this method sets the query on the state from what is grabbed in the url
         }
     }
 
