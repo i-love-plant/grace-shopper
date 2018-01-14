@@ -10,15 +10,14 @@ const EDIT_ORDER = 'EDIT_ORDER' //will also be able to change order's status(cre
 const CREATE_ORDER = 'CREATE_ORDER'
 const GET_ORDER = 'GET_ORDER'
 const GET_ORDERS = 'GET_ORDERS'
-const SET_ORDERPRODUCTS = 'SET_ORDERPRODUCTS'
+
 
 /**
 * INITIAL STATE
 */
 const initialOrderState = {
   order: {},
-  orders: [],
-  orderProducts:[]
+  orders: []
 }
 
 /**
@@ -26,7 +25,6 @@ const initialOrderState = {
 */
 const getOrder= order => ({type: GET_ORDER, order})
 const getOrders = orders => ({type: GET_ORDERS, orders})
-const setOrders = orderProducts => ({type: SET_ORDERPRODUCTS, orderProducts})
 
 /**
 * THUNK CREATORS
@@ -68,10 +66,6 @@ export default function (state = initialOrderState, action) {
       return Object.assign({}, state, { order: action.order });
     case GET_ORDERS:
       return Object.assign({}, state, { orders: action.orders });
-
-
-     case SET_ORDERPRODUCTS:
-      return Object.assign({}, state, { orderProducts: action.orderProducts });
     default:
       return state
   }

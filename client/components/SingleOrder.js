@@ -7,17 +7,19 @@ import ReactTable from "react-table";
 
 class SingleOrder extends Component {
 
-  // constructor(props) {
-  //   super(props);
-  //   // this.state = { prod }
-  // }
-
   componentDidMount() {
         this.props.loadInitialData()
   }
 
   render() {
-    const { orders, order, orderProducts } = this.props
+    const { orders, order } = this.props
+    let initialProductData =  order.products? Object.assign( [], order.products): false
+    
+    let productData =  (order.products && initialProductData)? 
+        initialProductData.map((prodObj)=>{
+          return Object.assign({}, prodObj, {priceAtPurchase: prodObj.orderItem.priceAtPurchase}, {quantity:prodObj.orderItem.quantity} )
+        })
+        : false
 
     const orderData = [order]
     const orderColumns= [  
@@ -43,6 +45,18 @@ class SingleOrder extends Component {
                 }
               ]
 
+  // if (order.products && initialProductData) {
+  //     const productData = initialProductData.map((prodObj)=>{
+  //       return Object.assign({}, prodObj, {priceAtPurchase: prodObj.orderItem.priceAtPurchase}, {quantity:prodObj.orderItem.quantity} )
+  //     })
+  // } 
+  // console.log("########- orderItem -############: ", order.products)
+  // (const productData = order.products[0].orderItem)
+  // productData = Object.assign( [], order.products)
+  // console.log(productData)
+  
+  
+
   const productColumns= [  
                 {
                   Header: "Item Name",
@@ -62,59 +76,36 @@ class SingleOrder extends Component {
                 }
               ]
 
-
-// console.log(this.props)
-
-  // debugger
- // let productData 
-
- //  order.products && (
- //    productData = Object.assign({}, order.products[0]
- //  )
-
-    // console.log(productData)
- // = Object.assign({}, order.products.name, order.products.id)
-  
-{order.products &&
-  console.log("########- products -############: ", order.products)
-  console.log("########- ORDER.products[0] -############: ", orderProducts[0])
-  console.log("########- ORDERproducts -############: ", orderProducts)
-  // console.log("########- prod data -############: ", productData)
-  // console.log("########- ORDER.PRODUCTS -############: ", Object.keys(order.products) )
-}
-
-
-
     return (
       <div>
         <h3>Order #: {order.id}</h3>
 
 { 
-  // (order && orders) &&
-  //     <ReactTable
-  //         data={orderData}
-  //         columns={orderColumns}
-  //         defaultPageSize={2}
-  //         minRows={2}
-  //         className="-striped -highlight"
-  //         SubComponent={ row => {
+  (order && productData) &&
+      <ReactTable
+          data={orderData}
+          columns={orderColumns}
+          defaultPageSize={2}
+          minRows={2}
+          className="-striped -highlight"
+          SubComponent={ row => {
             
-  //           return (
+            return (
 
-  //             <div style={{ padding: "20px" }}>
-  //               <em>Your order details:</em>
-  //               <br />
-  //               <ReactTable
-  //                 data={productData}
-  //                 columns={productColumns}
-  //                 defaultPageSize={2}
-  //                 minRows={2}
-  //                 showPagination={false}
-  //               />
-  //             </div>
-  //           )
-  //         }}
-  //       />
+              <div style={{ padding: "20px" }}>
+                <em>Your order details:</em>
+                <br />
+                <ReactTable
+                  data={productData}
+                  columns={productColumns}
+                  defaultPageSize={2}
+                  minRows={2}
+                  showPagination={false}
+                />
+              </div>
+            )
+          }}
+        />
 }
        
       </div>
@@ -132,12 +123,6 @@ const mapState = (state) => {
 
 const mapDispatch = (dispatch, ownProps) => {
   var id= +ownProps.match.params.orderId
-
-// return {
-//          setSelected(obj) { 
-//         dispatch( getCampusById(id) )
-//          }
-//     }
 
   return {
           loadInitialData() {

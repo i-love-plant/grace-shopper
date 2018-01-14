@@ -70,14 +70,6 @@ router.post('/', (req, res, next) => {
         .catch(next)
 });
 
-// testing in Postman without session
-// router.post('/', (req, res, next) => {
-//     Order.create({})
-//         .then(newOrder => newOrder.setUser(1))
-//         .then(newOrder => newOrder.addProduct([1,3]))
-//         .then(newOrder => res.status(201).json(newOrder))
-//         .catch(next)
-// });
 
 router.put('/:orderId', isAdmin, (req, res, next) => {
     Order.findById(req.params.orderId)
