@@ -48,7 +48,7 @@ class SingleProduct extends Component {
     if (isInCart) {
       cartForm = (
         <div>
-        <p>Pssst, I'm already in your cart.</p>
+        <p>Pssst, already in your cart.</p>
         <Link to="/cart">
           {}
           <button type="submit" className="btn btn-primary">
