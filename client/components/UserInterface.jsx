@@ -10,6 +10,7 @@ import Cart from './Cart';
 import Checkout from './Checkout';
 import ManyUsers from './ManyUsers';
 import SingleUser from './SingleUser';
+import ViewUser from './ViewUser';
 import SingleProduct from './SingleProduct';
 import SingleOrder from './SingleOrder';
 import ManyOrders from './ManyOrders';
@@ -51,6 +52,7 @@ class UserInterface extends Component {
                                 <Route exact path="/orders" component={ManyOrders} />
                                 <Route path="/orders/:orderId" component={SingleOrder} />
                                 <Route exact path="/users" component={ManyUsers} />
+                                <Route path="/users/:userId" component={ViewUser} />
                             </Switch>
                         }
                         {

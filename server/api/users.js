@@ -17,6 +17,12 @@ router.post('/', (req, res, next) => {
     .catch(next)
 });
 
+router.get('/:userId', isAdmin, (req, res, next) => {
+	User.findById(req.params.userId)
+		.then(user => res.json(user))
+		.catch(next)
+})
+
 router.delete('/:userId', isAdmin, (req, res, next) => {
   User.destroy({ where: { id: req.params.userId } })
     .then(() => res.status(204))
