@@ -14,17 +14,19 @@ const ManyProducts = (props) => {
         <div>
             <h3>Products: </h3>
             <SearchBar />
-            <select defaultValue={categories.id} name="category" onChange={props.handleCategoryChange}>
-                <option value="-1">Select A Category</option>
-                {
-                    categories.map(category => {
-                        return (
-                            <option key={category.id} value={category.id}>{category.name}
-                            </option>
-                        )
-                    })
-                }
-            </select>
+            <div className="search-control">
+                <select defaultValue={categories.id} name="category" onChange={props.handleCategoryChange}>
+                    <option value="-1">Select A Category</option>
+                    {
+                        categories.map(category => {
+                            return (
+                                <option key={category.id} value={category.id}>{category.name}
+                                </option>
+                            )
+                        })
+                    }
+                </select>
+            </div>
 
             <table id="products-table">
                 <tbody>
