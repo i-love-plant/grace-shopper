@@ -1,14 +1,22 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link, withRouter } from 'react-router-dom'
-import { setSearchQuery, applySearch } from '../store';
+import { setSearchQuery, applySearch, setSuggestions } from '../store';
+import Autosuggest from 'react-autosuggest';
+
+// my list to autosuggest is this.props.allProducts 
 
 class SearchBar extends Component {
-    constructor(props){
+    constructor(props) {
         super(props);
 
         this.handleSearch = this.handleSearch.bind(this);
         this.handleSearchChange = this.handleSearchChange.bind(this);
+        this.getSuggestions = this.getSuggestions.bind(this);
+        this.onSuggestionsFetchRequested = this.onSuggestionsFetchRequested.bind(this);
+        this.onSuggestionsClearRequested = this.onSuggestionsClearRequested.bind(this);
+        this.onSuggestionSelected = this.onSuggestionSelected.bind(this);
+
     }
 
     handleSearch(event) {
@@ -18,26 +26,62 @@ class SearchBar extends Component {
         this.props.dispatchApplySearch();
     }
 
-    handleSearchChange(event) {
-        //already watching the input so we can go directly to the value
-        const query = event.target.value;
+    handleSearchChange(event, { newValue }) {
+        const query = newValue; // Handle some weird Autosuggest behavior because they use this function differently. newValue needs to be named the same because it's the key in the object autosuggest passes in. event.target is the suggestion div so we can't pull the value off of it(see bottom)
         this.props.dispatchSearchQuery(query);
     }
 
+    getSuggestions(value) {
+        const inputValue = value.trim().toLowerCase();
+        const inputLength = inputValue.length;
+        return inputLength === 0 ? [] : this.props.allProducts.filter(product => {
+            return product.name.toLowerCase().includes(inputValue)
+        });
+    }
+
+    onSuggestionsFetchRequested({ value }) {
+        const suggestions = this.getSuggestions(value);
+        this.props.dispatchSetSuggestions(suggestions);
+    }
+
+    onSuggestionsClearRequested() {
+        this.props.dispatchSetSuggestions([]);
+    }
+
+    onSuggestionSelected(event, { suggestion }) {
+        this.props.history.push(`/products/${suggestion.id}`);
+    }
+
     render() {
+        const value = this.props.searchQuery; // ? this.props.searchQuery : '';
+        const suggestions = this.props.searchSuggestions;
+
+        const inputProps = {
+            placeholder: 'Search For A Product',
+            value: value,
+            onChange: this.handleSearchChange,
+            name: 'searchBar'
+        };
+
         const { isLoggedIn, isAdmin } = this.props
         return (
-            <div>
-                <form onSubmit={this.handleSearch} id="search-form" className="form-group" style={{ marginTop: '20px' }}>
-                    <input
-                        onChange={this.handleSearchChange}
-                        name="searchBar"
-                        value={this.props.searchQuery}
-                        // className='form-control'
-                        placeholder="Search For A Product"
-                    />
-                </form>
-                <button type="submit" form="search-form">Search</button>
+            <div className="search-control">
+                <div className="search-control">
+                    <form onSubmit={this.handleSearch} id="search-form" className="form-group" style={{ marginTop: '20px' }}>
+                        <Autosuggest
+                            suggestions={suggestions}
+                            onSuggestionsFetchRequested={this.onSuggestionsFetchRequested} //this bc inside component
+                            onSuggestionsClearRequested={this.onSuggestionsClearRequested}
+                            getSuggestionValue={getSuggestionValue}
+                            renderSuggestion={renderSuggestion}
+                            inputProps={inputProps}
+                            onSuggestionSelected={this.onSuggestionSelected}
+                        />
+                    </form>
+                </div>
+                <div className="search-control">
+                    <button type="submit" form="search-form">Search</button>
+                </div>
             </div>
         )
     }
@@ -48,7 +92,9 @@ class SearchBar extends Component {
  */
 const mapState = (state) => {
     return {
-        searchQuery: state.product.searchQuery
+        searchQuery: state.product.searchQuery,
+        allProducts: state.product.allProducts,
+        searchSuggestions: state.product.searchSuggestions
     }
 }
 
@@ -59,9 +105,24 @@ const mapDispatch = (dispatch) => {
         },
         dispatchApplySearch() {
             dispatch(applySearch());
+        },
+        dispatchSetSuggestions(suggestions) {
+            dispatch(setSuggestions(suggestions));
         }
     }
 }
+
+// aux functions
+
+const getSuggestionValue = suggestion => {
+    return suggestion.name;
+};
+
+const renderSuggestion = suggestion => (
+    <div>
+        {suggestion.name}
+    </div>
+);
 
 
 export default withRouter(connect(mapState, mapDispatch)(SearchBar));
