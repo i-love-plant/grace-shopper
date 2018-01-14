@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link, withRouter } from 'react-router-dom'
-import { setSearchQuery, applySearch } from '../store';
+import { setSearchQuery, applySearch, setSuggestions } from '../store';
 import Autosuggest from 'react-autosuggest';
 
 // my list to autosuggest is this.props.allProducts 
@@ -12,6 +12,10 @@ class SearchBar extends Component {
 
         this.handleSearch = this.handleSearch.bind(this);
         this.handleSearchChange = this.handleSearchChange.bind(this);
+        this.getSuggestions = this.getSuggestions.bind(this);
+        this.onSuggestionsFetchRequested = this.onSuggestionsFetchRequested.bind(this);
+
+        
     }
 
     handleSearch(event) {
@@ -34,11 +38,10 @@ class SearchBar extends Component {
             product.name.toLowerCase().slice(0, inputLength) === inputValue
         );
     }
-    onSuggestionsFetchRequested = ({ value }) => {
-        this.setState({
-          suggestions: getSuggestions(value)
-        });
-      };
+    onSuggestionsFetchRequested({ value }) {
+        const suggestions = this.getSuggestions(value);
+        this.props.dispatchSetSuggestions(suggestions)
+    }
 
     render() {
         const { isLoggedIn, isAdmin } = this.props
@@ -65,7 +68,8 @@ class SearchBar extends Component {
 const mapState = (state) => {
     return {
         searchQuery: state.product.searchQuery,
-        allProducts: state.product.allProducts
+        allProducts: state.product.allProducts,
+        searchSuggestions: state.product.searchSuggestions
     }
 }
 
@@ -76,6 +80,9 @@ const mapDispatch = (dispatch) => {
         },
         dispatchApplySearch() {
             dispatch(applySearch());
+        },
+        dispatchSetSuggestions(suggestions) {
+            dispatch(setSuggestions(suggestions));
         }
     }
 }

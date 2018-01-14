@@ -136,6 +136,9 @@ export default function (state = initialProductsState, action) {
             return Object.assign({}, state, { visibleProducts: filteredProducts });
         }
 
+        case SET_SUGGESTIONS:
+            return Object.assign({}, state, { searchSuggestions: action.suggestions }); 
+
         default:
             return state
     }
