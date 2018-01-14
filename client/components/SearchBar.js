@@ -2,9 +2,12 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link, withRouter } from 'react-router-dom'
 import { setSearchQuery, applySearch } from '../store';
+import Autosuggest from 'react-autosuggest';
+
+// my list to autosuggest is this.props.allProducts 
 
 class SearchBar extends Component {
-    constructor(props){
+    constructor(props) {
         super(props);
 
         this.handleSearch = this.handleSearch.bind(this);
@@ -23,6 +26,19 @@ class SearchBar extends Component {
         const query = event.target.value;
         this.props.dispatchSearchQuery(query);
     }
+
+    getSuggestions(value) {
+        const inputValue = value.trim().toLowerCase();
+        const inputLength = inputValue.length;
+        return inputLength === 0 ? [] : this.props.allProducts.filter(product =>
+            product.name.toLowerCase().slice(0, inputLength) === inputValue
+        );
+    }
+    onSuggestionsFetchRequested = ({ value }) => {
+        this.setState({
+          suggestions: getSuggestions(value)
+        });
+      };
 
     render() {
         const { isLoggedIn, isAdmin } = this.props
@@ -48,7 +64,8 @@ class SearchBar extends Component {
  */
 const mapState = (state) => {
     return {
-        searchQuery: state.product.searchQuery
+        searchQuery: state.product.searchQuery,
+        allProducts: state.product.allProducts
     }
 }
 
@@ -62,6 +79,16 @@ const mapDispatch = (dispatch) => {
         }
     }
 }
+
+// aux functions
+
+const getSuggestionValue = suggestion => suggestion.name;
+
+const renderSuggestion = suggestion => (
+    <div>
+        {suggestion.name}
+    </div>
+);
 
 
 export default withRouter(connect(mapState, mapDispatch)(SearchBar));
