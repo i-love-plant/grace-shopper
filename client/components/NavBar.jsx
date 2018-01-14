@@ -25,7 +25,7 @@ const NavBar = (props) => {
                             <a href="#" onClick={handleClick}>Logout</a>
                         </li>
                         <li className="nav-item">
-                            <Link to="/home">My Account</Link>
+                            <Link to="/account">My Account</Link>
                         </li>
                         { cartListItem }
                     </ul>
