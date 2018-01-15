@@ -67,7 +67,7 @@ router.get("/:orderId", (req, res, next) => {
 router.post("/", (req, res, next) => {
   let { orderTotal, orderProds, orderEmail, orderAddress, orderToken } = req.body;
   let userId = req.user ? req.user.id : null;
-  Order.create({ orderTotal, userId })
+  Order.create({ orderTotal, userId, orderEmail, orderAddress })
   .then(newOrder => {
     let orderId = newOrder.id;
     let orderItemArr = orderProds.map(prod => {
