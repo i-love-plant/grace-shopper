@@ -63,12 +63,16 @@ router.get('/:orderId', (req, res, next) => {
 
 
 router.post('/', (req, res, next) => {
+  // need to get these and more off req.body
+  //need to update model and seed file to reflect these additions
+  //let {orderTotal, orderEmail} = req.body;
+
     Order.create({})
         .then(newOrder => newOrder.setUser(1))
         .then(newOrder => {
             return OrderItem.create(
-                {price: 5, 
-                cartQuantity: 2, 
+                {price: 5,
+                cartQuantity: 2,
                 orderId: newOrder.id,
                 productId: 3
                 }
@@ -82,6 +86,8 @@ router.post('/', (req, res, next) => {
         // // .then(newOrder => newOrder.addProduct(req.session.cart))
         // .then(newOrder => res.status(201).json(newOrder))
         .catch(next)
+  }
+  }
 });
 
 

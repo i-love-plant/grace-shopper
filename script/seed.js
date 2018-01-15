@@ -35,7 +35,7 @@ const users = [
 const products = [
   {name: 'Pothos',
    price: 10,
-   inventory: 50,
+   inventory: 12,
    description: 'Easy to care for. Easy to love. Grows quickly.'
     },
     {name: 'Aloe Vera',
@@ -60,7 +60,7 @@ const products = [
     },
     {name: 'Monstera',
    price: 85,
-   inventory: 11,
+   inventory: 30,
    description: 'Bloggers love me.'
     }
 ]

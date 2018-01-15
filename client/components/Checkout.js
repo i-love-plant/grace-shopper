@@ -3,7 +3,7 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import Cart from './Cart';
 import { connect } from "react-redux";
-import {deleteCartOnServer} from "../store";
+import {deleteCartOnServer, createOrderOnServer} from "../store";
 
 import StripeCheckout from 'react-stripe-checkout';
 
@@ -11,10 +11,10 @@ import StripeCheckout from 'react-stripe-checkout';
 
 // Publishable key
 // pk_test_XrOXnFf7FJ2AkUns81CnVFLq
-// — Jan 14, 2018  
+// — Jan 14, 2018
 // Secret key
 // sk_test_LbSjgTqFQqLjRWjcElwiqPPY
-// — Jan 14, 2018  
+// — Jan 14, 2018
 // Restricted API keys
 
 
@@ -50,6 +50,7 @@ class Checkout extends Component {
 
     <div>
       <Cart />
+      <button>PLACE MY ORDER</button>
       {
         // <div className="form order-form" onSubmit={(evt) => this.props.handleOrderSubmit}>
         //   <div className="form-group">
@@ -69,7 +70,7 @@ class Checkout extends Component {
           //   stripeKey={pk_test_XrOXnFf7FJ2AkUns81CnVFLq}
           // />
  }
-    
+
     </div>
     )
   }
@@ -101,6 +102,7 @@ const mapDispatch = (dispatch, ownProps) => {
     handleOrderSubmit(info, e) {
       e.preventDefault();
       //also need to dispatch order creation
+      dispatch()
       dispatch(deleteCartOnServer())
     }
 
