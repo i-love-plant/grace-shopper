@@ -66,9 +66,9 @@ export function deleteUser(userId, history) {
   };
 }
 
-export function updateUser(userId, history) {
+export function updateUser(userId, data, history) {
   return function thunk(dispatch) {
-    return axios.put(`/api/users/${userId}`)
+    return axios.put(`/api/users/${userId}`, data)
       .then(res => res.data)
       .then(user => {
         const action = updateSingleUser(user);
