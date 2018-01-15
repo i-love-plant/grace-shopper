@@ -145,6 +145,14 @@ header li {
   margin-bottom: 40px;
 }
 
+#review-title {
+  font-size: 26px; 
+}
+
+#reviews-list {
+  list-style-type: none;
+}
+
 #cart-table {
   width: 45%;
   margin-left: auto;
