@@ -22,6 +22,7 @@ class ManyUsers extends Component {
               <th>User</th>
               <th>Name</th>
               <th>E-mail</th>
+              <th>Admin</th>
             </tr>
           </thead>
           <tbody>
@@ -32,6 +33,7 @@ class ManyUsers extends Component {
                 <td><Link to={`/users/${user.id}`}>View Profile</Link></td>
                 <td>{user.name}</td>
                 <td>{user.email}</td>
+                <td>{`${user.isAdmin}`}</td>
                 </tr>
               )
             })
