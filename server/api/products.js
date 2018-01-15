@@ -54,20 +54,6 @@ router.get('/:productId', (req, res, next) => {
         .catch(next)
 });
 
-// ---------------OLD ROUTE FOR ADDING TO CART TO BE DELETED SOON---------------
-// this route (api/products/:productId) adds an object to the cart
-// we still need a way to add quantity of items to cart
-// req.params.quantity --->from a FORM
-// router.post('/:productId', (req, res, next) => {
-//     Product.findById(req.params.productId)
-//         .then(product => {
-//             req.session.cart.push(product)
-//             res.end()
-//         })
-//         .catch(next)
-// })
-// ---------------OLD ROUTE FOR ADDING TO CART TO BE DELETED SOON---------------
-
 router.put('/:productId', isAdmin, (req, res, next) => {
     Product.findById(req.params.productId)
         .then(product => product.update(req.body))
