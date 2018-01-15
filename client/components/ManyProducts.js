@@ -46,32 +46,6 @@ const ManyProducts = (props) => {
                     })
                 }
             </div>
-
-            <table id="products-table">
-                <tbody>
-                    <tr>
-                        <td>Name</td>
-                        <td>Description</td>
-                        <td> </td>
-                        <td>Price</td>
-                    </tr>
-                    {
-                        props.products.map(product => {
-                            return (
-                                <tr key={product.id}>
-                                    <td><Link to={`/products/${product.id}`}>{product.name}</Link></td>
-                                    <td>{product.description}</td>
-                                    <td>
-                                        <img src={product.image} className="product-image" />
-                                    </td>
-                                    <td>${product.price}</td>
-                                </tr>
-                            )
-                        })
-                    }
-                </tbody>
-
-
         </div>
     );
 };
