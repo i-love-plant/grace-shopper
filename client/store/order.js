@@ -62,6 +62,20 @@ export function fetchOrder(orderId) {
   }
 
 
+
+export function editOrder(orderId) {
+  return function thunk (dispatch) {
+    return axios.put(`/api/orders/${orderId}`)
+      .then(res => res.data)
+      .then(order => {
+        const action = getOrder(order)
+        dispatch(action)
+      })
+      .catch(err => console.log(err))
+    }
+  }
+
+
 export function createOrderOnServer(orderInfo, history) {
   return function thunk(dispatch) {
     return axios.post('/api/orders', orderInfo)

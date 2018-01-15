@@ -2,7 +2,7 @@
 import React, { Component } from "react";
 import { Link, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-import { fetchOrder, fetchOrders} from "../store";
+import { fetchOrder, fetchOrders, editOrder} from "../store";
 import ReactTable from "react-table";
 
 class SingleOrder extends Component {
@@ -13,8 +13,12 @@ class SingleOrder extends Component {
 
   render() {
     const { orders, order } = this.props
-    let initialProductData =  order.products? Object.assign( [], order.products): false
 
+    const isLoggedIn = this.props.isLoggedIn;
+    const isAdmin = this.props.isAdmin;
+
+
+    let initialProductData =  order.products? Object.assign( [], order.products): false
     let productData =  (order.products && initialProductData)?
         initialProductData.map((prodObj)=>{
           return Object.assign({}, prodObj, {priceAtPurchase: prodObj.orderItem.priceAtPurchase}, {quantity:prodObj.orderItem.quantity} )
@@ -104,7 +108,7 @@ class SingleOrder extends Component {
                   getTdProps={(state, rowInfo, column, instance) => {
                     return {
                       onClick: (e, handleOriginal) => {
-                      // window.location.href= `/products/${rowInfo.original.id}`;
+                      window.location.href= `/products/${rowInfo.original.id}`;
                         if (handleOriginal) {
                           handleOriginal()
                         }
@@ -112,6 +116,15 @@ class SingleOrder extends Component {
                     }
                   }}
                 />
+
+                {
+                    isAdmin?
+                    <button onClick={e=>this.props.handleEditOrder(e, order.id)}type="button" id="edit-order">Edit Order</button>
+                    :
+                    <button type="button" id="cancel-order">Cancel Order</button>
+                    // <button onClick={this.props.handleCancel}type="button" id="cancel-order">Cancel Order</button>
+                }
+                   
               </div>
             )
           }}
@@ -127,7 +140,9 @@ const mapState = (state) => {
   return {
     order: state.order.order,
     orders: state.order.orders,
-    orderProducts: state.order.orders.products
+    orderProducts: state.order.orders.products,
+    isLoggedIn: !!state.user.id,
+    isAdmin: !!state.user.isAdmin
   }
 };
 
@@ -138,8 +153,13 @@ const mapDispatch = (dispatch, ownProps) => {
           loadInitialData() {
               dispatch(fetchOrder(id))
               dispatch(fetchOrders())
+          }, 
+          handleEditOrder(e, orderid){
+            e.preventdefault()
+            dispatch(editOrder(orderid))
           }
   }
+
 };
 
 const SingleOrderContainer = withRouter(connect(mapState, mapDispatch)(SingleOrder));
