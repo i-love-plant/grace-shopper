@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import {connect} from 'react-redux'
-import { fetchUser, fetchOrders } from '../store'
+import { fetchUser, deleteUser, fetchOrders } from '../store'
 import { withRouter, Link } from 'react-router-dom'
 
 /**
@@ -24,6 +24,9 @@ class ViewUser extends Component {
   }
 }
 
+//<button onClick={(user) => this.props.deleteUser(user)}>Remove This User</button>
+
+
 /**
  * CONTAINER
  */
@@ -38,6 +41,7 @@ const mapDispatch = (dispatch, ownProps) => {
     loadInitialData() {
       const userThunk = fetchUser(ownProps.match.params.userId)
       dispatch(userThunk)
+      //dispatch(deleteUser(ownProps.match.params.userId))
     }
   }
 }

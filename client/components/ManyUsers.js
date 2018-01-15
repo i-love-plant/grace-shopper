@@ -19,6 +19,7 @@ class ManyUsers extends Component {
         <table id="users-table">
           <thead>
             <tr>
+              <th>User</th>
               <th>Name</th>
               <th>E-mail</th>
             </tr>
@@ -28,7 +29,8 @@ class ManyUsers extends Component {
             this.props.users.map(user => {
               return (
                 <tr key={user.id}>
-                <td><Link to={`/users/${user.id}`}>{user.name}</Link></td>
+                <td><Link to={`/users/${user.id}`}>View Profile</Link></td>
+                <td>{user.name}</td>
                 <td>{user.email}</td>
                 </tr>
               )
@@ -40,13 +42,6 @@ class ManyUsers extends Component {
     )
   }
 }
-
-/**
- * NOTE: admin can view all users
- * - add to NavBar as "Users" (Admin Only)
- * - add link functionality: redirect to ViewUser component
- * - admin should be able to delete users
- */
 
 /**
  * CONTAINER
