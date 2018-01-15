@@ -15,6 +15,7 @@ import SingleProduct from './SingleProduct';
 import SingleOrder from './SingleOrder';
 import ManyOrders from './ManyOrders';
 import NewReviewEntry from './NewReviewEntry'
+import EditProduct from './EditProduct';
 //import { URLSearchParams } from 'url';
 
 
@@ -58,6 +59,7 @@ class UserInterface extends Component {
                                 <Route path="/orders/:orderId" component={SingleOrder} />
                                 <Route exact path="/users" component={ManyUsers} />
                                 <Route path="/users/:userId" component={ViewUser} />
+                                <Route path="/products/:productId/edit" component={EditProduct} />
                                 {/*need to add: <Route path="reviews" and render a review component*/}
                             </Switch>
                         }
