@@ -41,15 +41,6 @@ class CartCheckout extends Component {
       });
     });
   }
-// OTHER EXAMPLE:
-// Publishable key
-// pk_test_XrOXnFf7FJ2AkUns81CnVFLq
-
-// Secret key
-// sk_test_LbSjgTqFQqLjRWjcElwiqPPY
-// const successPayment = data => {
-//   alert('Payment Successful');
-// };
 
 // const errorPayment = data => {
 //   alert('Payment Error');
@@ -71,21 +62,24 @@ render() {
     let orderInfoObj = {orderProds: this.props.cartProds, orderTotal: this.props.cartTotal};
     console.log('ORDERINFO', orderInfoObj)
 
+        // FROM POST ORDERS ROUTE:
+        // let { orderTotal, orderProds, orderEmail, orderAddress, orderToken } = req.body;
     return (
-      <div>
+      <div className="container">
         <Cart />
         <div className="form order-form" onSubmit={(evt) => this.props.handleOrderSubmit}>
           <div className="form-group">
             <label htmlFor="address">SHIPPING ADDRESS</label>
-            <input className="form-control" name="address" id="addressI" onChange={this.handleChange} value={this.state.address} placeholder="Your address"></input>
+            <input className="form-control" className="col-xs" name="address" id="addressI" onChange={this.handleChange} value={this.state.address} placeholder="Your address"></input>
             <label htmlFor="address">EMAIL</label>
-            <input className="form-control" name="email" id="emailI" onChange={this.handleChange} value={this.state.email} placeholder="Your email"></input>
+            <input className="form-control" className="col-xs" name="email" id="emailI" onChange={this.handleChange} value={this.state.email} placeholder="Your email"></input>
           </div>
         </div>
   
         <StripeCheckout
           name="I LOVE PLANT"
           description= "Buy plant now!"
+          image="https://year3french.wikispaces.com/file/view/icon-seedling.png/189935014/icon-seedling.png"
           token={this.onToken}
           stripeKey="pk_test_XrOXnFf7FJ2AkUns81CnVFLq"
         />  

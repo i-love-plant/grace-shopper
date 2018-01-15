@@ -101,6 +101,16 @@ class SingleOrder extends Component {
                   defaultPageSize={2}
                   minRows={2}
                   showPagination={false}
+                  getTdProps={(state, rowInfo, column, instance) => {
+                    return {
+                      onClick: (e, handleOriginal) => {
+                      // window.location.href= `/products/${rowInfo.original.id}`;
+                        if (handleOriginal) {
+                          handleOriginal()
+                        } 
+                      }
+                    }
+                  }}
                 />
               </div>
             )

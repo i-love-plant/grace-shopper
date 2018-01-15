@@ -13,6 +13,12 @@ const app = express()
 const socketio = require('socket.io')
 module.exports = app
 
+// Stripe stuff...
+const keyPublishable = 'pk_test_XrOXnFf7FJ2AkUns81CnVFLq'
+const keySecret = process.env.SECRET_KEY;
+const stripe = require("stripe")(keySecret);
+
+
 /**
  * In your development environment, you can keep all of your
  * app's secret API keys in a file called `secrets.js`, in your project

@@ -44,12 +44,25 @@ export class ManyOrders extends Component {
           columns={columns}
           defaultPageSize={10}
           minRows={1}
+          getTdProps={(state, rowInfo, column, instance) => {
+            return {
+              onClick: (e, handleOriginal) => {
+              
+                // console.log('It was in this row:', rowInfo.original.id)
+               
+                window.location.href= `/orders/${rowInfo.original.id}`;
+
+                if (handleOriginal) {
+                  handleOriginal()
+                }
+              }
+            }
+          }}
         />
       </div>
     )
   }
 }
-
 
 const mapState = (state) => {
   return {

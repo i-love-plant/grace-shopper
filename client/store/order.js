@@ -59,20 +59,7 @@ export function fetchOrder(orderId) {
     }
   }
 
-<<<<<<< HEAD
-export function makeOrder(cart) {
-  return function thunk (dispatch) {
-    return axios.post(`/api/orders/`, cart) 
-      .then(res => res.data)
-      .then(order => {
-        const action = getOrder(order)
-        dispatch(action)
-      })
-      .catch(err => console.log(err))
-    }
-  }
 
-=======
 export function createOrderOnServer(orderInfo, history) {
   return function thunk(dispatch) {
     return axios.post('/api/orders', orderInfo)
@@ -87,7 +74,6 @@ export function createOrderOnServer(orderInfo, history) {
 
 }
 
->>>>>>> master
 /**
 * REDUCER
 */
