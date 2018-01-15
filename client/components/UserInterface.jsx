@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { withRouter, Link, Route, Switch } from 'react-router-dom'
-import { me, fetchProducts, fetchCategories, setSearchQuery } from '../store'
+import { me, fetchProducts, fetchCategories, setSearchQuery, fetchReviews } from '../store'
 import { Login, Signup, UserHome, NavBar } from './'
 import ManyProducts from './ManyProducts';
 // import { NavBar } from './components/NavBar.jsx'
@@ -90,6 +90,7 @@ const mapDispatch = (dispatch) => {
             dispatch(me())
             dispatch(fetchProducts())
             dispatch(fetchCategories())
+            dispatch(fetchReviews())
         },
         dispatchSearchQuery(search) {
             dispatch(setSearchQuery(search));

@@ -19,7 +19,7 @@ const SET_SUGGESTIONS = 'SET_SUGGESTIONS';
 const initialProductsState = {
     allProducts: [],
     visibleProducts: [],
-    currentProduct: { reviews: [] },
+    currentProduct: {  },
     categories: [],
     selectedCategory: {},
     searchQuery: '',

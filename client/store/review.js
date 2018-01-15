@@ -5,7 +5,7 @@ import history from '../history'
  * ACTION TYPES
  */
 const GET_REVIEWS = 'GET_REVIEWS';
-const ADD_NEW_REVIEW = "ADD_NEW_REVIEW";
+const ADD_NEW_REVIEW = 'ADD_NEW_REVIEW';
 
 
 /**
@@ -46,7 +46,7 @@ export function postReview(review, history) {
                 const action = addNewReview(newReview);
                 dispatch(action);
                 // do we want to be taken back to that single product page to view the review?
-                history.push('/');
+                history.push(`/products/${newReview.productId}`);
             })
             .catch(error => console.log(error));
     };

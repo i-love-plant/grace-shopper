@@ -105,7 +105,7 @@ class SingleProduct extends Component {
                     </ul>
                     <ul>Reviews:
             {
-                            product.reviews.map(review => {
+                            this.props.reviews.map(review => {
                                 return (
                                     <li key={review.id}> {review.content} {review.rating} Stars</li>
                                 )
@@ -130,7 +130,10 @@ class SingleProduct extends Component {
 const mapState = state => {
     return {
         productData: state.product.currentProduct,
-        cartProds: state.cart.cartProds
+        cartProds: state.cart.cartProds, 
+        reviews: state.review.allReviews.filter(review => {
+            return review.productId === state.product.currentProduct.id;
+        })
     };
 };
 

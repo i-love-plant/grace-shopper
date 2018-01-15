@@ -29,10 +29,10 @@ class NewReviewEntry extends Component {
                 </div>
                 <select defaultValue="" name="rating">
                     <option value="1">1</option>
-                    <option value="1">2</option>
-                    <option value="1">3</option>
-                    <option value="1">4</option>
-                    <option value="1">5</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
 
                 </select>
                 <div className="form-group">
@@ -60,7 +60,8 @@ const mapDispatch = (dispatch, ownProps) => {
             event.preventDefault();
             const reviewData = {
                 content: event.target.reviewContent.value,
-                rating: event.target.rating.value
+                rating: event.target.rating.value,
+                productId: ownProps.match.params.productId
             }
             const history = ownProps.history;
             dispatch(postReview(reviewData, history));

@@ -15,7 +15,11 @@ router.get('/', isAdmin, (req, res, next) => {
 
 // will need to only allow loggedin users to post a review
 router.post('/', (req, res, next) => {
-    Review.create(req.body)
+    let reviewData = req.body;
+    if (req.user) {
+        reviewData.userId = req.user.id
+    }
+    Review.create(reviewData)
     .then(newReview => res.status(201).json(newReview))
     .catch(next)
 });
