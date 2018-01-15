@@ -103,11 +103,14 @@ class SingleProduct extends Component {
                         <li>${product.price}</li>
                         <li>{product.description}</li>
                     </ul>
-                    <ul>Reviews:
+                    <ul id="reviews-list">
+                        <div id="review-title">Reviews:</div>
             {
                             this.props.reviews.map(review => {
+                                let reviewStars = review.rating === 1 ? `${review.rating} Star` : `${review.rating} Stars`
+
                                 return (
-                                    <li key={review.id}> {review.content} {review.rating} Stars</li>
+                                    <li key={review.id}> {review.content} {reviewStars}</li>
                                 )
                             })
                         }
