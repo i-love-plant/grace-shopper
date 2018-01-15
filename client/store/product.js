@@ -156,8 +156,21 @@ export default function (state = initialProductsState, action) {
             const remainingProductsArray = state.allProducts.filter(product => {
                 return product.id !== productId;
             });
-            return Object.assign({}, state, { allProducts: remainingProductsArray });
+            return Object.assign({}, state, { allProducts: remainingProductsArray, visibleProducts: remainingProductsArray });
         }
+
+
+        // this is what the delete product should-ish look like to also delete reviews
+        // case DELETE_PRODUCT: {
+        //     const productId = action.productId;
+        //     const remainingProductsArray = state.allProducts.filter(product => {
+        //         return product.id !== productId;
+        //     });
+        //     const remainingReviewsArray = state.review.allReviews.filter(review => {
+        //         return review.product.id !== productId;
+        //     })
+        //     return Object.assign({}, state, { allProducts: remainingProductsArray,  });
+        // }
 
         default:
             return state
