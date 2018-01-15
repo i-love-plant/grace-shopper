@@ -145,12 +145,33 @@ header li {
   margin-bottom: 40px;
 }
 
+#product-name {
+  margin-bottom: 20px;
+  font-size: 30px;
+}
+
 #review-title {
   font-size: 26px; 
 }
 
 #reviews-list {
   list-style-type: none;
+}
+
+#add-review {
+  height: 30px;
+  padding: 2px 8px;
+  font-family: Helvetica, sans-serif;
+  font-weight: 300;
+  font-size: 16px;
+  border: 1px solid #aaa;
+  border-radius: 4px;
+  color: black;
+  margin-right: 14px;
+  margin-left: 37px;
+  z-index: 1;
+  position: relative;
+  background-color: white;
 }
 
 #cart-table {

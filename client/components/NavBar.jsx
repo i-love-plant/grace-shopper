@@ -26,20 +26,14 @@ const NavBar = (props) => {
                             <Link to="/">Home</Link>
                         </li>
                         <li className="nav-item">
-                            <Link to="/products">Products</Link>
-                        </li>
-                        <li className="nav-item">
                             <Link to="/users">Users</Link>
                         </li>
                         <li className="nav-item">
                             <Link to="/orders">Orders</Link>
                         </li>
-                        <li className="nav-item">
-                            <Link to="/reviews">Reviews</Link>
-                        </li>
                         { cartListItem }
                         <li className="nav-item">
-                            <Link to={`/users/${userId}`}>My Account</Link>
+                            <Link to={"/account"}>My Account</Link>
                         </li>
                         <li className="nav-item">
                             <a href="#" onClick={handleClick}>Logout</a>

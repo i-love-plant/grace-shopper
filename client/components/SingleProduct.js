@@ -10,6 +10,7 @@ import {
  * COMPONENT
  */
 class SingleProduct extends Component {
+
     constructor(props) {
         super(props);
         this.state = { quantity: 1 };
@@ -28,7 +29,7 @@ class SingleProduct extends Component {
 
     render() {
         const product = this.props.productData;
-
+        const isLoggedIn = this.props.isLoggedIn;
         //getting inventory array for dropdown menu:
         let inventoryArr = [];
         for (let i = 1; i <= product.inventory; i++) {
@@ -95,7 +96,7 @@ class SingleProduct extends Component {
         return (
             <div>
                 <div>
-                    <h3>{product.name}</h3>
+                    <div id="product-name">{product.name}</div>
                     <ul id="single-product-info">
                         <li>
                             <img src={product.image} className="product-image" />
@@ -115,11 +116,17 @@ class SingleProduct extends Component {
                             })
                         }
                     </ul>
+                    {
+                        isLoggedIn &&
+                    
+ 
                     <button type="button" id="add-review">
                         <Link to={`/reviews/new-review/${product.id}`}>
                             Add a Review
                         </Link>
                     </button>
+                    }
+                    
                 </div>
                 {cartForm}
             </div>
@@ -136,7 +143,8 @@ const mapState = state => {
         cartProds: state.cart.cartProds, 
         reviews: state.review.allReviews.filter(review => {
             return review.productId === state.product.currentProduct.id;
-        })
+        }),
+        isLoggedIn: !!state.user.id
     };
 };
 
