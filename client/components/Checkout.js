@@ -16,7 +16,6 @@ class CartCheckout extends Component {
   handleChange(e) {
     let key = e.target.name;
     let val = e.target.value;
-    console.log(this.state);
     this.setState({[key]: val});
   }
 
