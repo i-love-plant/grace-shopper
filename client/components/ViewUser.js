@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import {connect} from 'react-redux'
-import { fetchUser, deleteUser } from '../store'
+import { fetchUser, deleteUser, updateUser } from '../store'
 import { withRouter, Link } from 'react-router-dom'
 
 /**
@@ -20,6 +20,7 @@ class ViewUser extends Component {
         <h5>E-mail: { user.email }</h5>
         <h5>Address: { user.address } </h5>
         <button onClick={this.props.handleRemove}>Remove This User</button>
+        <button onClick={this.props.handleUpdate}>Promote User to Admin</button>
       </div>
     )
   }
@@ -43,6 +44,11 @@ const mapDispatch = (dispatch, ownProps) => {
     handleRemove(event) {
       event.preventDefault();
       dispatch(deleteUser(+ownProps.match.params.userId, ownProps.history))
+    },
+    handleUpdate(event) {
+      event.preventDefault();
+      const updatedData = { isAdmin: true }
+      dispatch(updateUser(+ownProps.match.params.userId, ownProps.history))
     }
   }
 }

@@ -20,7 +20,6 @@ class SingleUser extends Component {
         <h3>Name: { name }</h3>
         <h5>E-mail: { email }</h5>
         <h5>Address: { address }</h5>
-        <h5>Orders: </h5>
         {/*<table id="users-table">
                 <thead>
                   <tr>

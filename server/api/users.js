@@ -21,7 +21,14 @@ router.get('/:userId', isAdmin, (req, res, next) => {
 	User.findById(req.params.userId)
 		.then(user => res.json(user))
 		.catch(next)
-})
+});
+
+router.put('/:userId', isAdmin, (req, res, next) => {
+  User.findById(req.params.userId)
+    .then(user => user.update(req.body))
+    .then(updatedUser => res.json(updatedUser))
+    .catch(next)
+});
 
 router.delete('/:userId', isAdmin, (req, res, next) => {
   User.destroy({ where: { id: req.params.userId } })
