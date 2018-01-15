@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import {connect} from 'react-redux'
 import { fetchOrders } from '../store'
+import ManyOrders from './ManyOrders';
 import { withRouter, Link } from 'react-router-dom'
 
 // /**
@@ -20,28 +21,29 @@ class SingleUser extends Component {
         <h5>E-mail: { email }</h5>
         <h5>Address: { address }</h5>
         <h5>Orders: </h5>
-        <table id="users-table">
-        <thead>
-          <tr>
-            <th>Order Status</th>
-            <th>Address</th>
-            <th>Created At</th>
-          </tr>
-        </thead>
-        <tbody>
-        {
-          orders.map(order => {
-            return (
-              <tr key={order.id}>
-              <td>{order.orderStatus}</td>
-              <td>{order.address}</td>
-              <td>{order.createdAt}</td>
-              </tr>
-            )
-          })
-        }
-        </tbody>
-      </table>
+        {/*<table id="users-table">
+                <thead>
+                  <tr>
+                    <th>Order Status</th>
+                    <th>Address</th>
+                    <th>Created At</th>
+                  </tr>
+                </thead>
+                <tbody>
+                {
+                  orders.map(order => {
+                    return (
+                      <tr key={order.id}>
+                      <td>{order.orderStatus}</td>
+                      <td>{order.address}</td>
+                      <td>{order.createdAt}</td>
+                      </tr>
+                    )
+                  })
+                }
+                </tbody>
+              </table>*/}
+              <ManyOrders />
       </div>
     )
   }

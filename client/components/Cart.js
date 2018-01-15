@@ -38,7 +38,7 @@ class Cart extends Component {
   }
 
   render() {
-
+    let isInCheckout = this.props.isInCheckout;
     let cart = this.props.cartProds;
     let cartTotal = this.props.cartTotal;
 
@@ -115,11 +115,11 @@ class Cart extends Component {
         <div id="total-span">
           <span>TOTAL: ${cartTotal}</span>
         </div>
-        <div id="cart-btn-div">
-          <Link to="/checkout">
-            <button className="btn btn-primary">CHECKOUT</button>
-          </Link>
-        </div>
+        {!isInCheckout && (<div id="cart-btn-div">
+                  <Link to="/checkout">
+                    <button className="btn btn-primary">CHECKOUT</button>
+                  </Link>
+                </div>)}
       </div>
     );
   }
