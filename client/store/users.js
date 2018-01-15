@@ -6,6 +6,7 @@ import history from '../history'
  */
 const GET_USERS = 'GET_USERS'
 const GET_SINGLE_USER = 'GET_SINGLE_USER'
+const REMOVE_SINGLE_USER = 'REMOVE_SINGLE_USER'
 
 /**
  * INITIAL STATE
@@ -19,33 +20,46 @@ const initialState = {
  * ACTION CREATORS
  */
 const getUsers = users => ({ type: GET_USERS, users })
-const getSingleUser = user => ({ type: GET_SINGLE_USER, user });
+const getSingleUser = user => ({ type: GET_SINGLE_USER, user })
+const removeSingleUser = () =>({ type: REMOVE_SINGLE_USER })
 
 /**
  * THUNK CREATORS
  */
 export function fetchUsers() {
-    return function thunk(dispatch) {
-        return axios.get('/api/users')
-            .then(res => res.data)
-            .then(users => {
-                const action = getUsers(users);
-                dispatch(action);
-            })
-            .catch(error => console.log(error));
-    };
+  return function thunk(dispatch) {
+    return axios.get('/api/users')
+      .then(res => res.data)
+      .then(users => {
+        const action = getUsers(users);
+        dispatch(action);
+      })
+      .catch(error => console.log(error));
+  };
 }
 
 export function fetchUser(userId) {
-    return function thunk(dispatch) {
-        return axios.get(`/api/users/${userId}`)
-            .then(res => res.data)
-            .then(user => {
-                const action = getSingleUser(user);
-                dispatch(action);
-            })
-            .catch(error => console.log(error));
-    };
+  return function thunk(dispatch) {
+    return axios.get(`/api/users/${userId}`)
+      .then(res => res.data)
+      .then(user => {
+        const action = getSingleUser(user);
+        dispatch(action);
+      })
+      .catch(error => console.log(error));
+  };
+}
+
+export function deleteUser(userId) {
+  return function thunk(dispatch) {
+    return axios.delete(`/api/users/${userId}`)
+      .then(res => res.data)
+      .then(() => {
+        const action = removeSingleUser()
+        dispatch(action)
+      })
+      .catch(error => console.log(error))
+  };
 }
 
 /**
@@ -57,6 +71,8 @@ export default function (state = initialState, action) {
       return Object.assign({}, state, { users: action.users });
     case GET_SINGLE_USER:
       return Object.assign({}, state, { currentUser: action.user })
+    case REMOVE_SINGLE_USER:
+      return currentUser
     default:
       return state
   }
