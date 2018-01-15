@@ -35,7 +35,7 @@ const users = [
 const products = [
   {name: 'Pothos',
    price: 10,
-   inventory: 12,
+   inventory: 50,
    description: 'Easy to care for. Easy to love. Grows quickly.'
     },
     {name: 'Aloe Vera',
@@ -60,7 +60,7 @@ const products = [
     },
     {name: 'Monstera',
    price: 85,
-   inventory: 30,
+   inventory: 11,
    description: 'Bloggers love me.'
     }
 ]
@@ -92,11 +92,11 @@ const reviews = [
 ]
 
 const orderItemData = [
-  {priceAtPurchase: 250, quantity: 1, productId: 3, orderId: 1},
-  {priceAtPurchase: 5, quantity: 3, productId: 2, orderId: 2},
-  {priceAtPurchase: 5, quantity: 1, productId: 1, orderId: 3},
-  {priceAtPurchase: 10, quantity: 1, productId: 1, orderId: 4},
-  {priceAtPurchase: 4, quantity: 1, productId: 2, orderId: 4}
+  {price: 250, cartQuantity: 1, productId: 3, orderId: 1},
+  {price: 5, cartQuantity: 3, productId: 2, orderId: 2},
+  {price: 5, cartQuantity: 1, productId: 1, orderId: 3},
+  {price: 10, cartQuantity: 1, productId: 1, orderId: 4},
+  {price: 4, cartQuantity: 1, productId: 2, orderId: 4}
 ]
 
 // const productCategoryRel = [
