@@ -25,7 +25,7 @@ router.get('/:userId', isAdmin, (req, res, next) => {
 
 router.delete('/:userId', isAdmin, (req, res, next) => {
   User.destroy({ where: { id: req.params.userId } })
-    .then(() => res.status(204))
+    .then(() => res.status(204).send(''))
     .catch(next)
 });
 

@@ -21,7 +21,7 @@ const initialState = {
  */
 const getUsers = users => ({ type: GET_USERS, users })
 const getSingleUser = user => ({ type: GET_SINGLE_USER, user })
-const removeSingleUser = () =>({ type: REMOVE_SINGLE_USER })
+const removeSingleUser = user =>({ type: REMOVE_SINGLE_USER, user })
 
 /**
  * THUNK CREATORS
@@ -50,13 +50,13 @@ export function fetchUser(userId) {
   };
 }
 
-export function deleteUser(userId) {
+export function deleteUser(userId, history) {
   return function thunk(dispatch) {
     return axios.delete(`/api/users/${userId}`)
-      .then(res => res.data)
       .then(() => {
-        const action = removeSingleUser()
+        const action = removeSingleUser(userId)
         dispatch(action)
+        history.push('/users')
       })
       .catch(error => console.log(error))
   };
@@ -72,7 +72,11 @@ export default function (state = initialState, action) {
     case GET_SINGLE_USER:
       return Object.assign({}, state, { currentUser: action.user })
     case REMOVE_SINGLE_USER:
-      return currentUser
+      const userId = action.user
+      const remainingUsersArray = state.users.filter(user => {
+        return user.id !== userId
+      })
+      return Object.assign({}, state, { users: remainingUsersArray })
     default:
       return state
   }

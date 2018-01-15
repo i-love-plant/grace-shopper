@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import {connect} from 'react-redux'
-import { fetchUser, deleteUser, fetchOrders } from '../store'
+import { fetchUser, deleteUser } from '../store'
 import { withRouter, Link } from 'react-router-dom'
 
 /**
@@ -19,13 +19,11 @@ class ViewUser extends Component {
         <h3>Name: { user.name }</h3>
         <h5>E-mail: { user.email }</h5>
         <h5>Address: { user.address } </h5>
+        <button onClick={this.props.handleRemove}>Remove This User</button>
       </div>
     )
   }
 }
-
-//<button onClick={(user) => this.props.deleteUser(user)}>Remove This User</button>
-
 
 /**
  * CONTAINER
@@ -41,7 +39,10 @@ const mapDispatch = (dispatch, ownProps) => {
     loadInitialData() {
       const userThunk = fetchUser(ownProps.match.params.userId)
       dispatch(userThunk)
-      //dispatch(deleteUser(ownProps.match.params.userId))
+    },
+    handleRemove(event) {
+      event.preventDefault();
+      dispatch(deleteUser(+ownProps.match.params.userId, ownProps.history))
     }
   }
 }
