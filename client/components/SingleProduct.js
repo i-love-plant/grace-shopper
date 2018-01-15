@@ -30,6 +30,8 @@ class SingleProduct extends Component {
     render() {
         const product = this.props.productData;
         const isLoggedIn = this.props.isLoggedIn;
+        const isAdmin = this.props.isAdmin;
+
         //getting inventory array for dropdown menu:
         let inventoryArr = [];
         for (let i = 1; i <= product.inventory; i++) {
@@ -106,7 +108,7 @@ class SingleProduct extends Component {
                     </ul>
                     <ul id="reviews-list">
                         <div id="review-title">Reviews:</div>
-            {
+                        {
                             this.props.reviews.map(review => {
                                 let reviewStars = review.rating === 1 ? `${review.rating} Star` : `${review.rating} Stars`
 
@@ -118,17 +120,28 @@ class SingleProduct extends Component {
                     </ul>
                     {
                         isLoggedIn &&
-                    
- 
-                    <button type="button" id="add-review">
-                        <Link to={`/reviews/new-review/${product.id}`}>
-                            Add a Review
+                        <button type="button" id="add-review">
+                            <Link to={`/reviews/new-review/${product.id}`}>
+                                Add a Review
                         </Link>
-                    </button>
+                        </button>
                     }
-                    
+
+
+
                 </div>
+
+                {
+                    isAdmin &&
+                    <button type="button" id="delete-product">
+                        <Link to={'/'}>
+                            Delete Product
+                    </Link>
+                    </button>
+                }
+                
                 {cartForm}
+
             </div>
         );
     }
@@ -140,11 +153,12 @@ class SingleProduct extends Component {
 const mapState = state => {
     return {
         productData: state.product.currentProduct,
-        cartProds: state.cart.cartProds, 
+        cartProds: state.cart.cartProds,
         reviews: state.review.allReviews.filter(review => {
             return review.productId === state.product.currentProduct.id;
         }),
-        isLoggedIn: !!state.user.id
+        isLoggedIn: !!state.user.id,
+        isAdmin: !!state.user.isAdmin
     };
 };
 
