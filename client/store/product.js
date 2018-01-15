@@ -11,7 +11,7 @@ const SET_PRODUCT_CATEGORY = 'SET_PRODUCT_CATEGORY';
 const SET_SEARCH_QUERY = 'SET_SEARCH_QUERY';
 const APPLY_SEARCH = 'APPLY_SEARCH';
 const SET_SUGGESTIONS = 'SET_SUGGESTIONS';
-
+const DELETE_PRODUCT = "DELETE_PRODUCT";
 
 /**
  * INITIAL STATE
@@ -36,6 +36,7 @@ export const setProductCategory = categoryId => ({ type: SET_PRODUCT_CATEGORY, c
 export const setSearchQuery = query => ({ type: SET_SEARCH_QUERY, query });
 export const applySearch = () => ({ type: APPLY_SEARCH }); //searchQuery is already on the state
 export const setSuggestions = (suggestions) => ({ type: SET_SUGGESTIONS, suggestions });
+export const deleteProduct = (productId) => ({ type: DELETE_PRODUCT, productId });
 
 /**
  * THUNK CREATORS
@@ -89,6 +90,17 @@ function getProductsWithPromise(products) {
     };
 }
 
+export function removeProduct(productId, history) {
+    return function thunk(dispatch) {
+        return axios.delete(`/api/products/${productId}`)
+            .then(() => {
+                const action = deleteProduct(productId);
+                dispatch(action);
+                history.push('/products');
+            })
+            .catch(error => console.log(error));
+    };
+}
 /**
  * REDUCER
  */
@@ -137,7 +149,15 @@ export default function (state = initialProductsState, action) {
         }
 
         case SET_SUGGESTIONS:
-            return Object.assign({}, state, { searchSuggestions: action.suggestions }); 
+            return Object.assign({}, state, { searchSuggestions: action.suggestions });
+
+        case DELETE_PRODUCT: {
+            const productId = action.productId;
+            const remainingProductsArray = state.allProducts.filter(product => {
+                return product.id !== productId;
+            });
+            return Object.assign({}, state, { allProducts: remainingProductsArray });
+        }
 
         default:
             return state

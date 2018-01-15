@@ -3,7 +3,8 @@ import { connect } from "react-redux";
 import { Link, withRouter } from 'react-router-dom';
 import {
     fetchProduct,
-    updateCartOnServer
+    updateCartOnServer,
+    removeProduct
 } from "../store/index";
 
 /**
@@ -119,7 +120,7 @@ class SingleProduct extends Component {
                         }
                     </ul>
                     {
-                        isLoggedIn &&
+                        isLoggedIn && !isAdmin && //and not is admnin
                         <button type="button" id="add-review">
                             <Link to={`/reviews/new-review/${product.id}`}>
                                 Add a Review
@@ -133,11 +134,7 @@ class SingleProduct extends Component {
 
                 {
                     isAdmin &&
-                    <button type="button" id="delete-product">
-                        <Link to={'/'}>
-                            Delete Product
-                    </Link>
-                    </button>
+                    <button onClick={this.props.handleRemove}type="button" id="delete-product">Delete Product</button>
                 }
                 
                 {cartForm}
@@ -170,6 +167,11 @@ const mapDispatch = (dispatch, ownProps) => {
         },
         handleAddToCart(evt, prodInfo) {
             dispatch(updateCartOnServer(prodInfo));
+        },
+        handleRemove(event) {
+            event.preventDefault();
+            const productId = +ownProps.match.params.productId;
+            dispatch(removeProduct(productId, ownProps.history));
         }
     };
 };
