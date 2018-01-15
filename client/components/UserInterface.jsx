@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { withRouter, Link, Route, Switch } from 'react-router-dom'
-import { me, fetchProducts, fetchCategories, setSearchQuery } from '../store'
-import { Login, Signup, UserHome, NavBar } from './' //how to get to these...
+import { me, fetchProducts, fetchCategories, setSearchQuery, fetchReviews } from '../store'
+import { Login, Signup, UserHome, NavBar } from './'
 import ManyProducts from './ManyProducts';
 // import { NavBar } from './components/NavBar.jsx'
 import OrderSuccess from './OrderSuccess';
@@ -14,6 +14,7 @@ import ViewUser from './ViewUser';
 import SingleProduct from './SingleProduct';
 import SingleOrder from './SingleOrder';
 import ManyOrders from './ManyOrders';
+import NewReviewEntry from './NewReviewEntry'
 //import { URLSearchParams } from 'url';
 
 class UserInterface extends Component {
@@ -22,7 +23,7 @@ class UserInterface extends Component {
         this.props.loadInitialData()
         const params = new URLSearchParams(this.props.location.search);
         if (params.has('query')) {
-            this.props.dispatchSearchQuery(params.get('query')) //this method gets whatever follows query in the url
+            this.props.dispatchSearchQuery(params.get('query')) //this method sets the query on the state from what is grabbed in the url
         }
     }
 
@@ -38,6 +39,7 @@ class UserInterface extends Component {
                         <Route exact path="/" component={ManyProducts} />
                         <Route exact path="/products" component={ManyProducts} />
                         <Route exact path="/products/:productId" component={SingleProduct} />
+                        <Route exact path="/reviews/new-review/:productId" component={NewReviewEntry} />
                         <Route path="/login" component={Login} />
                         <Route path="/signup" component={Signup} />
                         <Route exact path="/cart" component={Cart} />
@@ -90,6 +92,7 @@ const mapDispatch = (dispatch) => {
             dispatch(me())
             dispatch(fetchProducts())
             dispatch(fetchCategories())
+            dispatch(fetchReviews())
         },
         dispatchSearchQuery(search) {
             dispatch(setSearchQuery(search));

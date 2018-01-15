@@ -23,8 +23,8 @@ const Review = require('./review');
  Product.hasMany(Review);
  Review.belongsTo(Product);
 
- OrderItem.belongsTo(Product);
- Product.hasMany(OrderItem);
+ // OrderItem.belongsTo(Product);
+ // Product.hasMany(OrderItem);
 
  // OrderItem.belongsTo(Order);
  // Order.hasMany(OrderItem);

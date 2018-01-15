@@ -1,7 +1,7 @@
 'use strict';
 
 const router = require('express').Router()
-const { Order, User } = require('../db/models')
+const { Order, User, OrderItem} = require('../db/models')
 const { isAdmin } = require('../gatekeeper.js')
 // const { isLoggedIn } = require('../gatekeeper.js')
 module.exports = router
@@ -31,7 +31,9 @@ router.get('/', (req, res, next) => {
 // added route so that ADMIN can GET order by ID & so USER can view OWN individual order by ID
 router.get('/:orderId', (req, res, next) => {
     if (req.user && req.user.isAdmin) {
-        Order.findById(req.params.orderId)
+        Order.findById(req.params.orderId,
+            {include: [{all: true}]}
+            )
             .then(order => {
                 if(order) {res.json(order)}
                 else{res.status(404).send(`no order with the id of ${req.params.orderId} found`)}
@@ -44,7 +46,7 @@ router.get('/:orderId', (req, res, next) => {
             where: {
                 id: orderIdNum,
                 userId: req.user.id
-            }
+            }, include: [{all: true}]
         })
         .then(myOrder => {
             if (myOrder.length !== 0) {res.json(myOrder)}
@@ -68,14 +70,6 @@ router.post('/', (req, res, next) => {
         .catch(next)
 });
 
-// testing in Postman without session
-// router.post('/', (req, res, next) => {
-//     Order.create({})
-//         .then(newOrder => newOrder.setUser(1))
-//         .then(newOrder => newOrder.addProduct([1,3]))
-//         .then(newOrder => res.status(201).json(newOrder))
-//         .catch(next)
-// });
 
 router.put('/:orderId', isAdmin, (req, res, next) => {
     Order.findById(req.params.orderId)
