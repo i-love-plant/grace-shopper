@@ -6,7 +6,7 @@ const { isAdmin } = require('../gatekeeper.js');
 module.exports = router;
 
 
-router.get('/', isAdmin, (req, res, next) => {
+router.get('/', (req, res, next) => {
     Review.findAll()
       .then(reviews => res.json(reviews))
       .catch(next)

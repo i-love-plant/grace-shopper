@@ -96,12 +96,12 @@ class SingleProduct extends Component {
             <div>
                 <div>
                     <h3>{product.name}</h3>
-                    <ul>
+                    <ul id="single-product-info">
                         <li>
                             <img src={product.image} className="product-image" />
                         </li>
-                        <li>{product.description}</li>
                         <li>${product.price}</li>
+                        <li>{product.description}</li>
                     </ul>
                     <ul>Reviews:
             {

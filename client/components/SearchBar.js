@@ -71,7 +71,7 @@ class SearchBar extends Component {
         return (
             <div className="search-control">
                 <div className="search-control">
-                    <form onSubmit={this.handleSearch} id="search-form" className="form-group" style={{ marginTop: '20px' }}>
+                    <form onSubmit={this.handleSearch} id="search-form" className="form-group">
                         <Autosuggest
                             suggestions={suggestions}
                             onSuggestionsFetchRequested={this.onSuggestionsFetchRequested} //'this' bc inside component
@@ -84,7 +84,7 @@ class SearchBar extends Component {
                     </form>
                 </div>
                 <div className="search-control">
-                    <button type="submit" form="search-form">Search</button>
+                    <button id="search-button" type="submit" form="search-form">Search</button>
                 </div>
             </div>
         )

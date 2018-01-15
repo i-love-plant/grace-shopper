@@ -12,20 +12,39 @@ const ManyProducts = (props) => {
 
     return (
         <div>
-            <h3>Products: </h3>
-            <SearchBar />
-            <div className="search-control">
-                <select defaultValue={categories.id} name="category" onChange={props.handleCategoryChange}>
-                    <option value="-1">Select A Category</option>
-                    {
-                        categories.map(category => {
-                            return (
-                                <option key={category.id} value={category.id}>{category.name}
-                                </option>
-                            )
-                        })
-                    }
-                </select>
+            <h1>Lovely Plants For Purchase</h1>
+            <div id="search-controls">
+                <SearchBar />
+                <div className="search-control">
+                    <select id="category-select" defaultValue={categories.id} name="category" onChange={props.handleCategoryChange}>
+                        <option value="-1">Select A Category</option>
+                        {
+                            categories.map(category => {
+                                return (
+                                    <option key={category.id} value={category.id}>{category.name}
+                                    </option>
+                                )
+                            })
+                        }
+                    </select>
+                </div>
+            </div>
+
+            <div id="products-grid">
+                {
+                    props.products.map(product => {
+                        return (
+                            <div key={product.id} className="product-square">
+                                <div>
+                                    <img src={product.image} className="product-image" />
+                                </div>
+                                <Link to={`/products/${product.id}`}>{product.name}</Link>
+                                <div className="product-price">${product.price}
+                                </div>
+                            </div>
+                        );
+                    })
+                }
             </div>
 
             <table id="products-table">
@@ -52,10 +71,10 @@ const ManyProducts = (props) => {
                     }
                 </tbody>
 
-            </table>
+
         </div>
-    )
-}
+    );
+};
 
 /**
  * CONTAINER
