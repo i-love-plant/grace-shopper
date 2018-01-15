@@ -44,32 +44,33 @@ class CartCheckout extends Component {
 //     .then(successPayment)
 //     .catch(errorPayment);
   render() {
-    //need to capture form data to create order info object
-    //need to add: orderEmail, orderAddress, orderToken
-    let orderInfoObj = {orderAddress: this.state.address, orderEmail: this.state.email, orderProds: this.props.cartProds, orderTotal: this.props.cartTotal};
-    console.log('ORDERINFO', orderInfoObj)
+    console.log('STATE: ', this.state);
 
-        // FROM POST ORDERS ROUTE:
-        // let { orderTotal, orderProds, orderEmail, orderAddress, orderToken } = req.body;
+    let orderInfoObj = {orderAddress: this.state.address, orderEmail: this.state.email, orderProds: this.props.cartProds, orderTotal: this.props.cartTotal};
+
     return (
       <div className="container">
         <Cart isInCheckout='true'/>
-        <div className="form order-form" onSubmit={(evt) => this.props.handleOrderSubmit(evt, orderInfoObj)}>
+        <div className="form order-form">
           <div className="form-group">
             <label htmlFor="address">SHIPPING ADDRESS</label>
             <input className="form-control" className="col-xs" name="address" id="addressI" onChange={this.handleChange} value={this.state.address} placeholder="Your address"></input>
             <label htmlFor="address">EMAIL</label>
             <input className="form-control" className="col-xs" name="email" id="emailI" onChange={this.handleChange} value={this.state.email} placeholder="Your email"></input>
-          </div>
+           </div>
+            <button type="submit" className="btn btn-primary" onClick={(evt) => this.props.handleOrderSubmit(evt, orderInfoObj)}>PLACE MY ORDER</button>
         </div>
 
-        <StripeCheckout
-          name="I LOVE PLANT"
-          description= "Buy plant now!"
-          image="https://year3french.wikispaces.com/file/view/icon-seedling.png/189935014/icon-seedling.png"
-          token={this.onToken}
-          stripeKey="pk_test_XrOXnFf7FJ2AkUns81CnVFLq"
-        />
+        {
+          // //<StripeCheckout
+          //         name="I LOVE PLANT"
+          //         description= "Buy plant now!"
+          //         image="https://year3french.wikispaces.com/file/view/icon-seedling.png/189935014/icon-seedling.png"
+          //         token={this.onToken}
+          //         stripeKey="pk_test_XrOXnFf7FJ2AkUns81CnVFLq"
+
+                // />
+              }
       </div>
     )
   }
@@ -86,6 +87,8 @@ const mapState = state => {
 const mapDispatch = (dispatch, ownProps) => {
   return {
     handleOrderSubmit(e, orderInfo) {
+      console.log('SUBMITTING!!!!');
+      console.log('ORDER INFO OBJ!!!!: ', orderInfo)
       e.preventDefault();
       dispatch(createOrderOnServer(orderInfo, ownProps.history));
       dispatch(deleteCartOnServer());

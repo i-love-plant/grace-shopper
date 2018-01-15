@@ -51,7 +51,7 @@ router.get("/:orderId", (req, res, next) => {
     })
       .then(myOrder => {
         if (myOrder.length !== 0) {
-          res.json(myOrder);
+          res.json(myOrder[0]);
         } else {
           res.status(404).send("No order by that ID found!");
         }
@@ -65,7 +65,7 @@ router.get("/:orderId", (req, res, next) => {
 });
 
 router.post("/", (req, res, next) => {
-  let { orderTotal, orderProds, orderEmail, orderAddress, orderToken } = req.body;
+  let { orderTotal, orderProds, orderEmail, orderAddress} = req.body;
   let userId = req.user ? req.user.id : null;
   Order.create({ orderTotal, userId, orderEmail, orderAddress })
   .then(newOrder => {
@@ -80,7 +80,11 @@ router.post("/", (req, res, next) => {
     });
     return OrderItem.bulkCreate(orderItemArr)
     .then(() => {
-      return Order.findById(orderId)
+      return Order.findOne({where: {
+        id: orderId
+      },
+      include: [{all: true}]
+      })
     })
     .then(foundOrder => {
       res.json(foundOrder)

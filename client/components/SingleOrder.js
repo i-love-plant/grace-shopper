@@ -1,6 +1,6 @@
 
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { fetchOrder, fetchOrders} from "../store";
 import ReactTable from "react-table";
@@ -14,19 +14,19 @@ class SingleOrder extends Component {
   render() {
     const { orders, order } = this.props
     let initialProductData =  order.products? Object.assign( [], order.products): false
-    
-    let productData =  (order.products && initialProductData)? 
+
+    let productData =  (order.products && initialProductData)?
         initialProductData.map((prodObj)=>{
           return Object.assign({}, prodObj, {priceAtPurchase: prodObj.orderItem.priceAtPurchase}, {quantity:prodObj.orderItem.quantity} )
         })
         : false
 
     const orderData = [order]
-    const orderColumns= [  
+    const orderColumns= [
                 {
                   Header: "Order Id",
                   accessor: "id"
-                },         
+                },
                 {
                   Header: "Status",
                   accessor: "orderStatus"
@@ -49,19 +49,19 @@ class SingleOrder extends Component {
   //     const productData = initialProductData.map((prodObj)=>{
   //       return Object.assign({}, prodObj, {priceAtPurchase: prodObj.orderItem.priceAtPurchase}, {quantity:prodObj.orderItem.quantity} )
   //     })
-  // } 
+  // }
   // console.log("########- orderItem -############: ", order.products)
   // (const productData = order.products[0].orderItem)
   // productData = Object.assign( [], order.products)
   // console.log(productData)
-  
-  
 
-  const productColumns= [  
+
+
+  const productColumns= [
                 {
                   Header: "Item Name",
                   accessor: "name"
-                },         
+                },
                 {
                   Header: "Purchase Price",
                   accessor: "priceAtPurchase"
@@ -80,7 +80,7 @@ class SingleOrder extends Component {
       <div>
         <h3>Order #: {order.id}</h3>
 
-{ 
+{
   (order && productData) &&
       <ReactTable
           data={orderData}
@@ -89,7 +89,7 @@ class SingleOrder extends Component {
           minRows={2}
           className="-striped -highlight"
           SubComponent={ row => {
-            
+
             return (
 
               <div style={{ padding: "20px" }}>
@@ -107,7 +107,7 @@ class SingleOrder extends Component {
                       // window.location.href= `/products/${rowInfo.original.id}`;
                         if (handleOriginal) {
                           handleOriginal()
-                        } 
+                        }
                       }
                     }
                   }}
@@ -117,7 +117,7 @@ class SingleOrder extends Component {
           }}
         />
 }
-       
+
       </div>
     )
   }
@@ -142,6 +142,6 @@ const mapDispatch = (dispatch, ownProps) => {
   }
 };
 
-const SingleOrderContainer = connect(mapState, mapDispatch)(SingleOrder);
+const SingleOrderContainer = withRouter(connect(mapState, mapDispatch)(SingleOrder));
 
 export default SingleOrderContainer;
