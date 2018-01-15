@@ -17,8 +17,8 @@ const Review = require('./review');
  User.hasMany(Order);
  Order.belongsTo(User);
 
- User.hasMany(Review);
- Review.belongsTo(User);
+ User.hasMany(Review, { onDelete: 'CASCADE' });
+ Review.belongsTo(User, { onDelete: 'CASCADE' });
 
  Product.hasMany(Review);
  Review.belongsTo(Product);
