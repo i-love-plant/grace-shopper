@@ -61,6 +61,7 @@ export function fetchOrder(orderId) {
     }
   }
 
+
 export function createOrderOnServer(orderInfo, history) {
   return function thunk(dispatch) {
     return axios.post('/api/orders', orderInfo)
