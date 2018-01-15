@@ -11,7 +11,8 @@ const SET_PRODUCT_CATEGORY = 'SET_PRODUCT_CATEGORY';
 const SET_SEARCH_QUERY = 'SET_SEARCH_QUERY';
 const APPLY_SEARCH = 'APPLY_SEARCH';
 const SET_SUGGESTIONS = 'SET_SUGGESTIONS';
-const DELETE_PRODUCT = "DELETE_PRODUCT";
+const DELETE_PRODUCT = 'DELETE_PRODUCT';
+const EDIT_PRODUCT = 'EDIT_PRODUCT';
 
 /**
  * INITIAL STATE
@@ -19,7 +20,7 @@ const DELETE_PRODUCT = "DELETE_PRODUCT";
 const initialProductsState = {
     allProducts: [],
     visibleProducts: [],
-    currentProduct: {  },
+    currentProduct: {},
     categories: [],
     selectedCategory: {},
     searchQuery: '',
@@ -37,6 +38,7 @@ export const setSearchQuery = query => ({ type: SET_SEARCH_QUERY, query });
 export const applySearch = () => ({ type: APPLY_SEARCH }); //searchQuery is already on the state
 export const setSuggestions = (suggestions) => ({ type: SET_SUGGESTIONS, suggestions });
 export const deleteProduct = (productId) => ({ type: DELETE_PRODUCT, productId });
+export const editProduct = (product) => ({ type: EDIT_PRODUCT, product });
 
 /**
  * THUNK CREATORS
@@ -101,6 +103,31 @@ export function removeProduct(productId, history) {
             .catch(error => console.log(error));
     };
 }
+
+export function updateProduct(product, history) {
+    return function thunk(dispatch) {
+        return axios.put(`/api/products/${product.id}`, product)
+            .then(res => res.data)
+            .then(resProduct => {
+                const action = editProduct(resProduct);
+                dispatch(action);
+                history.push(`/products/${resProduct.id}`);
+            })
+            .catch(error => console.log(error));
+    };
+}
+
+// aux functions
+
+const indexOfObject = (id, array) => {
+    for (let i = 0; i < array.length; i++) {
+        if (array[i].id === id) {
+            return i;
+        }
+    }
+    return -1;
+};
+
 /**
  * REDUCER
  */
@@ -157,6 +184,12 @@ export default function (state = initialProductsState, action) {
                 return product.id !== productId;
             });
             return Object.assign({}, state, { allProducts: remainingProductsArray, visibleProducts: remainingProductsArray });
+        }
+
+        case EDIT_PRODUCT: {
+            const productIndex = indexOfObject(action.product.id, state.allProducts);
+            const newProductsArray = [...state.allProducts.slice(0, productIndex), action.product, ...state.allProducts.slice(productIndex + 1)];
+            return Object.assign({}, state, { allProducts: newProductsArray });
         }
 
 
