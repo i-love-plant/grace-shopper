@@ -3,7 +3,8 @@ import { connect } from "react-redux";
 import { Link, withRouter } from 'react-router-dom';
 import {
     fetchProduct,
-    updateCartOnServer
+    updateCartOnServer,
+    removeProduct
 } from "../store/index";
 
 /**
@@ -30,6 +31,8 @@ class SingleProduct extends Component {
     render() {
         const product = this.props.productData;
         const isLoggedIn = this.props.isLoggedIn;
+        const isAdmin = this.props.isAdmin;
+
         //getting inventory array for dropdown menu:
         let inventoryArr = [];
         for (let i = 1; i <= product.inventory; i++) {
@@ -106,7 +109,7 @@ class SingleProduct extends Component {
                     </ul>
                     <ul id="reviews-list">
                         <div id="review-title">Reviews:</div>
-            {
+                        {
                             this.props.reviews.map(review => {
                                 let reviewStars = review.rating === 1 ? `${review.rating} Star` : `${review.rating} Stars`
 
@@ -117,18 +120,25 @@ class SingleProduct extends Component {
                         }
                     </ul>
                     {
-                        isLoggedIn &&
-                    
- 
-                    <button type="button" id="add-review">
-                        <Link to={`/reviews/new-review/${product.id}`}>
-                            Add a Review
+                        isLoggedIn && !isAdmin && //and not is admnin
+                        <button type="button" id="add-review">
+                            <Link to={`/reviews/new-review/${product.id}`}>
+                                Add a Review
                         </Link>
-                    </button>
+                        </button>
                     }
-                    
+
+
+
                 </div>
+
+                {
+                    isAdmin &&
+                    <button onClick={this.props.handleRemove}type="button" id="delete-product">Delete Product</button>
+                }
+                
                 {cartForm}
+
             </div>
         );
     }
@@ -140,11 +150,12 @@ class SingleProduct extends Component {
 const mapState = state => {
     return {
         productData: state.product.currentProduct,
-        cartProds: state.cart.cartProds, 
+        cartProds: state.cart.cartProds,
         reviews: state.review.allReviews.filter(review => {
             return review.productId === state.product.currentProduct.id;
         }),
-        isLoggedIn: !!state.user.id
+        isLoggedIn: !!state.user.id,
+        isAdmin: !!state.user.isAdmin
     };
 };
 
@@ -156,6 +167,11 @@ const mapDispatch = (dispatch, ownProps) => {
         },
         handleAddToCart(evt, prodInfo) {
             dispatch(updateCartOnServer(prodInfo));
+        },
+        handleRemove(event) {
+            event.preventDefault();
+            const productId = +ownProps.match.params.productId;
+            dispatch(removeProduct(productId, ownProps.history));
         }
     };
 };
