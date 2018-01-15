@@ -19,6 +19,15 @@ nav a {
   margin: 1em;
 }
 
+#header-link  {
+  text-decoration: none;
+  color: white;
+}
+
+#header-link:hover {
+  color: #2E6637;
+}
+
 form div {
   margin: 1em;
   display: inline-block;
@@ -40,6 +49,10 @@ header {
   left: 4em;
   padding-left: 30px;
   top: 0;
+}
+
+#admin-nav {
+  background-color: #12BEFF;
 }
 
 main {

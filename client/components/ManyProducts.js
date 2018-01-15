@@ -46,8 +46,6 @@ const ManyProducts = (props) => {
                     })
                 }
             </div>
-
-
         </div>
     );
 };
