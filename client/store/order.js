@@ -57,6 +57,18 @@ export function fetchOrder(orderId) {
     }
   }
 
+export function makeOrder(cart) {
+  return function thunk (dispatch) {
+    return axios.post(`/api/orders/`, cart) 
+      .then(res => res.data)
+      .then(order => {
+        const action = getOrder(order)
+        dispatch(action)
+      })
+      .catch(err => console.log(err))
+    }
+  }
+
 /**
 * REDUCER
 */
