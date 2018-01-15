@@ -2,11 +2,11 @@ const Sequelize = require('sequelize')
 const db = require('../db')
 
 const OrderItem = db.define('orderItem', {
-  price: {
+  priceAtPurchase: {
    type: Sequelize.INTEGER,
    allowNull: true
   },
-  cartQuantity: {
+  quantity: {
     type: Sequelize.INTEGER,
     allowNull: true
   }

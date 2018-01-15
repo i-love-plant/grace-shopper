@@ -20,13 +20,16 @@ class SearchBar extends Component {
     }
 
     handleSearch(event) {
+        // when button is click, form is submitted and search is applied based off of the state
         event.preventDefault();
+        // event.target is the <form> element, .searchBar is the name of the <input>, .value is what is typed in the search-bar
         const query = event.target.searchBar.value;
         this.props.history.push(`/products?query=${query}`);
         this.props.dispatchApplySearch();
     }
 
     handleSearchChange(event, { newValue }) {
+        // anytime the user types anything, the state is updated with that search query
         const query = newValue; // Handle some weird Autosuggest behavior because they use this function differently. newValue needs to be named the same because it's the key in the object autosuggest passes in. event.target is the suggestion div so we can't pull the value off of it(see bottom)
         this.props.dispatchSearchQuery(query);
     }
@@ -38,7 +41,7 @@ class SearchBar extends Component {
             return product.name.toLowerCase().includes(inputValue)
         });
     }
-
+    // this function determines what the autosuggestions will be
     onSuggestionsFetchRequested({ value }) {
         const suggestions = this.getSuggestions(value);
         this.props.dispatchSetSuggestions(suggestions);
@@ -47,7 +50,8 @@ class SearchBar extends Component {
     onSuggestionsClearRequested() {
         this.props.dispatchSetSuggestions([]);
     }
-
+    
+    // when result is clicked, send user to singleproduct page of that product
     onSuggestionSelected(event, { suggestion }) {
         this.props.history.push(`/products/${suggestion.id}`);
     }
@@ -70,7 +74,7 @@ class SearchBar extends Component {
                     <form onSubmit={this.handleSearch} id="search-form" className="form-group" style={{ marginTop: '20px' }}>
                         <Autosuggest
                             suggestions={suggestions}
-                            onSuggestionsFetchRequested={this.onSuggestionsFetchRequested} //this bc inside component
+                            onSuggestionsFetchRequested={this.onSuggestionsFetchRequested} //'this' bc inside component
                             onSuggestionsClearRequested={this.onSuggestionsClearRequested}
                             getSuggestionValue={getSuggestionValue}
                             renderSuggestion={renderSuggestion}

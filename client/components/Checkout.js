@@ -3,12 +3,21 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import Cart from './Cart';
 import { connect } from "react-redux";
-import {deleteCartOnServer} from "../store";
-
+import {deleteCartOnServer, createOrderOnServer} from "../store";
 import StripeCheckout from 'react-stripe-checkout';
 
+/*
+WILL NEED:
+on order submit:
+need to pass this method down in map dispatch to props
+need to make a thunk creator and reducer
+need to set cart to empty
+need to create order
+maybe store recent order id on state to be able to store its info and get it on the success page?????
+*/
 
 class CartCheckout extends Component {
+
   constructor(props) {
     super(props);
     this.state = {email: '', address: ''};
@@ -21,7 +30,6 @@ class CartCheckout extends Component {
     console.log(this.state);
     this.setState({[key]: val});
   }
-
 
   onToken (token) {
     fetch('/save-stripe-token', {
@@ -59,30 +67,29 @@ class CartCheckout extends Component {
 
 
 render() {
-      let orderInfoObj = {};
+      //need to capture form data to create order info object
+    let orderInfoObj = {orderProds: this.props.cartProds, orderTotal: this.props.cartTotal};
+    console.log('ORDERINFO', orderInfoObj)
+
     return (
-    <div>
-      <Cart />
-      <div className="form order-form" onSubmit={(evt) => this.props.handleOrderSubmit}>
-        <div className="form-group">
-          <label htmlFor="address">SHIPPING ADDRESS</label>
-          <input className="form-control" name="address" id="addressI" onChange={this.handleChange} value={this.state.address} placeholder="Your address"></input>
-          <label htmlFor="address">EMAIL</label>
-          <input className="form-control" name="email" id="emailI" onChange={this.handleChange} value={this.state.email} placeholder="Your email"></input>
+      <div>
+        <Cart />
+        <div className="form order-form" onSubmit={(evt) => this.props.handleOrderSubmit}>
+          <div className="form-group">
+            <label htmlFor="address">SHIPPING ADDRESS</label>
+            <input className="form-control" name="address" id="addressI" onChange={this.handleChange} value={this.state.address} placeholder="Your address"></input>
+            <label htmlFor="address">EMAIL</label>
+            <input className="form-control" name="email" id="emailI" onChange={this.handleChange} value={this.state.email} placeholder="Your email"></input>
+          </div>
         </div>
-      </div>
   
-
-      <StripeCheckout
-        name="I LOVE PLANT"
-        description= "Buy plant now!"
-        token={this.onToken}
-        stripeKey="pk_test_XrOXnFf7FJ2AkUns81CnVFLq"
-      />  
-
-
-    </div>
-
+        <StripeCheckout
+          name="I LOVE PLANT"
+          description= "Buy plant now!"
+          token={this.onToken}
+          stripeKey="pk_test_XrOXnFf7FJ2AkUns81CnVFLq"
+        />  
+      </div>
     )
   }
 }
@@ -97,10 +104,10 @@ const mapState = state => {
 
 const mapDispatch = (dispatch, ownProps) => {
   return {
-    handleOrderSubmit(info, e) {
+    handleOrderSubmit(e, orderInfo) {
       e.preventDefault();
-      //also need to dispatch order creation
-      dispatch(deleteCartOnServer())
+      dispatch(createOrderOnServer(orderInfo, ownProps.history));
+      dispatch(deleteCartOnServer());
     }
 
   };
