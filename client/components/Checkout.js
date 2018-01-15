@@ -53,7 +53,7 @@ class CartCheckout extends Component {
         // let { orderTotal, orderProds, orderEmail, orderAddress, orderToken } = req.body;
     return (
       <div className="container">
-        <Cart />
+        <Cart isInCheckout='true'/>
         <div className="form order-form" onSubmit={(evt) => this.props.handleOrderSubmit(evt, orderInfoObj)}>
           <div className="form-group">
             <label htmlFor="address">SHIPPING ADDRESS</label>
