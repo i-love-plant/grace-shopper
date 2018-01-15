@@ -8,6 +8,7 @@ import axios from 'axios'
 const EDIT_ORDER = 'EDIT_ORDER' //will also be able to change order's status(created, processing, completed, cancelled)
 // for LOGGEDIN users:
 const CREATE_ORDER = 'CREATE_ORDER'
+const WIPE_NEW_ORDER_FROM_STATE = 'WIPE_NEW_ORDER_FROM_STATE';
 const GET_ORDER = 'GET_ORDER'
 const GET_ORDERS = 'GET_ORDERS'
 
@@ -27,6 +28,7 @@ const initialOrderState = {
 const getOrder = order => ({type: GET_ORDER, order})
 const getOrders = orders => ({type: GET_ORDERS, orders})
 const createOrder = newOrder => ({type: CREATE_ORDER, newOrder})
+export const wipeNewOrder = () => ({type: WIPE_NEW_ORDER_FROM_STATE});
 
 /**
 * THUNK CREATORS
@@ -71,7 +73,6 @@ export function createOrderOnServer(orderInfo, history) {
     })
     .catch(err => console.log(err));
   }
-
 }
 
 /**
@@ -84,7 +85,9 @@ export default function (state = initialOrderState, action) {
     case GET_ORDERS:
       return Object.assign({}, state, { orders: action.orders });
     case CREATE_ORDER:
-      return Object.assign({}, state, {newOrder: action.newOrder})  ;
+      return Object.assign({}, state, {newOrder: action.newOrder});
+    case WIPE_NEW_ORDER_FROM_STATE:
+      return Object.assign({}, state, {newOrder: {}})
     default:
       return state
   }

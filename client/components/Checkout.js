@@ -6,18 +6,7 @@ import { connect } from "react-redux";
 import {deleteCartOnServer, createOrderOnServer} from "../store";
 import StripeCheckout from 'react-stripe-checkout';
 
-/*
-WILL NEED:
-on order submit:
-need to pass this method down in map dispatch to props
-need to make a thunk creator and reducer
-need to set cart to empty
-need to create order
-maybe store recent order id on state to be able to store its info and get it on the success page?????
-*/
-
 class CartCheckout extends Component {
-
   constructor(props) {
     super(props);
     this.state = {email: '', address: ''};
@@ -31,6 +20,7 @@ class CartCheckout extends Component {
     this.setState({[key]: val});
   }
 
+
   onToken (token) {
     fetch('/save-stripe-token', {
       method: 'POST',
@@ -41,7 +31,6 @@ class CartCheckout extends Component {
       });
     });
   }
-
 // const errorPayment = data => {
 //   alert('Payment Error');
 // };
@@ -55,10 +44,9 @@ class CartCheckout extends Component {
 //     })
 //     .then(successPayment)
 //     .catch(errorPayment);
-
-
-render() {
-      //need to capture form data to create order info object
+  render() {
+    //need to capture form data to create order info object
+    //need to add: orderEmail, orderAddress, orderToken
     let orderInfoObj = {orderProds: this.props.cartProds, orderTotal: this.props.cartTotal};
     console.log('ORDERINFO', orderInfoObj)
 
