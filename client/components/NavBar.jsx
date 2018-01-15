@@ -4,33 +4,46 @@ import { connect } from 'react-redux';
 import { logout } from '../store'
 
 const NavBar = (props) => {
-    const { handleClick, isLoggedIn, isAdmin } = props
+    const { handleClick, isLoggedIn, isAdmin, userId } = props
 
     let cartListItem = (
         <li className="nav-item">
             <Link to="/cart">Cart</Link>
         </li>
     )
+
+    let heading = isAdmin ? 'I Love Plant: Admin' : 'I Love Plant';
+
     return (
-        <header>
-            <h1>I Love Plant</h1>
+        <header id={isAdmin ? "admin-nav": ''}>
+
+            <Link to="/" id="header-link"><h1>{heading}</h1></Link>
             {
                 isAdmin
                 ?
                     <ul id="nav-links">
                         <li className="nav-item">
-                            <Link to="/products">Home</Link>
+                            <Link to="/">Home</Link>
+                        </li>
+                        <li className="nav-item">
+                            <Link to="/products">Products</Link>
+                        </li>
+                        <li className="nav-item">
+                            <Link to="/users">Users</Link>
+                        </li>
+                        <li className="nav-item">
+                            <Link to="/orders">Orders</Link>
+                        </li>
+                        <li className="nav-item">
+                            <Link to="/reviews">Reviews</Link>
+                        </li>
+                        { cartListItem }
+                        <li className="nav-item">
+                            <Link to={`/users/${userId}`}>My Account</Link>
                         </li>
                         <li className="nav-item">
                             <a href="#" onClick={handleClick}>Logout</a>
                         </li>
-                        <li className="nav-item">
-                            <Link to="/account">My Account</Link>
-                        </li>
-                        <li className="nav-item">
-                            <Link to="/users">All Users</Link>
-                        </li>
-                        { cartListItem }
                     </ul>
                 :
                 isLoggedIn
@@ -39,23 +52,26 @@ const NavBar = (props) => {
                         <li className="nav-item">
                             <Link to="/products">Home</Link>
                         </li>
-                        <li className="nav-item">
-                            <a href="#" onClick={handleClick}>Logout</a>
-                        </li>
+                        { cartListItem }
                         <li className="nav-item">
                             <Link to="/account">My Account</Link>
                         </li>
-                        { cartListItem }
+                        <li className="nav-item">
+                            <a href="#" onClick={handleClick}>Logout</a>
+                        </li>
                     </ul>
                 :
                     <ul id="nav-links">
+                        <li className="nav-item">
+                            <Link to="/products">Home</Link>
+                        </li>
+                        { cartListItem }
                         <li className="nav-item">
                             <Link to="/login">Login</Link>
                         </li>
                         <li className="nav-item">
                             <Link to="/signup">Sign Up</Link>
                         </li>
-                        { cartListItem }
                     </ul>
             }
         </header>
@@ -65,7 +81,8 @@ const NavBar = (props) => {
 const mapState = (state) => {
     return {
         isLoggedIn: !!state.user.id,
-        isAdmin: !!state.user.isAdmin
+        isAdmin: !!state.user.isAdmin,
+        userId: state.user.id
     }
 }
 
