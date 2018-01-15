@@ -5,7 +5,7 @@ import Cart from './Cart';
 import { connect } from "react-redux";
 import {deleteCartOnServer, createOrderOnServer} from "../store";
 
-import StripeCheckout from 'react-stripe-checkout';
+// import StripeCheckout from 'react-stripe-checkout';
 
 
 
@@ -45,12 +45,13 @@ class Checkout extends Component {
 
   render() {
     //need to capture form data to create order info object
-    let orderInfoObj = {};
+    let orderInfoObj = {orderProds: this.props.cartProds, orderTotal: this.props.cartTotal};
+    console.log('ORDERINFO', orderInfoObj)
     return (
 
     <div>
       <Cart />
-      <button>PLACE MY ORDER</button>
+      <button onClick={(e) => this.props.handleOrderSubmit(e, orderInfoObj)}>PLACE MY ORDER</button>
       {
         // <div className="form order-form" onSubmit={(evt) => this.props.handleOrderSubmit}>
         //   <div className="form-group">
@@ -99,11 +100,10 @@ const mapState = state => {
 
 const mapDispatch = (dispatch, ownProps) => {
   return {
-    handleOrderSubmit(info, e) {
+    handleOrderSubmit(e, orderInfo) {
       e.preventDefault();
-      //also need to dispatch order creation
-      dispatch()
-      dispatch(deleteCartOnServer())
+      dispatch(createOrderOnServer(orderInfo, ownProps.history));
+      dispatch(deleteCartOnServer());
     }
 
   };

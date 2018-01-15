@@ -59,13 +59,14 @@ export function fetchOrder(orderId) {
     }
   }
 
-export function createOrderOnServer(orderInfo) {
+export function createOrderOnServer(orderInfo, history) {
   return function thunk(dispatch) {
     return axios.post('/api/orders', orderInfo)
     .then(res => res.data)
     .then(newOrder => {
       const action = createOrder(newOrder);
       dispatch(action);
+      history.push('/checkout/order-success')
     })
     .catch(err => console.log(err));
   }
