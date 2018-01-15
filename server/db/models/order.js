@@ -10,10 +10,22 @@ const Order = db.define('order', {
 			isIn: [['Created', 'Processing', 'Cancelled', 'Completed']]
 		}
 	},
-  address: {
+	orderTotal: {
+    type: Sequelize.INTEGER,
+    allowNull: true
+	},
+	orderEmail: {
     type: Sequelize.STRING,
     allowNull: true
-  }
+	},
+	orderAddress: {
+	type: Sequelize.STRING,
+	allowNull: true
+	},
+	orderToken: {
+	type: Sequelize.STRING,
+	allowNull: true
+	}
 })
 
 module.exports = Order

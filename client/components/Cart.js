@@ -14,7 +14,6 @@ class Cart extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.state = {}
     this.componentWillReceiveProps = this.componentWillReceiveProps.bind(this);
-
   }
 
   componentDidMount() {
