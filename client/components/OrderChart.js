@@ -38,9 +38,7 @@ export class OrderChart extends Component {
       dataArr.push({ productId: key, sales: unitSales[key] });
     }
 
-
     console.log("DATA RR!!!!", dataArr);
-
     //i want:
     /*
     [{id: 1, sales: 4}, {id: 2, sales: 3}]
