@@ -7,8 +7,6 @@ import {deleteCartOnServer, createOrderOnServer} from "../store";
 
 // import StripeCheckout from 'react-stripe-checkout';
 
-
-
 // Publishable key
 // pk_test_XrOXnFf7FJ2AkUns81CnVFLq
 // — Jan 14, 2018
@@ -16,18 +14,6 @@ import {deleteCartOnServer, createOrderOnServer} from "../store";
 // sk_test_LbSjgTqFQqLjRWjcElwiqPPY
 // — Jan 14, 2018
 // Restricted API keys
-
-
-/*
-WILL NEED:
-on order submit:
-need to pass this method down in map dispatch to props
-need to make a thunk creator and reducer
-need to set cart to empty
-need to create order
-maybe store recent order id on state to be able to store its info and get it on the success page?????
-*/
-
 
 class Checkout extends Component {
   constructor(props) {
@@ -44,7 +30,9 @@ class Checkout extends Component {
   }
 
   render() {
+
     //need to capture form data to create order info object
+    //need to add: orderEmail, orderAddress, orderToken
     let orderInfoObj = {orderProds: this.props.cartProds, orderTotal: this.props.cartTotal};
     console.log('ORDERINFO', orderInfoObj)
     return (
