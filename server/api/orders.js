@@ -64,9 +64,23 @@ router.get('/:orderId', (req, res, next) => {
 
 router.post('/', (req, res, next) => {
     Order.create({})
-        .then(newOrder => newOrder.setUser(req.user.id))
-        .then(newOrder => newOrder.addProduct(req.session.cart))
-        .then(newOrder => res.status(201).json(newOrder))
+        .then(newOrder => newOrder.setUser(1))
+        .then(newOrder => {
+            return OrderItem.create(
+                {price: 5, 
+                cartQuantity: 2, 
+                orderId: newOrder.id,
+                productId: 3
+                }
+            )
+        })
+        .then((created)=>res.json(created))
+
+        // .then(newOrder => newOrder.setUser(1))
+        // // .then(newOrder => newOrder.setUser(req.user.id))
+        // .then(newOrder => newOrder.addProduct(req.body.cart))
+        // // .then(newOrder => newOrder.addProduct(req.session.cart))
+        // .then(newOrder => res.status(201).json(newOrder))
         .catch(next)
 });
 
