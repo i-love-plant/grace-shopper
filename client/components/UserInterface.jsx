@@ -15,7 +15,9 @@ import SingleProduct from './SingleProduct';
 import SingleOrder from './SingleOrder';
 import ManyOrders from './ManyOrders';
 import NewReviewEntry from './NewReviewEntry'
+import OrderChart from './OrderChart';
 import EditProduct from './EditProduct';
+
 //import { URLSearchParams } from 'url';
 
 
@@ -54,6 +56,7 @@ class UserInterface extends Component {
                                 {/* Routes placed here are only available if user is an admin */}
                                 <Route path="/home" component={ManyProducts} />
                                 {/*need to change /home path to go to our admin dashboard if we make one*/}
+                                <Route path="/dashboard-test" component={OrderChart} />
                                 <Route exact path="/account" component={SingleUser} />
                                 <Route exact path="/orders" component={ManyOrders} />
                                 <Route path="/orders/:orderId" component={SingleOrder} />
