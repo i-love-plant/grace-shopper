@@ -14,10 +14,8 @@ class SharedProductForm extends Component {
     render() {
         const newProduct = this.props.newProduct;
         const categories = this.props.categories;
-        //logic to check if new product or editing exisitng
 
         let product;
-
         if (newProduct) {
             product = {
                 name: '',
@@ -84,7 +82,7 @@ class SharedProductForm extends Component {
                             }).length > 0;
                             return (
                                 <div key={category.id}>
-                                    <input type="checkbox" id={`category-${category.id}`} defaultChecked={checked} />
+                                    <input type="checkbox" id={`category-${category.id}`} defaultChecked={checked} name="category" value={category.id} />
                                     <label htmlFor={`category-${category.id}`}>{category.name} </label>
                                 </div>
                             )
@@ -116,15 +114,19 @@ const mapDispatch = (dispatch, ownProps) => {
         },
         handleSubmit(event) {
             event.preventDefault();
-            const categoriesArray = [];
+            let categoriesArray = [];
+            event.target.category.forEach(category => {
+                if (category.checked) {
+                    categoriesArray.push(+category.value)
+                }
+            })
             const productData = {
                 name: event.target.productName.value,
                 price: event.target.productPrice.value,
                 description: event.target.productDescription.value,
                 image: event.target.productImage.value,
                 inventory: event.target.productInventory.value,
-                categories: [2]
-                //
+                categories: categoriesArray
             };
             if (!ownProps.newProduct) {
                 productData.id = ownProps.match.params.productId;
