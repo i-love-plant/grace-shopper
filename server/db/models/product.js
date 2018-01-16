@@ -6,6 +6,10 @@ const Product = db.define('product', {
     type: Sequelize.STRING,
     allowNull: false
   },
+  species: {
+    type: Sequelize.STRING,
+    allowNull: true
+  },
   description: {
     type: Sequelize.TEXT,
     allowNull: true

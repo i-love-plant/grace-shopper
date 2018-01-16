@@ -4,6 +4,7 @@ import { Link, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { fetchOrder, fetchOrders, editOrder} from "../store";
 import ReactTable from "react-table";
+import history from "../history";
 
 class SingleOrder extends Component {
 
@@ -17,6 +18,7 @@ class SingleOrder extends Component {
     const isLoggedIn = this.props.isLoggedIn;
     const isAdmin = this.props.isAdmin;
 
+    const statusArray = ["Created, Completed, Processing, Cancelled"]
 
     let initialProductData =  order.products? Object.assign( [], order.products): false
     let productData =  (order.products && initialProductData)?
@@ -28,7 +30,7 @@ class SingleOrder extends Component {
     const orderData = [order]
     const orderColumns= [
                 {
-                  Header: "Order Id",
+                  Header: "Order #",
                   accessor: "id"
                 },
                 {
@@ -36,7 +38,7 @@ class SingleOrder extends Component {
                   accessor: "orderStatus"
                 },
                 {
-                  Header: "Address",
+                  Header: "Shiiping Address",
                   accessor: "address"
                 },
                 {
@@ -48,18 +50,6 @@ class SingleOrder extends Component {
                   accessor: "updatedAt"
                 }
               ]
-
-  // if (order.products && initialProductData) {
-  //     const productData = initialProductData.map((prodObj)=>{
-  //       return Object.assign({}, prodObj, {priceAtPurchase: prodObj.orderItem.priceAtPurchase}, {quantity:prodObj.orderItem.quantity} )
-  //     })
-  // }
-  // console.log("########- orderItem -############: ", order.products)
-  // (const productData = order.products[0].orderItem)
-  // productData = Object.assign( [], order.products)
-  // console.log(productData)
-
-
 
   const productColumns= [
                 {
@@ -73,64 +63,70 @@ class SingleOrder extends Component {
                 {
                   Header: "Quantity",
                   accessor: "quantity"
-                },
-                {
-                  Header: "Pic",
-                  accessor: "image"
                 }
+              
               ]
 
     return (
       <div>
         <h3>Order #: {order.id}</h3>
-
-{
-  (order && productData) &&
-      <ReactTable
-          data={orderData}
-          columns={orderColumns}
-          defaultPageSize={2}
-          minRows={2}
-          className="-striped -highlight"
-          SubComponent={ row => {
-
-            return (
-
-              <div style={{ padding: "20px" }}>
-                <em>Your order details:</em>
-                <br />
-                <ReactTable
-                  data={productData}
-                  columns={productColumns}
+        {
+          (order && productData) &&
+              <ReactTable
+                  data={orderData}
+                  columns={orderColumns}
                   defaultPageSize={2}
                   minRows={2}
-                  showPagination={false}
-                  getTdProps={(state, rowInfo, column, instance) => {
-                    return {
-                      onClick: (e, handleOriginal) => {
-                      window.location.href= `/products/${rowInfo.original.id}`;
-                        if (handleOriginal) {
-                          handleOriginal()
+                  className="-striped -highlight"
+                  SubComponent={ row => {
+                    return (
+                      <div style={{ padding: "20px" }}>
+                        <em>Your order details:</em>
+                        <br />
+                        <ReactTable
+                          data={productData}
+                          columns={productColumns}
+                          defaultPageSize={2}
+                          minRows={2}
+                          showPagination={false}
+                          getTdProps={(state, rowInfo, column, instance) => {
+                            return {
+                              onClick: (e, handleOriginal) => {
+                              window.location.href= `/products/${rowInfo.original.id}`;
+                                if (handleOriginal) {
+                                  handleOriginal()
+                                }
+                              }
+                            }
+                          }}
+                        />
+
+                        {
+                            isAdmin?
+                            <div>
+                            <br/>
+                            <span>Change Order Status:</span>
+                              <select
+                                  className="form-control"
+                                  name= "status-change"
+                                  onChange={ this.props.handleStatusChange }
+                              >
+                                <option key='1' value="Created"> Created </option>
+                                <option key='2' value="Processing"> Processing </option>
+                                <option key='3' value="Completed"> Completed </option>
+                                <option key='4' value="Cancelled"> Cancelled </option>
+
+                              </select>
+                            </div>
+                            :
+                             <button  name= "status-change"  value="Cancelled" onClick={ this.props.handleStatusChange }> Cancel Order (Cannot be un done!))</button>
                         }
-                      }
-                    }
+
+                      </div>
+                    )
                   }}
                 />
-
-                {
-                    isAdmin?
-                    <button onClick={e=>this.props.handleEditOrder(e, order.id)}type="button" id="edit-order">Edit Order</button>
-                    :
-                    <button type="button" id="cancel-order">Cancel Order</button>
-                    // <button onClick={this.props.handleCancel}type="button" id="cancel-order">Cancel Order</button>
-                }
-                   
-              </div>
-            )
-          }}
-        />
-}
-
+        }
       </div>
     )
   }
@@ -148,19 +144,21 @@ const mapState = (state) => {
 
 const mapDispatch = (dispatch, ownProps) => {
   var id= +ownProps.match.params.orderId
-
   return {
           loadInitialData() {
               dispatch(fetchOrder(id))
               dispatch(fetchOrders())
           }, 
-          handleEditOrder(e, orderid){
-            e.preventdefault()
-            dispatch(editOrder(orderid))
+          handleStatusChange(e){
+            // e.preventdefault()
+            const newStatus = e.target.value
+            dispatch( editOrder(id, {orderStatus: newStatus} ) )
+            // history.push(`orders/${id}`)
           }
   }
-
 };
+
+
 
 const SingleOrderContainer = withRouter(connect(mapState, mapDispatch)(SingleOrder));
 
