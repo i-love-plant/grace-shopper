@@ -93,7 +93,8 @@ class UserInterface extends Component {
 const mapState = (state) => {
     return {
         isLoggedIn: !!state.user.id,
-        isAdmin: !!state.user.isAdmin
+        isAdmin: !!state.user.isAdmin,
+        name:!!state.user.name
     }
 }
 

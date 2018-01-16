@@ -28,8 +28,6 @@ router.post('/', (req, res, next) => {
 
 //to edit an item in the cart
 //will happen from view my cart page
-
-//req.body {changes: {}}
 router.put('/', (req, res, next) => {
   let changes = req.body.changes;
   req.session.cart = req.session.cart.map(item => {

@@ -19,30 +19,6 @@ class CartCheckout extends Component {
     this.setState({[key]: val});
   }
 
-
-  onToken (token) {
-    fetch('/save-stripe-token', {
-      method: 'POST',
-      body: JSON.stringify(token),
-    }).then(response => {
-      response.json().then(data => {
-        alert(`We are in business, ${data.email}`);
-      });
-    });
-  }
-// const errorPayment = data => {
-//   alert('Payment Error');
-// };
-// const onToken = (amount, description) => token =>
-//   axios.post('http://localhost:8080',
-//     {
-//       description,
-//       source: token.id,
-//       currency: CURRENCY,
-//       amount: amount*100
-//     })
-//     .then(successPayment)
-//     .catch(errorPayment);
   render() {
     console.log('STATE: ', this.state);
 
@@ -59,18 +35,7 @@ class CartCheckout extends Component {
             <input className="form-control" className="col-xs" name="email" id="emailI" onChange={this.handleChange} value={this.state.email} placeholder="Your email"></input>
            </div>
             <button type="submit" className="btn btn-primary" onClick={(evt) => this.props.handleOrderSubmit(evt, orderInfoObj)}>PLACE MY ORDER</button>
-        </div>
-
-        {
-          // //<StripeCheckout
-          //         name="I LOVE PLANT"
-          //         description= "Buy plant now!"
-          //         image="https://year3french.wikispaces.com/file/view/icon-seedling.png/189935014/icon-seedling.png"
-          //         token={this.onToken}
-          //         stripeKey="pk_test_XrOXnFf7FJ2AkUns81CnVFLq"
-
-                // />
-              }
+          </div>
       </div>
     )
   }
@@ -87,8 +52,6 @@ const mapState = state => {
 const mapDispatch = (dispatch, ownProps) => {
   return {
     handleOrderSubmit(e, orderInfo) {
-      console.log('SUBMITTING!!!!');
-      console.log('ORDER INFO OBJ!!!!: ', orderInfo)
       e.preventDefault();
       dispatch(createOrderOnServer(orderInfo, ownProps.history));
       dispatch(deleteCartOnServer());

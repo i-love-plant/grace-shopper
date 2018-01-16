@@ -3,8 +3,8 @@
 const router = require("express").Router();
 const { Order, User, OrderItem } = require("../db/models");
 const { isAdmin } = require("../gatekeeper.js");
-// const { isLoggedIn } = require('../gatekeeper.js')
 module.exports = router;
+
 
 router.get("/", (req, res, next) => {
   if (req.user && req.user.isAdmin) {
@@ -26,7 +26,6 @@ router.get("/", (req, res, next) => {
   }
 });
 
-// added route so that ADMIN can GET order by ID & so USER can view OWN individual order by ID
 router.get("/:orderId", (req, res, next) => {
   if (req.user && req.user.isAdmin) {
     Order.findById(req.params.orderId, { include: [{ all: true }] })

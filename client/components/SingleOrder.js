@@ -21,6 +21,7 @@ class SingleOrder extends Component {
     const statusArray = ["Created, Completed, Processing, Cancelled"]
 
     let initialProductData =  order.products? Object.assign( [], order.products): false
+
     let productData =  (order.products && initialProductData)?
         initialProductData.map((prodObj)=>{
           return Object.assign({}, prodObj, {priceAtPurchase: prodObj.orderItem.priceAtPurchase}, {quantity:prodObj.orderItem.quantity} )
@@ -150,10 +151,11 @@ const mapDispatch = (dispatch, ownProps) => {
               dispatch(fetchOrders())
           }, 
           handleStatusChange(e){
-            // e.preventdefault()
+            e.preventDefault()
             const newStatus = e.target.value
             dispatch( editOrder(id, {orderStatus: newStatus} ) )
             // history.push(`orders/${id}`)
+            window.location.href= ``;
           }
   }
 };
