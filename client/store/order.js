@@ -1,12 +1,10 @@
 import axios from 'axios'
+import historyThing from "../history";
 
 /**
 * ACTION TYPES
 */
-
-// for ADMIN users:
-const EDIT_ORDER = 'EDIT_ORDER' //will also be able to change order's status(created, processing, completed, cancelled)
-// for LOGGEDIN users:
+const EDIT_ORDER = 'EDIT_ORDER'
 const CREATE_ORDER = 'CREATE_ORDER'
 const WIPE_NEW_ORDER_FROM_STATE = 'WIPE_NEW_ORDER_FROM_STATE';
 const GET_ORDER = 'GET_ORDER'
@@ -62,18 +60,19 @@ export function fetchOrder(orderId) {
   }
 
 
-
-export function editOrder(orderId) {
+export function editOrder(orderId, orderStatus) {
   return function thunk (dispatch) {
-    return axios.put(`/api/orders/${orderId}`)
+    return axios.put(`/api/orders/${orderId}`, orderStatus)
       .then(res => res.data)
       .then(order => {
         const action = getOrder(order)
         dispatch(action)
+        historyThing.push(`/orders/${orderId}`)
       })
       .catch(err => console.log(err))
     }
   }
+
 
 
 export function createOrderOnServer(orderInfo, history) {
@@ -95,9 +94,9 @@ export function createOrderOnServer(orderInfo, history) {
 export default function (state = initialOrderState, action) {
   switch (action.type) {
     case GET_ORDER:
-      return Object.assign({}, state, { order: action.order });
+      return Object.assign({}, state, {order: action.order});
     case GET_ORDERS:
-      return Object.assign({}, state, { orders: action.orders });
+      return Object.assign({}, state, {orders: action.orders});
     case CREATE_ORDER:
       return Object.assign({}, state, {newOrder: action.newOrder});
     case WIPE_NEW_ORDER_FROM_STATE:
