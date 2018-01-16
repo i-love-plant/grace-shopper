@@ -14,12 +14,8 @@ class SharedProductForm extends Component {
     render() {
         const newProduct = this.props.newProduct;
         const categories = this.props.categories;
-        //logic to check if new product or editing exisitng
 
         let product;
-
-        const categoriesArray = [];
-
         if (newProduct) {
             product = {
                 name: '',
@@ -80,14 +76,13 @@ class SharedProductForm extends Component {
                         // first look at each category that exists
                         this.props.categories.map(category => {
                             // check if the current product has the category we're looking at as one of its categories
-                            categoriesArray.push(category.id);
                             let checked = product.categories.filter(productCategory => {
                                 return category.id === productCategory.id
                                 // the length is the number of this product's categories that are equal to the category we are looking at. Either 0 or 1 (doesn't match or does)
                             }).length > 0;
                             return (
                                 <div key={category.id}>
-                                    <input type="checkbox" id={`category-${category.id}`} defaultChecked={checked} />
+                                    <input type="checkbox" id={`category-${category.id}`} defaultChecked={checked} name="category" value={category.id} />
                                     <label htmlFor={`category-${category.id}`}>{category.name} </label>
                                 </div>
                             )
@@ -119,14 +114,19 @@ const mapDispatch = (dispatch, ownProps) => {
         },
         handleSubmit(event) {
             event.preventDefault();
+            let categoriesArray = [];
+            event.target.category.forEach(category => {
+                if (category.checked) {
+                    categoriesArray.push(+category.value)
+                }
+            })
             const productData = {
                 name: event.target.productName.value,
                 price: event.target.productPrice.value,
                 description: event.target.productDescription.value,
                 image: event.target.productImage.value,
                 inventory: event.target.productInventory.value,
-                categories: ownProps.categoriesArray
-                //
+                categories: categoriesArray
             };
             if (!ownProps.newProduct) {
                 productData.id = ownProps.match.params.productId;
