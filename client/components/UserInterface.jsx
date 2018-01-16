@@ -17,6 +17,7 @@ import ManyOrders from './ManyOrders';
 import NewReviewEntry from './NewReviewEntry'
 import OrderChart from './OrderChart';
 import EditProduct from './EditProduct';
+import NewProductEntry from './NewProductEntry';
 
 //import { URLSearchParams } from 'url';
 
@@ -40,6 +41,9 @@ class UserInterface extends Component {
                 <main>
                     <Switch>
                     {/* Routes placed here are available to all visitors */}
+
+                    {/* this should not be available to all users, but this page is loaded before anything is known about the user, so first isAdmin is false so route is not there yet and it is defaulted to product page. */}
+                        <Route exact path="/products/add/" component={NewProductEntry} />
                         <Route exact path="/" component={ManyProducts} />
                         <Route exact path="/products" component={ManyProducts} />
                         <Route exact path="/products/:productId" component={SingleProduct} />

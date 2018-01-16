@@ -53,6 +53,7 @@ class SearchBar extends Component {
     
     // when result is clicked, send user to singleproduct page of that product
     onSuggestionSelected(event, { suggestion }) {
+        this.props.dispatchSearchQuery('');
         this.props.history.push(`/products/${suggestion.id}`);
     }
 
