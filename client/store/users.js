@@ -8,7 +8,6 @@ const GET_USERS = 'GET_USERS'
 const GET_SINGLE_USER = 'GET_SINGLE_USER'
 const REMOVE_SINGLE_USER = 'REMOVE_SINGLE_USER'
 const UPDATE_SINGLE_USER = 'UPDATE_SINGLE_USER'
-// const PROMOTE_USER_TO_ADMIN = 'PROMOTE_USER_TO_ADMIN'
 
 /**
  * INITIAL STATE
@@ -25,7 +24,6 @@ const getUsers = users => ({ type: GET_USERS, users })
 const getSingleUser = user => ({ type: GET_SINGLE_USER, user })
 const removeSingleUser = user => ({ type: REMOVE_SINGLE_USER, user })
 const updateSingleUser = user => ({ type: UPDATE_SINGLE_USER, user })
-// const promoteUser = user => ({ type: PROMOTE_USER_TO_ADMIN, user })
 
 /**
  * THUNK CREATORS
@@ -49,6 +47,7 @@ export function fetchUser(userId) {
       .then(user => {
         const action = getSingleUser(user);
         dispatch(action);
+        history.push(`/users/${userId}`)
       })
       .catch(error => console.log(error));
   };
@@ -79,18 +78,6 @@ export function updateUser(userId, data, history) {
   };
 }
 
-// export function promoteUser(userId) {
-//   return function thunk(dispatch) {
-//     return axios.put(`/api/users/${userId}`)
-//       .then(res => res.data)
-//       .then(user => {
-//         const action = UpdateUser(user);
-//         dispatch(action);
-//       })
-//       .catch(error => console.log(error));
-//   };
-// }
-
 /**
  * REDUCER
  */
@@ -102,8 +89,6 @@ export default function (state = initialState, action) {
       return Object.assign({}, state, { currentUser: action.user })
     case UPDATE_SINGLE_USER:
       return Object.assign({}, state, { currentUser: action.user })
-    // case PROMOTE_USER_TO_ADMIN:
-    //   return Object.assign({}, state, { currentUser: action.user })
     case REMOVE_SINGLE_USER:
       const userId = action.user
       const remainingUsersArray = state.users.filter(user => {
