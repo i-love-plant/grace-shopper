@@ -48,7 +48,10 @@ class SingleProduct extends Component {
     });
 
     let cartForm;
-    if (isInCart) {
+    if (product.inventory === 0) {
+      cartForm = (<div>So sorry, {product.name} is sold out.</div>)
+    }
+    else if (isInCart) {
       cartForm = (
         <div>
           <p>Pssst, already in your cart.</p>
@@ -126,8 +129,9 @@ class SingleProduct extends Component {
 
             <div className="product-descriptor">{product.description}</div>
             {averageRatingEl}
-            <div>${product.price}</div>
+            <div className="product-descriptor" >${product.price}</div>
             {cartForm}
+            <hr></hr>
             <div id="reviews-list">
             <div id="review-title">Reviews:</div>
             {this.props.reviews.map(review => {
