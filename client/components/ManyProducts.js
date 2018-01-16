@@ -62,8 +62,8 @@ const ManyProducts = props => {
       </div>
 
       {isAdmin && (
-        <button type="button" id="add-product-button">
-          <Link to={`/products/add`}>Add a Product</Link>
+        <button type="button" className="btn btn-primary" id="add-product-button">
+          <Link to={`/products/add`}>ADD PRODUCT</Link>
         </button>
       )}
     </div>

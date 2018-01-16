@@ -16,9 +16,9 @@ class NewReviewEntry extends Component {
         const product = this.props.productData;
 
         return (
-            <form onSubmit={this.props.handleSubmit}>
-                <div className="form-group">
-                    <label htmlFor="name">Enter Your Review for: {product.name}</label>
+            <form className="review-form" onSubmit={this.props.handleSubmit}>
+                <div className="form-group" id="review-label">
+                    <label htmlFor="name">Review {product.name}</label>
                     <textarea
                         defaultValue={''}
                         className="form-control"
@@ -27,7 +27,7 @@ class NewReviewEntry extends Component {
                         placeholder="Enter Review"
                     />
                 </div>
-                <select defaultValue="" name="rating">
+                <select id="rating-select" defaultValue="" name="rating">
                     <option value="1">1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
@@ -36,7 +36,7 @@ class NewReviewEntry extends Component {
 
                 </select>
                 <div className="form-group">
-                    <button type="submit">Submit Review</button>
+                    <button className="btn btn-primary" id="submit-review-button" type="submit">SUBMIT</button>
                 </div>
             </form>
 

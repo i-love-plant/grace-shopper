@@ -208,6 +208,22 @@ header li {
   box-sizing: border-box;
 }
 
+#add-product-button a {
+  color: white;
+}
+
+#edit-product a {
+  color: white;
+}
+
+#edit-product {
+  margin-right: 12px;
+}
+
+#delete-product {
+  background-color: red;
+}
+
 .product-square {
 
   transition: background-color 0.50s ease;
@@ -237,6 +253,11 @@ header li {
   font-size: 15px;
 }
 
+.review-form {
+  display: flex;
+  flex-direction: column;
+}
+
 #review-title {
   font-size: 24px;
 }
@@ -263,12 +284,29 @@ header li {
   background-color: white;
 }
 
+#review-label {
+  font-weight: bold;
+  font-size: 30px;
+  margin-bottom: 20px;
+}
+
 #cart-table {
   width: 45%;
   margin-left: auto;
   margin-right: auto;
   border: 1px solid black;
   border-radius: 5px;
+}
+
+#rating-select {
+  height: 40px;
+  width: 63px;
+  background-color: white;
+  margin-left: 29px;
+}
+
+#submit-review-button {
+  margin-left: 11px;  
 }
 
 
