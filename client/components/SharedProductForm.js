@@ -1,10 +1,14 @@
 import React, { Component } from "react";import { connect } from "react-redux";
-import { updateProduct, fetchProduct } from "../store/index";
+import { updateProduct, fetchProduct, postProduct } from "../store/index";
 
 
 class SharedProductForm extends Component {
+
+
     componentDidMount() {
-        this.props.loadProductData();
+        if (!this.props.newProduct) {
+            this.props.loadProductData();
+        }
     }
 
     render() {
@@ -15,7 +19,14 @@ class SharedProductForm extends Component {
         let product;
 
         if (newProduct) {
-            product = {}
+            product = {
+                name: '',
+                price: '',
+                description: '',
+                image: '',
+                inventory: '',
+                categories: []
+            }
         } else {
             product = this.props.productData;
             if (product.id === undefined) {
@@ -35,8 +46,8 @@ class SharedProductForm extends Component {
                         name="productName"
                         placeholder="Enter Product Name"
                     />
-                    Price<input
-                        defaultValue={product.price} // add $
+                    Price ($)<input
+                        defaultValue={product.price}
                         className="form-control"
                         type="text"
                         name="productPrice"
@@ -120,7 +131,8 @@ const mapDispatch = (dispatch, ownProps) => {
                 price: event.target.productPrice.value,
                 description: event.target.productDescription.value,
                 image: event.target.productImage.value,
-                inventory: event.target.productInventory.value
+                inventory: event.target.productInventory.value,
+                categories: []
             };
             if (!ownProps.newProduct) {
                 productData.id = ownProps.match.params.productId;

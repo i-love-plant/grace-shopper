@@ -13,6 +13,7 @@ const APPLY_SEARCH = 'APPLY_SEARCH';
 const SET_SUGGESTIONS = 'SET_SUGGESTIONS';
 const DELETE_PRODUCT = 'DELETE_PRODUCT';
 const EDIT_PRODUCT = 'EDIT_PRODUCT';
+const ADD_NEW_PRODUCT = 'ADD_NEW_PRODUCT';
 
 /**
  * INITIAL STATE
@@ -39,7 +40,7 @@ export const applySearch = () => ({ type: APPLY_SEARCH }); //searchQuery is alre
 export const setSuggestions = (suggestions) => ({ type: SET_SUGGESTIONS, suggestions });
 export const deleteProduct = (productId) => ({ type: DELETE_PRODUCT, productId });
 export const editProduct = (product) => ({ type: EDIT_PRODUCT, product });
-
+export const addNewProduct = product => ({ type: ADD_NEW_PRODUCT, product })
 /**
  * THUNK CREATORS
  */
@@ -112,6 +113,19 @@ export function updateProduct(product, history) {
                 const action = editProduct(resProduct);
                 dispatch(action);
                 history.push(`/products/${resProduct.id}`);
+            })
+            .catch(error => console.log(error));
+    };
+}
+
+export function postProduct(product, history) {
+    return function thunk(dispatch) {
+        return axios.post('/api/products', product)
+            .then(res => res.data)
+            .then(newProduct => {
+                const action = addNewProduct(newProduct);
+                dispatch(action);
+                history.push(`/products/${newProduct.id}`);
             })
             .catch(error => console.log(error));
     };
@@ -193,18 +207,11 @@ export default function (state = initialProductsState, action) {
             return Object.assign({}, state, { allProducts: newProductsArray, visibleProducts: newVisibleProductsArray });
         }
 
+        case ADD_NEW_PRODUCT: {
+            const newProduct = [...state.allProducts, action.product];
+            return Object.assign({}, state, { allProducts: newProduct, visibleProducts: newProduct });
+        }
 
-        // this is what the delete product should-ish look like to also delete reviews
-        // case DELETE_PRODUCT: {
-        //     const productId = action.productId;
-        //     const remainingProductsArray = state.allProducts.filter(product => {
-        //         return product.id !== productId;
-        //     });
-        //     const remainingReviewsArray = state.review.allReviews.filter(review => {
-        //         return review.product.id !== productId;
-        //     })
-        //     return Object.assign({}, state, { allProducts: remainingProductsArray,  });
-        // }
 
         default:
             return state

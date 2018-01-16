@@ -1,5 +1,5 @@
-import React from "react";
-import SharedProductForm from "./SharedProductForm";
+import React from 'react';
+import SharedProductForm from './SharedProductForm';
 
 const EditProduct = (props) => {
     return <SharedProductForm {...props} newProduct={false} />;
