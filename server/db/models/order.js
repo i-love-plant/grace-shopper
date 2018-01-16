@@ -16,11 +16,11 @@ const Order = db.define('order', {
 	},
 	orderEmail: {
     type: Sequelize.STRING,
-    allowNull: true
+    allowNull: false
 	},
 	orderAddress: {
 	type: Sequelize.STRING,
-	allowNull: true
+	allowNull: false
 	},
 	orderToken: {
 	type: Sequelize.STRING,
