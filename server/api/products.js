@@ -34,12 +34,6 @@ router.get('/', (req, res, next) => {
         .catch(next)
 });
 
-router.post('/', isAdmin, (req, res, next) => {
-    Product.create(req.body)
-        .then(newProduct => res.status(201).json(newProduct))
-        .catch(next)
-});
-
 router.get('/:productId', (req, res, next) => {
     Product.findOne({
         where: {
@@ -58,11 +52,33 @@ router.get('/:productId', (req, res, next) => {
         .catch(next)
 });
 
+router.post('/', isAdmin, (req, res, next) => {
+    Product.create(req.body)
+        .then(newProduct => {
+            return newProduct.addCategory(req.body.categories)
+        })
+        .then(product => {
+            res.json(product)
+        })
+        //res.status(201).json(newProduct))
+        .catch(next)
+});
+
 router.put('/:productId', isAdmin, (req, res, next) => {
+    //const categoryArray = [{productId: req.params.id, categoryId: 1}]
     Product.findById(req.params.productId)
-        .then(product => product.update(req.body))
-        .then(updatedProduct => updatedProduct.setCategories(req.body.categories))
-        .then(updatedProduct => res.json(updatedProduct))
+        .then(product => {
+            return product.update(req.body)
+        })
+        .then(updatedProduct => {
+            return updatedProduct.addCategory(req.body.categories)
+        })
+        .then(() => {
+            return Product.findById(req.params.productId)
+        })
+        .then(product => {
+            res.json(product)
+        })
         .catch(next)
 });
 

@@ -1,9 +1,9 @@
 import React, { Component } from "react";import { connect } from "react-redux";
-import { updateProduct, fetchProduct, postProduct } from "../store/index";
+import { updateProduct, fetchProduct, postProduct, fetchProducts } from "../store/index";
+import historyThing from "../history"
 
 
 class SharedProductForm extends Component {
-
 
     componentDidMount() {
         if (!this.props.newProduct) {
@@ -23,7 +23,7 @@ class SharedProductForm extends Component {
                 name: '',
                 price: '',
                 description: '',
-                image: '',
+                image: 'https://i.imgur.com/pBjJBKK.jpg',
                 inventory: '',
                 categories: []
             }
@@ -87,8 +87,6 @@ class SharedProductForm extends Component {
                                     <input type="checkbox" id={`category-${category.id}`} defaultChecked={checked} />
                                     <label htmlFor={`category-${category.id}`}>{category.name} </label>
                                 </div>
-
-                            
                             )
                         })
                     }
@@ -102,19 +100,11 @@ class SharedProductForm extends Component {
     }
 }
 
-const mapState = (state, ownProps) => {
-    // if (ownProps.newProduct) {
-    //     return {};
-    // } else {
-    //     return {
-    //         productData: state.product.allProducts.find(product => {
-    //             return product.id === +ownProps.match.params.productId;
-    //         })
-    //     }
-    // }
+const mapState = (state) => {
     return {
         categories: state.product.categories,
-        productData: state.product.currentProduct
+        productData: state.product.currentProduct,
+        products: state.product.allProducts
     }
 }
 
@@ -126,13 +116,14 @@ const mapDispatch = (dispatch, ownProps) => {
         },
         handleSubmit(event) {
             event.preventDefault();
+            const categoriesArray = [];
             const productData = {
                 name: event.target.productName.value,
                 price: event.target.productPrice.value,
                 description: event.target.productDescription.value,
                 image: event.target.productImage.value,
                 inventory: event.target.productInventory.value,
-                categories: [1]
+                categories: [2]
                 //
             };
             if (!ownProps.newProduct) {
@@ -141,8 +132,11 @@ const mapDispatch = (dispatch, ownProps) => {
             const history = ownProps.history;
             if (ownProps.newProduct) {
                 dispatch(postProduct(productData, history));
+                dispatch(fetchProducts());
+
             } else {
                 dispatch(updateProduct(productData, history));
+
             }
         }
 
