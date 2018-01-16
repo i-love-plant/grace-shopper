@@ -189,7 +189,8 @@ export default function (state = initialProductsState, action) {
         case EDIT_PRODUCT: {
             const productIndex = indexOfObject(action.product.id, state.allProducts);
             const newProductsArray = [...state.allProducts.slice(0, productIndex), action.product, ...state.allProducts.slice(productIndex + 1)];
-            return Object.assign({}, state, { allProducts: newProductsArray });
+            const newVisibleProductsArray = [...state.visibleProducts.slice(0, productIndex), action.product, ...state.visibleProducts.slice(productIndex + 1)];
+            return Object.assign({}, state, { allProducts: newProductsArray, visibleProducts: newVisibleProductsArray });
         }
 
 
