@@ -44,9 +44,12 @@ class CartCheckout extends Component {
 //     .then(successPayment)
 //     .catch(errorPayment);
   render() {
-    console.log('STATE: ', this.state);
 
     let orderInfoObj = {orderAddress: this.state.address, orderEmail: this.state.email, orderProds: this.props.cartProds, orderTotal: this.props.cartTotal};
+
+    let checkoutDisabled = "true";
+    if (this.state.email.length && this.state.address.length) checkoutDisabled = false;
+    console.log('STATE!!!', this.state)
 
     return (
       <div className="container">
@@ -58,7 +61,7 @@ class CartCheckout extends Component {
             <label htmlFor="address" className="email-input">EMAIL</label>
             <input className="form-control" name="email" id="emailI" onChange={this.handleChange} value={this.state.email} placeholder="Your email"></input>
            </div>
-            <button type="submit" className="btn btn-primary" onClick={(evt) => this.props.handleOrderSubmit(evt, orderInfoObj)}>PLACE MY ORDER</button>
+            <button type="submit" disabled={checkoutDisabled}className="btn btn-primary" onClick={(evt) => this.props.handleOrderSubmit(evt, orderInfoObj)}>PLACE MY ORDER</button>
         </div>
 
         {
