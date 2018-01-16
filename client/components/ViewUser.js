@@ -9,30 +9,41 @@ import { withRouter, Link } from 'react-router-dom'
 class ViewUser extends Component {
 
   componentDidMount() {
-    this.props.loadInitialData()
+    this.props.getUser()
   }
 
   render() {
-    const user = this.props.currentUser
+    let user = this.props.currentUser
+    console.log(user)
     return (
       <div>
-        <h3>Name: { user.name }</h3>
-        <h5>E-mail: { user.email }</h5>
-        <h5>Address: { user.address } </h5>
-        <h3>Edit Profile:</h3>
-        <form onSubmit={this.props.handleSubmit}>
-            <input type="text" name="name" placeholder="Name" />
-            <input type="text" name="email" placeholder="E-mail" />
-            <input type="text" name= "address" placeholder="Address" />
-            <button type="submit">Submit</button>
-        </form>
-        { !user.isAdmin &&
-          <div>
-          <button onClick={this.props.handleRemove}>Remove This User</button>
-          <button onClick={this.props.handleUpdate}>Promote User to Admin</button>
-          </div>
-        }
-      </div>
+      { (user.name && user.email && user.address) && (user.id === +this.props.urlUserId) &&
+      <div>
+      <h3>Name: { user.name }</h3>
+      <h5>E-mail: { user.email }</h5>
+      <h5>Address: { user.address } </h5>
+      <br/>
+      { !user.isAdmin &&
+        <span>
+        <button onClick={this.props.handleRemove}>Remove This User</button>
+        <button onClick={this.props.handleUpdate}>Promote User to Admin</button>
+        <br/>
+        </span>
+      }
+      <br/>
+      <h3>Edit Profile:</h3>
+      <form onSubmit={this.props.handleSubmit}>
+          <input type="text" defaultValue={`${user.name}`} name="name" placeholder="Name" />
+          <br/>
+          <input type="text" defaultValue={`${user.email}`} name="email" placeholder="E-mail" />
+          <br/>
+          <input type="text" defaultValue={`${user.address}`} name= "address" placeholder="Address" />
+          <br/>
+          <button type="submit">Submit</button>
+      </form>
+    </div>
+    }
+    </div>
     )
   }
 }
@@ -40,16 +51,17 @@ class ViewUser extends Component {
 /**
  * CONTAINER
  */
-const mapState = (state) => {
+const mapState = (state, ownProps) => {
   return {
-    currentUser: state.users.currentUser
+    currentUser: state.users.currentUser,
+    urlUserId: ownProps.match.params.userId
   }
 }
 
 const mapDispatch = (dispatch, ownProps) => {
   return {
-    loadInitialData() {
-      const userThunk = fetchUser(ownProps.match.params.userId)
+    getUser() {
+      const userThunk = fetchUser(+ownProps.match.params.userId)
       dispatch(userThunk)
     },
     handleRemove(event) {
@@ -72,6 +84,5 @@ const mapDispatch = (dispatch, ownProps) => {
     }
   }
 }
-
 
 export default withRouter(connect(mapState, mapDispatch)(ViewUser))
