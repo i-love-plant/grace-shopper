@@ -151,7 +151,7 @@ header li {
 }
 
 #review-title {
-  font-size: 26px; 
+  font-size: 26px;
 }
 
 #reviews-list {
@@ -274,4 +274,12 @@ header li {
   display: inline-block;
 }
 
+.chart-div {
+  width: 50%;
+  margin: auto;
+}
+
+.chart-div h1 {
+  text-align: center;
+}
 

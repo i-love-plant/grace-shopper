@@ -2,58 +2,84 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import ReactDOM from "react-dom";
-import { VictoryBar, VictoryChart, VictoryAxis } from "victory";
+import { VictoryBar, VictoryChart, VictoryAxis, VictoryTheme, VictoryLabel } from "victory";
 
-import { fetchOrders, fetchOrderItems, getProducts } from "../store";
+import { fetchOrders, fetchOrderItems} from "../store";
 
 export class OrderChart extends Component {
+
+  constructor(props) {
+    super(props);
+    this.handleChange = this.handleChange.bind(this);
+    this.state = {filter: 'unit'}
+
+  }
+
   componentDidMount() {
     this.props.loadInitialData();
   }
 
+  handleChange(e) {
+    let val = e.target.value;
+    this.setState({filter: val})
+  }
+
   render() {
-    console.log("ORDER ITEMS:   ", this.props.orderItems);
-    console.log("PRODUCTS: ", this.props.products);
-    console.log("ORDERS!!!", this.props.orders);
+    console.log('state in render: ', this.state)
     let orderItems = this.props.orderItems;
+    let products = this.props.products;
 
-    //unit sales
-    //go through array
+    //object that links productId to product name
+    let prodIdObj = products.reduce((prev, prod) => {
+      prev[prod.id] = prod.name;
+      return prev;
+    },{})
 
-    let unitSales = {};
+    //object that links productId with unit sales
+    let unitSalesObj = {}
     for (let i = 0; i < orderItems.length; i++) {
       let current = orderItems[i];
-      if (unitSales[current.productId]) {
-        unitSales[current.productId] += current.quantity;
-      } else {
-        unitSales[current.productId] = current.quantity;
-      }
+      if (unitSalesObj[current.productId]) unitSalesObj[current.productId] += current.quantity;
+      else unitSalesObj[current.productId] = current.quantity;
     }
-    console.log("UNIT SALES: ", unitSales);
 
-    //currently: {1:2, 2:4, 3:1}
-    let dataArr = [];
-
-    for (var key in unitSales) {
-      dataArr.push({ productId: key, sales: unitSales[key] });
+    let dollarSalesObj = {};
+    for (let i = 0; i < orderItems.length; i++) {
+      let current = orderItems[i];
+      if (dollarSalesObj[current.productId]) dollarSalesObj[current.productId] += (current.quantity*current.priceAtPurchase);
+      else dollarSalesObj[current.productId] = (current.quantity*current.priceAtPurchase);
     }
 
 
-    console.log("DATA RR!!!!", dataArr);
+    //array that combines product name and unit unitSalesObj
+    let prodUnitSalesArr = []
+    let prodDollarSalesArr = []
+    for (var id in prodIdObj) {
+      let unitSales = unitSalesObj[id] || 0;
+      let dollarSales = dollarSalesObj[id] || 0;
+      prodUnitSalesArr.push({name: prodIdObj[id], unitSales})
+      prodDollarSalesArr.push({name: prodIdObj[id], dollarSales})
+    }
 
-    //i want:
-    /*
-    [{id: 1, sales: 4}, {id: 2, sales: 3}]
+    let title = this.state.filter === 'unit' ? 'Unit Sales' : 'GMS'
+    let axisSymbol = this.state.filter === 'unit' ? '' : '$'
+    let yAxis = this.state.filter === 'unit' ? 'unitSales' : 'dollarSales'
+    let currentData = this.state.filter === 'unit' ? prodUnitSalesArr : prodDollarSalesArr;
 
-    */
+
 
     return (
-      <div>
-        <h1>UNIT SALES</h1>
-        <VictoryChart domainPadding={20}>
-        <VictoryAxis tickValues={[1,2,3]} tickFormat={["ProductId 1","ProductId 2","ProductId 3"]}/>
-        <VictoryAxis dependentAxis tickFormat={(x) => (`${x} units`)}/>
-          <VictoryBar data={dataArr} x="productId" y="sales" />
+
+      <div className="chart-div">
+        <select className="form-control" id="chart-filter" name="filtertime" value={this.state.filter} onChange={this.handleChange}>
+          <option key="unit" value="unit">Unit Sales</option>
+          <option key="dollar" value="dollar">$ Sales</option>
+        </select>
+        <h1>{title}</h1>
+        <VictoryChart theme={VictoryTheme.material} domainPadding={20}>
+        <VictoryAxis style={{tickLabels: {angle: 40}}} />
+        <VictoryAxis dependentAxis tickFormat={(x) => (`${axisSymbol}${x}`)}/>
+          <VictoryBar data={currentData} x="name" y={yAxis} />
         </VictoryChart>
       </div>
     );

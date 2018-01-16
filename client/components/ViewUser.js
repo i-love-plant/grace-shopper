@@ -48,7 +48,7 @@ const mapDispatch = (dispatch, ownProps) => {
     handleUpdate(event) {
       event.preventDefault();
       const updatedData = { isAdmin: true }
-      dispatch(updateUser(+ownProps.match.params.userId, ownProps.history))
+      dispatch(updateUser(+ownProps.match.params.userId, updatedData, ownProps.history))
     }
   }
 }
