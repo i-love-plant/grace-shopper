@@ -23,6 +23,7 @@ class ManyUsers extends Component {
               <th>Name</th>
               <th>E-mail</th>
               <th>Admin</th>
+              <th>Password Reset Prompted</th>
             </tr>
           </thead>
           <tbody>
@@ -34,6 +35,7 @@ class ManyUsers extends Component {
                 <td>{user.name}</td>
                 <td>{user.email}</td>
                 <td>{`${user.isAdmin}`}</td>
+                <td>{`${user.resetPassword}`}</td>
                 </tr>
               )
             })

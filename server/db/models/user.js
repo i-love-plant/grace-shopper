@@ -28,6 +28,10 @@ const User = db.define('user', {
   isAdmin: {
     type: Sequelize.BOOLEAN,
     defaultValue: false
+  },
+  resetPassword: {
+    type: Sequelize.BOOLEAN,
+    defaultValue: false
   }
 })
 

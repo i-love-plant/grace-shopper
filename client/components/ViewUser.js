@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import {connect} from 'react-redux'
 import { fetchUser, deleteUser, updateUser } from '../store'
-import { withRouter, Link } from 'react-router-dom'
+import { withRouter } from 'react-router-dom'
 
 /**
  * COMPONENT
@@ -14,7 +14,6 @@ class ViewUser extends Component {
 
   render() {
     let user = this.props.currentUser
-    console.log(user)
     return (
       <div>
       { (user.name && user.email && user.address) && (user.id === +this.props.urlUserId) &&
@@ -22,6 +21,7 @@ class ViewUser extends Component {
       <h3>Name: { user.name }</h3>
       <h5>E-mail: { user.email }</h5>
       <h5>Address: { user.address } </h5>
+      <button onClick={this.props.handlePassword}>Prompt Password Reset</button>
       <br/>
       { !user.isAdmin &&
         <span>
@@ -80,6 +80,11 @@ const mapDispatch = (dispatch, ownProps) => {
         email: event.target.email.value,
         address: event.target.address.value
       }
+      dispatch(updateUser(+ownProps.match.params.userId, updatedData, ownProps.history))
+    },
+    handlePassword(event) {
+      event.preventDefault();
+      const updatedData = { resetPassword: true }
       dispatch(updateUser(+ownProps.match.params.userId, updatedData, ownProps.history))
     }
   }
