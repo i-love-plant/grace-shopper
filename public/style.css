@@ -41,6 +41,10 @@ nav a {
   /*color: #696969;*/
 }
 
+#testem {
+  font-style: italic;
+}
+
 .product-link:hover {
   text-decoration: none;
 }
