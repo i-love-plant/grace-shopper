@@ -19,13 +19,26 @@ nav a {
   margin: 1em;
 }
 
+.nav-item a {
+  text-decoration: none;
+}
+
+.nav-item a:hover {
+  color: #DCDCDC;
+}
+
 #header-link  {
   text-decoration: none;
   color: white;
 }
 
 #header-link:hover {
-  color: #2E6637;
+  color: #DCDCDC;
+}
+
+.product-link {
+  text-decoration: none;
+  /*color: #696969;*/
 }
 
 form div {
@@ -138,6 +151,17 @@ header li {
 
 .back-link {
   padding-bottom: 2%;
+  /*text-decoration: none;*/
+}
+
+.back-link a {
+  color: #696969;
+  text-decoration: none;
+}
+
+.back-link a:hover {
+  color: black;
+  text-decoration: none;
 }
 
 .product-descriptor {
@@ -167,7 +191,6 @@ header li {
 }
 
 #single-product-info {
-  /*list-style-type: none;*/
   display: flex;
   flex-direction: row;
   justify-content: space-between;
