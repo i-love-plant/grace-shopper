@@ -78,10 +78,10 @@ const categories = [
 ]
 
 const orders = [
-  {orderStatus: 'Created', userId: '1'},
-  {orderStatus: 'Processing', userId: '2'},
-  {orderStatus: 'Cancelled', userId: '3'},
-  {orderStatus: 'Completed', userId: '2'}
+  {orderStatus: 'Created', userId: '1', orderEmail: 'a@email.com', orderAddress: '144 prince st'},
+  {orderStatus: 'Processing', userId: '2', orderEmail: 'stuff@stuff.com', orderAddress: '144 prince st'},
+  {orderStatus: 'Cancelled', userId: '3', orderEmail: 'another@e.com', orderAddress: '144 prince st'},
+  {orderStatus: 'Completed', userId: '2', orderEmail: 'business@business.com', orderAddress: '144 prince st'}
 ]
 
 const reviews = [

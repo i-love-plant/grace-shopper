@@ -125,7 +125,7 @@ export function postProduct(product, history) {
             .then(newProduct => {
                 const action = addNewProduct(newProduct);
                 dispatch(action);
-                history.push(`/products/${newProduct.id}`);
+                history.push(`/products`);
             })
             .catch(error => console.log(error));
     };
@@ -208,10 +208,11 @@ export default function (state = initialProductsState, action) {
         }
 
         case ADD_NEW_PRODUCT: {
+            
             const newProduct = [...state.allProducts, action.product];
-            return Object.assign({}, state, { allProducts: newProduct, visibleProducts: newProduct });
+            const newVisibleProduct = [...state.allProducts, action.product];
+            return Object.assign({}, state, { allProducts: newProduct, visibleProducts: newVisibleProduct });
         }
-
 
         default:
             return state
