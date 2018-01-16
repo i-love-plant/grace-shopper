@@ -73,4 +73,5 @@ const mapDispatch = (dispatch, ownProps) => {
   }
 }
 
+
 export default withRouter(connect(mapState, mapDispatch)(ViewUser))
