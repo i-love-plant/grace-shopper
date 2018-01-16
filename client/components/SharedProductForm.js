@@ -132,7 +132,8 @@ const mapDispatch = (dispatch, ownProps) => {
                 description: event.target.productDescription.value,
                 image: event.target.productImage.value,
                 inventory: event.target.productInventory.value,
-                categories: []
+                categories: [1]
+                //
             };
             if (!ownProps.newProduct) {
                 productData.id = ownProps.match.params.productId;

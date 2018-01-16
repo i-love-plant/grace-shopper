@@ -61,6 +61,7 @@ router.get('/:productId', (req, res, next) => {
 router.put('/:productId', isAdmin, (req, res, next) => {
     Product.findById(req.params.productId)
         .then(product => product.update(req.body))
+        .then(updatedProduct => updatedProduct.setCategories(req.body.categories))
         .then(updatedProduct => res.json(updatedProduct))
         .catch(next)
 });
