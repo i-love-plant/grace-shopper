@@ -67,7 +67,7 @@ export function editOrder(orderId, orderStatus) {
       .then(order => {
         const action = getOrder(order)
         dispatch(action)
-        historyThing.push(`/orders/${orderId}`)
+        // historyThing.push(`/orders/${orderId}`)
       })
       .catch(err => console.log(err))
     }

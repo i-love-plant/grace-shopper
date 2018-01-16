@@ -100,6 +100,7 @@ const mapState = (state) => {
     return {
         isLoggedIn: !!state.user.id,
         isAdmin: !!state.user.isAdmin,
+        name:!!state.user.name,
         resetPassword: !!state.user.resetPassword
     }
 }
@@ -117,11 +118,6 @@ const mapDispatch = (dispatch) => {
         }
     }
 }
-
-// The `withRouter` wrapper makes sure that updates are not blocked
-// when the url changes
-// export default withRouter(connect(mapState, mapDispatch)(UserInterface))
-
 
 export default withRouter(connect(mapState, mapDispatch)(UserInterface))
 

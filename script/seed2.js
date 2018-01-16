@@ -38,7 +38,7 @@ const products = [
    price: 10,
    inventory: 12,
    description: "The Marble Queen Pothos is a popular plant in the hardy Pothos Family. All members of this group have glossy, heart-shaped, leathery leaves but in different colors. The Golden Pothos is yellow and green, the Jade Pothos is solid green, and the Marble Queen Pothos is green and white. The Marble Queen Pothos, with its long cascading vines, makes a beautiful table or hanging plant. This plant can also be trained to grow on a pole or trellis. A Marble Queen Pothos can survive in low light, but looks better and grows faster in medium to bright light. If the light is too low, the white swirls on the leaves revert to green on the new growth.",
-   image: 'images/pothos.jpg'
+   image: '../public/images/pothos.jpg'
     },
    {name: 'ALOE VERA',
      species:'ALOE BARBADENSIS',
