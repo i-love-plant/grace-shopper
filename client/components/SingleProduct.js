@@ -149,7 +149,7 @@ class SingleProduct extends Component {
           {isLoggedIn &&
           !isAdmin && ( //and not is admnin
               <button type="button" id="add-review">
-                <Link to={`/reviews/new-review/${product.id}`}>
+                <Link className="product-link" to={`/reviews/new-review/${product.id}`}>
                   Add a Review
                 </Link>
               </button>

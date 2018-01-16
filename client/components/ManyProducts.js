@@ -15,7 +15,7 @@ const ManyProducts = props => {
 
   return (
     <div>
-      <h1>Lovely Plants For Purchase</h1>
+
       <div id="search-controls">
         <SearchBar />
         <div className="search-control">
