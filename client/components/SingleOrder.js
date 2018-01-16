@@ -39,7 +39,7 @@ class SingleOrder extends Component {
                   accessor: "orderStatus"
                 },
                 {
-                  Header: "Shiiping Address",
+                  Header: "Shipping Address",
                   accessor: "address"
                 },
                 {
@@ -65,7 +65,7 @@ class SingleOrder extends Component {
                   Header: "Quantity",
                   accessor: "quantity"
                 }
-              
+
               ]
 
     return (
@@ -149,7 +149,7 @@ const mapDispatch = (dispatch, ownProps) => {
           loadInitialData() {
               dispatch(fetchOrder(id))
               dispatch(fetchOrders())
-          }, 
+          },
           handleStatusChange(e){
             e.preventDefault()
             const newStatus = e.target.value

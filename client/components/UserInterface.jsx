@@ -66,7 +66,7 @@ class UserInterface extends Component {
                                 {/* Routes placed here are only available if user is an admin */}
                                 <Route path="/home" component={ManyProducts} />
                                 {/*need to change /home path to go to our admin dashboard if we make one*/}
-                                <Route path="/dashboard-test" component={OrderChart} />
+                                <Route exact path="/dash-orders" component={OrderChart} />
                                 <Route exact path="/account" component={SingleUser} />
                                 <Route exact path="/orders" component={ManyOrders} />
                                 <Route path="/orders/:orderId" component={SingleOrder} />
