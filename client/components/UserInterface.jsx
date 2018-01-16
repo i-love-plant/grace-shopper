@@ -19,7 +19,6 @@ import OrderChart from './OrderChart';
 import EditProduct from './EditProduct';
 import NewProductEntry from './NewProductEntry';
 import ResetPassword from './ResetPassword';
-
 //import { URLSearchParams } from 'url';
 
 
@@ -58,7 +57,7 @@ class UserInterface extends Component {
                         {/*
                             (isLoggedIn && resetPassword) &&
                             <Switch>
-                                <Route path="/reset" component={ResetPassword} />
+                                <Route path="/" component={ResetPassword} />
                             </Switch>
                         */}
                         {
@@ -67,14 +66,13 @@ class UserInterface extends Component {
                                 {/* Routes placed here are only available if user is an admin */}
                                 <Route path="/home" component={ManyProducts} />
                                 {/*need to change /home path to go to our admin dashboard if we make one*/}
-                                <Route path="/dashboard-test" component={OrderChart} />
+                                <Route exact path="/dash-orders" component={OrderChart} />
                                 <Route exact path="/account" component={SingleUser} />
                                 <Route exact path="/orders" component={ManyOrders} />
                                 <Route path="/orders/:orderId" component={SingleOrder} />
                                 <Route exact path="/users" component={ManyUsers} />
                                 <Route path="/users/:userId" component={ViewUser} />
                                 <Route path="/products/:productId/edit" component={EditProduct} />
-                                
                                 {/*need to add: <Route path="reviews" and render a review component*/}
                             </Switch>
                         }
@@ -102,6 +100,7 @@ const mapState = (state) => {
     return {
         isLoggedIn: !!state.user.id,
         isAdmin: !!state.user.isAdmin,
+        name:!!state.user.name,
         resetPassword: !!state.user.resetPassword
     }
 }
@@ -119,11 +118,6 @@ const mapDispatch = (dispatch) => {
         }
     }
 }
-
-// The `withRouter` wrapper makes sure that updates are not blocked
-// when the url changes
-// export default withRouter(connect(mapState, mapDispatch)(UserInterface))
-
 
 export default withRouter(connect(mapState, mapDispatch)(UserInterface))
 
