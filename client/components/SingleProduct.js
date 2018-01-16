@@ -161,17 +161,18 @@ class SingleProduct extends Component {
 
         {isAdmin && (
           <div id="product-admin-buttons">
-            <button
-              onClick={this.props.handleRemove}
-              type="button"
-              id="delete-product"
-            >
-              Delete Product
-            </button>
 
-            <button type="button" id="edit-product">
-              <Link to={`/products/${product.id}/edit`}>Edit Product</Link>
+
+            <button className="btn btn-primary" type="button" id="edit-product">
+              <Link to={`/products/${product.id}/edit`}>EDIT</Link>
             </button>
+            <button className="btn btn-primary"
+            onClick={this.props.handleRemove}
+            type="button"
+            id="delete-product"
+          >
+            DELETE
+          </button>
           </div>
         )}
 
