@@ -10,6 +10,9 @@ import SearchBar from './SearchBar'
 const ManyProducts = (props) => {
     const categories = props.categories;
 
+
+    const isAdmin = props.isAdmin;
+
     return (
         <div>
             <h1>Lovely Plants For Purchase</h1>
@@ -46,6 +49,14 @@ const ManyProducts = (props) => {
                     })
                 }
             </div>
+            {
+                isAdmin &&
+                <button type="button" id="add-product-button">
+                            <Link to={`/products/add`}>
+                                Add a Product
+                        </Link>
+                        </button>
+            }
         </div>
     );
 };
@@ -56,7 +67,8 @@ const ManyProducts = (props) => {
 const mapState = (state) => {
     return {
         products: state.product.visibleProducts,
-        categories: state.product.categories
+        categories: state.product.categories,
+        isAdmin: !!state.user.isAdmin
     }
 }
 
