@@ -19,8 +19,19 @@ class ViewUser extends Component {
         <h3>Name: { user.name }</h3>
         <h5>E-mail: { user.email }</h5>
         <h5>Address: { user.address } </h5>
-        <button onClick={this.props.handleRemove}>Remove This User</button>
-        <button onClick={this.props.handleUpdate}>Promote User to Admin</button>
+        <h3>Edit Profile:</h3>
+        <form onSubmit={this.props.handleSubmit}>
+            <input type="text" name="name" placeholder="Name" />
+            <input type="text" name="email" placeholder="E-mail" />
+            <input type="text" name= "address" placeholder="Address" />
+            <button type="submit">Submit</button>
+        </form>
+        { !user.isAdmin &&
+          <div>
+          <button onClick={this.props.handleRemove}>Remove This User</button>
+          <button onClick={this.props.handleUpdate}>Promote User to Admin</button>
+          </div>
+        }
       </div>
     )
   }
@@ -49,8 +60,18 @@ const mapDispatch = (dispatch, ownProps) => {
       event.preventDefault();
       const updatedData = { isAdmin: true }
       dispatch(updateUser(+ownProps.match.params.userId, updatedData, ownProps.history))
+    },
+    handleSubmit(event) {
+      event.preventDefault();
+      const updatedData = {
+        name: event.target.name.value,
+        email: event.target.email.value,
+        address: event.target.address.value
+      }
+      dispatch(updateUser(+ownProps.match.params.userId, updatedData, ownProps.history))
     }
   }
 }
+
 
 export default withRouter(connect(mapState, mapDispatch)(ViewUser))

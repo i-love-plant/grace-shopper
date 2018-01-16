@@ -39,9 +39,9 @@ const ManyProducts = (props) => {
                         return (
                             <div key={product.id} className="product-square">
                                 <div>
-                                    <img src={product.image} className="product-image" />
+                                    <Link to={`/products/${product.id}`}><img src={product.image} className="product-image" /></Link>
                                 </div>
-                                <Link to={`/products/${product.id}`}>{product.name}</Link>
+                                <Link className="product-link" to={`/products/${product.id}`}>{product.name}</Link>
                                 <div className="product-price">${product.price}
                                 </div>
                             </div>
