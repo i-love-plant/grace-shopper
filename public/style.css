@@ -123,6 +123,32 @@ header li {
   width: 200px;
 }
 
+.product-image-hero {
+  width: 100%;
+}
+
+.img-wrapper {
+  flex: 2.5;
+}
+
+.product-info-container {
+  flex: 1;
+  padding-left: 3%;
+}
+
+.back-link {
+  padding-bottom: 2%;
+}
+
+.product-descriptor {
+  padding-bottom: 1%;
+}
+
+
+.star-image {
+  width: 20px;
+}
+
 #products-grid {
   display: flex;
   flex-wrap: wrap;
@@ -141,21 +167,25 @@ header li {
 }
 
 #single-product-info {
-  list-style-type: none;
+  /*list-style-type: none;*/
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
   margin-bottom: 40px;
 }
 
 #product-name {
   margin-bottom: 20px;
-  font-size: 30px;
+  font-size: 40px;
 }
 
 #review-title {
-  font-size: 26px;
+  font-size: 24px;
 }
 
 #reviews-list {
   list-style-type: none;
+  margin-left: 0;
 }
 
 #add-review {
@@ -168,7 +198,8 @@ header li {
   border-radius: 4px;
   color: black;
   margin-right: 14px;
-  margin-left: 37px;
+  margin-left: 0px;
+  margin-top: 1%;
   z-index: 1;
   position: relative;
   background-color: white;
