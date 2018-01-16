@@ -79,6 +79,7 @@ class Cart extends Component {
     return (
 
       <div>
+        <div className="back-link"><Link to="/">{"<< Keep Shopping"}</Link></div>
         <h2>MY CART</h2>
         <table id="cart-table">
           <tbody>

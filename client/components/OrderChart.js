@@ -25,7 +25,6 @@ export class OrderChart extends Component {
   }
 
   render() {
-    console.log('state in render: ', this.state)
     let orderItems = this.props.orderItems;
     let products = this.props.products;
 
