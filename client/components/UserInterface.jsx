@@ -18,6 +18,7 @@ import NewReviewEntry from './NewReviewEntry'
 import OrderChart from './OrderChart';
 import EditProduct from './EditProduct';
 import NewProductEntry from './NewProductEntry';
+import ResetPassword from './ResetPassword';
 
 //import { URLSearchParams } from 'url';
 
@@ -33,7 +34,7 @@ class UserInterface extends Component {
     }
 
     render() {
-        const { isLoggedIn, isAdmin } = this.props
+        const { isLoggedIn, isAdmin, resetPassword } = this.props
 
         return (
             <div>
@@ -54,6 +55,12 @@ class UserInterface extends Component {
                         <Route exact path="/checkout" component={Checkout} />
                         <Route path="/checkout/order-success" component={OrderSuccess} />
                         <Route path="/orders/:orderId" component={SingleOrder} />
+                        {/*
+                            (isLoggedIn && resetPassword) &&
+                            <Switch>
+                                <Route path="/reset" component={ResetPassword} />
+                            </Switch>
+                        */}
                         {
                             isAdmin &&
                             <Switch>
@@ -67,6 +74,7 @@ class UserInterface extends Component {
                                 <Route exact path="/users" component={ManyUsers} />
                                 <Route path="/users/:userId" component={ViewUser} />
                                 <Route path="/products/:productId/edit" component={EditProduct} />
+                                
                                 {/*need to add: <Route path="reviews" and render a review component*/}
                             </Switch>
                         }
@@ -93,7 +101,8 @@ class UserInterface extends Component {
 const mapState = (state) => {
     return {
         isLoggedIn: !!state.user.id,
-        isAdmin: !!state.user.isAdmin
+        isAdmin: !!state.user.isAdmin,
+        resetPassword: !!state.user.resetPassword
     }
 }
 
