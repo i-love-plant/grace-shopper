@@ -126,10 +126,11 @@ class SingleProduct extends Component {
            </div>
             <div className="product-info-container">
             <div className="product-descriptor" id="product-name">{product.name}</div>
+            <div className="product-descriptor product-species">{product.species}</div>
 
             <div className="product-descriptor">{product.description}</div>
             {averageRatingEl}
-            <div className="product-descriptor" >${product.price}</div>
+            <div className="product-price" >${product.price}</div>
             {cartForm}
             <hr></hr>
             <div id="reviews-list">

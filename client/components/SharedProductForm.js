@@ -23,7 +23,7 @@ class SharedProductForm extends Component {
                 name: '',
                 price: '',
                 description: '',
-                image: '',
+                image: 'https://i.imgur.com/pBjJBKK.jpg',
                 inventory: '',
                 categories: []
             }
@@ -88,7 +88,7 @@ class SharedProductForm extends Component {
                                     <label htmlFor={`category-${category.id}`}>{category.name} </label>
                                 </div>
 
-                            
+
                             )
                         })
                     }

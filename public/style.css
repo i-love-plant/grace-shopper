@@ -24,21 +24,25 @@ nav a {
 }
 
 .nav-item a:hover {
-  color: #DCDCDC;
+  color: white;
 }
 
 #header-link  {
   text-decoration: none;
-  color: white;
+  color: #F8FFF4;
 }
 
 #header-link:hover {
-  color: #DCDCDC;
+  color: white;
 }
 
 .product-link {
   text-decoration: none;
   /*color: #696969;*/
+}
+
+.product-link:hover {
+  text-decoration: none;
 }
 
 form div {
@@ -76,7 +80,7 @@ main {
 }
 
 .nav-item a {
-  color: white;
+  color: #F8FFF4;
 }
 
 header ul {
@@ -133,7 +137,7 @@ header li {
 }
 
 .product-image {
-  width: 200px;
+  width: 300px;
 }
 
 .product-image-hero {
@@ -142,6 +146,11 @@ header li {
 
 .img-wrapper {
   flex: 2.5;
+}
+
+.many-products-info-wrapper {
+  display: flex;
+  justify-content: space-between;
 }
 
 .product-info-container {
@@ -165,7 +174,11 @@ header li {
 }
 
 .product-descriptor {
-  padding-bottom: 2%;
+  margin-bottom: 2%;
+}
+
+.product-price {
+  margin-top: 2%;
 }
 
 
@@ -176,6 +189,7 @@ header li {
 #products-grid {
   display: flex;
   flex-wrap: wrap;
+  justify-content: space-around;
   box-sizing: border-box;
 }
 
@@ -185,7 +199,7 @@ header li {
   box-sizing: border-box;
   display: block;
 
-  margin: 3%;
+  margin: 1%;
   border-radius: 5px;
   position: relative;
 }
@@ -198,8 +212,15 @@ header li {
 }
 
 #product-name {
-  margin-bottom: 20px;
+  margin-bottom: 0;
   font-size: 40px;
+  font-weight: bold;
+}
+
+.product-species {
+  font-style: italic;
+  margin-bottom: 9%;
+  font-size: 15px;
 }
 
 #review-title {
