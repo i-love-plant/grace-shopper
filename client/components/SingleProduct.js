@@ -49,7 +49,9 @@ class SingleProduct extends Component {
         });
 
         let cartForm;
-        if (isInCart) {
+        if (product.inventory === 0) {
+            cartForm = <div>So Sorry, the {product.name} Is Currently Sold Out</div>;
+        } else if (isInCart) {
             cartForm = (
                 <div>
                     <p>Pssst, already in your cart.</p>
