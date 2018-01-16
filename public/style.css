@@ -20,25 +20,39 @@ nav a {
 }
 
 .nav-item a {
+  /*color: #F8FFF4;*/
+  color: white;
   text-decoration: none;
+  font-family: 'Roboto Slab', serif;
 }
 
 .nav-item a:hover {
-  color: white;
+  color: #D2F5FF;
 }
 
 #header-link  {
   text-decoration: none;
-  color: #F8FFF4;
+  color: white;
+  font-family: 'Roboto Slab', serif;
+  font-weight: bold;
+}
+
+#products-grid {
+  /*font-family: 'Roboto Slab', serif;*/
 }
 
 #header-link:hover {
-  color: white;
+  /*color: white;*/
+  color: #D2F5FF;
 }
 
 .product-link {
   text-decoration: none;
   /*color: #696969;*/
+}
+
+#testem {
+  font-style: italic;
 }
 
 .product-link:hover {
@@ -80,7 +94,8 @@ main {
 }
 
 .nav-item a {
-  color: #F8FFF4;
+  /*color: #F8FFF4;*/
+  /*color: #EDE8E3;*/
 }
 
 header ul {
@@ -397,3 +412,5 @@ header li {
 .remove-btn {
   background-color: #F8FFF4;
 }
+
+

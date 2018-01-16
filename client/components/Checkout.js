@@ -25,7 +25,6 @@ class CartCheckout extends Component {
 
     let checkoutDisabled = "true";
     if (this.state.email.length && this.state.address.length) checkoutDisabled = false;
-    console.log('STATE!!!', this.state)
 
     return (
       <div className="container">
