@@ -18,6 +18,8 @@ class SharedProductForm extends Component {
 
         let product;
 
+        const categoriesArray = [];
+
         if (newProduct) {
             product = {
                 name: '',
@@ -78,6 +80,7 @@ class SharedProductForm extends Component {
                         // first look at each category that exists
                         this.props.categories.map(category => {
                             // check if the current product has the category we're looking at as one of its categories
+                            categoriesArray.push(category.id);
                             let checked = product.categories.filter(productCategory => {
                                 return category.id === productCategory.id
                                 // the length is the number of this product's categories that are equal to the category we are looking at. Either 0 or 1 (doesn't match or does)
@@ -116,14 +119,13 @@ const mapDispatch = (dispatch, ownProps) => {
         },
         handleSubmit(event) {
             event.preventDefault();
-            const categoriesArray = [];
             const productData = {
                 name: event.target.productName.value,
                 price: event.target.productPrice.value,
                 description: event.target.productDescription.value,
                 image: event.target.productImage.value,
                 inventory: event.target.productInventory.value,
-                categories: [2]
+                categories: ownProps.categoriesArray
                 //
             };
             if (!ownProps.newProduct) {
