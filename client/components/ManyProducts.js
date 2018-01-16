@@ -11,7 +11,6 @@ const ManyProducts = props => {
   const categories = props.categories;
 
   const isAdmin = props.isAdmin;
-  console.log("!!!!!", props.products);
 
   return (
     <div>
