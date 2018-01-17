@@ -2,11 +2,11 @@ import React, { Component } from 'react'
 import {connect} from 'react-redux'
 import { fetchOrders } from '../store'
 import ManyOrders from './ManyOrders';
-import { withRouter, Link } from 'react-router-dom'
+import { withRouter } from 'react-router-dom'
 
-// /**
-//  * COMPONENT
-//  */
+/**
+ * COMPONENT
+ */
 class SingleUser extends Component {
 
   componentDidMount() {
@@ -20,40 +20,11 @@ class SingleUser extends Component {
         <h3>Name: { name }</h3>
         <h5>E-mail: { email }</h5>
         <h5>Address: { address }</h5>
-        {/*<table id="users-table">
-                <thead>
-                  <tr>
-                    <th>Order Status</th>
-                    <th>Address</th>
-                    <th>Created At</th>
-                  </tr>
-                </thead>
-                <tbody>
-                {
-                  orders.map(order => {
-                    return (
-                      <tr key={order.id}>
-                      <td>{order.orderStatus}</td>
-                      <td>{order.address}</td>
-                      <td>{order.createdAt}</td>
-                      </tr>
-                    )
-                  })
-                }
-                </tbody>
-              </table>*/}
-              <ManyOrders />
+        <ManyOrders />
       </div>
     )
   }
 }
-
-/**
- * NOTE: /account now displays user's info and past orders
- * - add link functionality: redirect to SingleOrder component
- * - admin orders: displays all users orders instead of admin's orders
- * (perhaps simply change in seed file rather than in fetch request)
- */
 
 /**
  * CONTAINER

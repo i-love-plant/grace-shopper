@@ -91,7 +91,7 @@ class SharedProductForm extends Component {
                     </div>
                 </div>
                 <div className="form-group">
-                    <button>Submit</button>
+                    <button className="btn btn-primary">SUBMIT</button>
                 </div>
             </form>
         );

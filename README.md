@@ -1,5 +1,7 @@
 # I Love Plant!!
 
+Deployed: https://i-love-plant.herokuapp.com
+
 
 *Old Boilermaker stuff: 
 

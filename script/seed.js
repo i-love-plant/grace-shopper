@@ -34,34 +34,52 @@ const users = [
 
 const products = [
   {name: 'Pothos',
+  species: 'Epipremnum aureum',
    price: 10,
    inventory: 12,
    description: 'Easy to care for. Easy to love. Grows quickly.'
     },
     {name: 'Aloe Vera',
+    species: 'Aloe barbadensis',
    price: 5,
    inventory: 26,
    description: 'Don\'t eat me but rub me all over yourself.'
     },
    {name: 'Fiddle Leaf Fig',
+   species: 'Ficus lyrata',
    price: 500,
    inventory: 9,
    description: 'Guaranteed to die an ugly death within 2 months.'
     },
     {name: 'Rubber Plant',
+    species: 'Ficus elastica',
    price: 45,
    inventory: 15,
    description: 'Preetty, pretty good.'
     },
     {name: 'Spider Plant',
+    species: 'Chlorophytum comosum',
    price: 25,
    inventory: 41,
    description: 'I will make you look like you have it together.'
     },
     {name: 'Monstera',
-   price: 85,
+    species: 'Monstera deliciosa',
+   price: 49,
    inventory: 30,
    description: 'Bloggers love me.'
+    },
+    {name: 'Majesty Palm',
+    species: 'Ravenea rivularis',
+   price: 86,
+   inventory: 30,
+   description: 'Basically I\'m a diva.'
+    },
+    {name: 'Pencil Cactus',
+    species: 'Euphorbia tirucalli ',
+   price: 45,
+   inventory: 12,
+   description: 'I will make you seem more interesting.'
     }
 ]
 
@@ -85,10 +103,17 @@ const orders = [
 ]
 
 const reviews = [
-  {content: 'I. LOVE. PLANT.', rating: 5, productId: 1, userId: 1},
+  {content: 'I. LOVE. PLANT', rating: 5, productId: 1, userId: 1},
   {content: 'Eat dirt!!!!!!!!', rating: 1, productId: 3, userId: 4},
-  {content: 'A good plant.', rating: 4, productId: 2, userId: 4},
-  {content: 'WOW what a plant!', rating: 5, productId: 2, userId: 3}
+  {content: 'A good plant', rating: 4, productId: 2, userId: 4},
+  {content: 'Ehhh', rating: 2, productId: 2, userId: 3},
+  {content: 'My wife is so thrilled with this plant!', rating: 5, productId: 5, userId: 1},
+  {content: 'Beautiful', rating: 5, productId: 4, userId: 2},
+  {content: 'Could be a better plant', rating: 2, productId: 6, userId: 3},
+  {content: 'This website is beautiful wow', rating: 3, productId: 4, userId: 4},
+  {content: 'This is a real plant', rating: 4, productId: 3, userId: 3},
+  {content: 'Smaller than expected', rating: 4, productId: 7, userId: 2},
+  {content: 'Gorgeous!!!', rating: 5, productId: 7, userId: 1}
 ]
 
 const orderItemData = [

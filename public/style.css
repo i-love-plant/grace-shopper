@@ -20,25 +20,39 @@ nav a {
 }
 
 .nav-item a {
+  /*color: #F8FFF4;*/
+  color: white;
   text-decoration: none;
+  font-family: 'Roboto Slab', serif;
 }
 
 .nav-item a:hover {
-  color: white;
+  color: #D2F5FF;
 }
 
 #header-link  {
   text-decoration: none;
-  color: #F8FFF4;
+  color: white;
+  font-family: 'Roboto Slab', serif;
+  font-weight: bold;
+}
+
+#products-grid {
+  /*font-family: 'Roboto Slab', serif;*/
 }
 
 #header-link:hover {
-  color: white;
+  /*color: white;*/
+  color: #D2F5FF;
 }
 
 .product-link {
   text-decoration: none;
   /*color: #696969;*/
+}
+
+#testem {
+  font-style: italic;
 }
 
 .product-link:hover {
@@ -80,7 +94,8 @@ main {
 }
 
 .nav-item a {
-  color: #F8FFF4;
+  /*color: #F8FFF4;*/
+  /*color: #EDE8E3;*/
 }
 
 header ul {
@@ -193,6 +208,22 @@ header li {
   box-sizing: border-box;
 }
 
+#add-product-button a {
+  color: white;
+}
+
+#edit-product a {
+  color: white;
+}
+
+#edit-product {
+  margin-right: 12px;
+}
+
+#delete-product {
+  background-color: red;
+}
+
 .product-square {
 
   transition: background-color 0.50s ease;
@@ -222,6 +253,11 @@ header li {
   font-size: 15px;
 }
 
+.review-form {
+  display: flex;
+  flex-direction: column;
+}
+
 #review-title {
   font-size: 24px;
 }
@@ -248,12 +284,29 @@ header li {
   background-color: white;
 }
 
+#review-label {
+  font-weight: bold;
+  font-size: 30px;
+  margin-bottom: 20px;
+}
+
 #cart-table {
   width: 45%;
   margin-left: auto;
   margin-right: auto;
   border: 1px solid black;
   border-radius: 5px;
+}
+
+#rating-select {
+  height: 40px;
+  width: 63px;
+  background-color: white;
+  margin-left: 29px;
+}
+
+#submit-review-button {
+  margin-left: 11px;  
 }
 
 
@@ -397,3 +450,5 @@ header li {
 .remove-btn {
   background-color: #F8FFF4;
 }
+
+

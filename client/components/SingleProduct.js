@@ -54,7 +54,7 @@ class SingleProduct extends Component {
     else if (isInCart) {
       cartForm = (
         <div>
-          <p>Pssst, already in your cart.</p>
+          <p id="testem">Pssst, already in your cart.</p>
           <Link to="/cart">
             {}
             <button type="submit" className="btn btn-primary">
@@ -114,7 +114,7 @@ class SingleProduct extends Component {
         );
       }
 
-    let averageRatingEl = starArr.length ? (<div className="product-descriptor" className="star-container">Average User Rating {starArr}</div>) : undefined
+    let averageRatingEl = starArr.length ? (<div className="product-descriptor" className="star-container">Average User Rating   {starArr}</div>) : undefined
 
     return (
       <div>
@@ -142,14 +142,14 @@ class SingleProduct extends Component {
                   : `${review.rating} Stars`;
 
               return (
-                <div key={review.id}> {review.content} {reviewStars}</div>
+                <div key={review.id}> {review.content} - {reviewStars}</div>
               );
             })}
           </div>
           {isLoggedIn &&
           !isAdmin && ( //and not is admnin
               <button type="button" id="add-review">
-                <Link to={`/reviews/new-review/${product.id}`}>
+                <Link className="product-link" to={`/reviews/new-review/${product.id}`}>
                   Add a Review
                 </Link>
               </button>
@@ -161,17 +161,18 @@ class SingleProduct extends Component {
 
         {isAdmin && (
           <div id="product-admin-buttons">
-            <button
-              onClick={this.props.handleRemove}
-              type="button"
-              id="delete-product"
-            >
-              Delete Product
-            </button>
 
-            <button type="button" id="edit-product">
-              <Link to={`/products/${product.id}/edit`}>Edit Product</Link>
+
+            <button className="btn btn-primary" type="button" id="edit-product">
+              <Link to={`/products/${product.id}/edit`}>EDIT</Link>
             </button>
+            <button className="btn btn-primary"
+            onClick={this.props.handleRemove}
+            type="button"
+            id="delete-product"
+          >
+            DELETE
+          </button>
           </div>
         )}
 

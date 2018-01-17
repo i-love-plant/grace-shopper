@@ -11,11 +11,10 @@ const ManyProducts = props => {
   const categories = props.categories;
 
   const isAdmin = props.isAdmin;
-  console.log("!!!!!", props.products);
 
   return (
     <div>
-      <h1>Lovely Plants For Purchase</h1>
+
       <div id="search-controls">
         <SearchBar />
         <div className="search-control">
@@ -63,8 +62,8 @@ const ManyProducts = props => {
       </div>
 
       {isAdmin && (
-        <button type="button" id="add-product-button">
-          <Link to={`/products/add`}>Add a Product</Link>
+        <button type="button" className="btn btn-primary" id="add-product-button">
+          <Link to={`/products/add`}>ADD PRODUCT</Link>
         </button>
       )}
     </div>
