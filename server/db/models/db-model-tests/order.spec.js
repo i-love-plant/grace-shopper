@@ -33,6 +33,6 @@ describe('Order model', () => {
       it('returns the correct email', () => {
        expect(myOrder.orderEmail).to.be.equal("me@me.com")
       })
-    }) // end describe('correctPassword')
-  }) // end describe('instanceMethods')
-}) // end describe('User model')
+    }) 
+  }) 
+}) 
