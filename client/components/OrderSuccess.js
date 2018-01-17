@@ -19,21 +19,24 @@ class OrderSuccess extends Component {
 
   render() {
     const { orderId, isLoggedIn, userId, name} = this.props
+    let greeting;
+    if (name) greeting = `Thanks, ${name}!`;
+    else greeting = 'Thanks!';
 
     return (
       <div>
         <h3>Success! You placed your order.</h3>
-        
-        { 
+
+        {
           isLoggedIn?
           <div>
-            <p>{`Thanks, ${name}!`}</p>
+            <p>{greeting}</p>
              <p>An email with your order will be sent shortly!</p>
-            <span> 
+            <span>
               <Link to={`/orders/${orderId}`} onClick={this.props.handleOrderView}>
                 <p>View your order</p>
               </Link>
-            </span> 
+            </span>
           </div>
           :
           <div>
@@ -41,7 +44,7 @@ class OrderSuccess extends Component {
             <p>An email with your order will be sent shortly!</p>
           </div>
         }
-        
+
       </div>
     );
   };
