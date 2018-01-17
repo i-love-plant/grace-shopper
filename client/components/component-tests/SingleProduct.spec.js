@@ -4,7 +4,7 @@ import { expect } from "chai";
 import React from "react";
 import enzyme, { shallow } from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
-import { SingleProduct } from "../SingleProduct";
+import SingleProduct from "../SingleProduct";
 
 const adapter = new Adapter();
 enzyme.configure({ adapter });
@@ -37,7 +37,8 @@ describe("SingleProduct", () => {
     singleProduct = shallow(<SingleProduct productData={prod} />);
   });
 
-  xit("renders the title in an h1", () => {
-    expect(singleProduct.find("li").text()).to.be.equal("Dont eat me but rub me all over yourself.");
+  xit("renders the product image in an <img>", () => {
+    expect(singleProduct.find("div")).to.have.length(1);
+    //expect(.prop("src")).to.be.equal(prod.image);
   });
 });
