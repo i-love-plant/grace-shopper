@@ -32,7 +32,7 @@ class ManyUsers extends Component {
               return (
                 <tr key={user.id}>
                 <td><Link to={`/users/${user.id}`}>View Profile</Link></td>
-                <td>{user.name}</td>
+                <td>{user.name || user.email}</td>
                 <td>{user.email}</td>
                 <td>{`${user.isAdmin}`}</td>
                 <td>{`${user.resetPassword}`}</td>

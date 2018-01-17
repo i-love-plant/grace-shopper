@@ -16,9 +16,9 @@ class ViewUser extends Component {
     let user = this.props.currentUser
     return (
       <div>
-      { (user.name && user.email && user.address) && (user.id === +this.props.urlUserId) &&
+      { (user.email) && (user.id === +this.props.urlUserId) &&
       <div>
-      <h3>Name: { user.name }</h3>
+      <h3>Name: { user.name || user.email }</h3>
       <h5>E-mail: { user.email }</h5>
       <h5>Address: { user.address } </h5>
       <button onClick={this.props.handlePassword}>Prompt Password Reset</button>
